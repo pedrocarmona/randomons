@@ -9,4 +9,15 @@
     <string name="buy">Buy</string>
     <string name="saldo">Saldo</string>
     <string name="total">Total</string>
+    <string name="welcome_title">Bem vindo</string>
+    <string name="welcome_text">Bem vindo</string>
+    <string name="register">Registar</string>
+    <string name="login">Login</string>
+    <string name="user_email">Email</string>
+    <string name="user_password">Password</string>
+    <string name="title_activity_login">Login no Randomons</string>
+    <string name="user_name">Username</string>
+    <string name="user_password_confirmation">Confimar Password</string>
+    <string name="register_disclaimer">Ao registares aceitas os termos e condições de serviço.</string>
+    <string name="title_activity_register">Registar nos Randomons</string>
 </resources>
