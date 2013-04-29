@@ -20,4 +20,6 @@
     <string name="user_password_confirmation">Confimar Password</string>
     <string name="register_disclaimer">Ao registares aceitas os termos e condições de serviço.</string>
     <string name="title_activity_register">Registar nos Randomons</string>
+    <string name="user_name">Monteiro</string>
+    <string name="user_points">1975292</string>
 </resources>
