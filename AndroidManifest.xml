@@ -20,5 +20,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".Shop"/>
+        <activity android:name=".Ranking"/>
     </application>
 </manifest>

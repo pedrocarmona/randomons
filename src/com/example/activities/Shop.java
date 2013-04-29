@@ -4,15 +4,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
+import android.view.View;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.example.adapters.AdapterItemList;
 import com.example.data.Item;
+import org.holoeverywhere.widget.Button;
 import org.holoeverywhere.widget.ListView;
 
 public class Shop extends SherlockActivity
 {
+
+    private Button clean;
+
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
@@ -25,6 +30,8 @@ public class Shop extends SherlockActivity
 
         ListView listView = (ListView) findViewById(R.id.items_list);
 
+        clean = (Button) findViewById(R.id.shop_clean_button);
+
         AdapterItemList adapter = new AdapterItemList(this);
 
         listView.setAdapter(adapter);
@@ -32,6 +39,22 @@ public class Shop extends SherlockActivity
         //PARA EXEMPLO
         for(int i = 0; i<20; i++)
             adapter.addItem(new Item("Swiss Army Knife", "Useful for everything and something else."));
+
+        addClickListeners();
+    }
+
+    private void addClickListeners() {
+
+        clean.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+
+                Intent intent = new Intent(getApplicationContext(), Ranking.class);
+                Shop.this.startActivity(intent);
+            }
+        });
     }
 
     @Override
