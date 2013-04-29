@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Randomons</string>
+    <string name="lvl">lvl</string>
+    <string name="name">name</string>
+    <string name="description">description</string>
+    <string name="heal_randomons">Heal Randomons</string>
+    <string name="clean">Clean</string>
+    <string name="buy">Buy</string>
+    <string name="saldo">Saldo</string>
+    <string name="total">Total</string>
+</resources>

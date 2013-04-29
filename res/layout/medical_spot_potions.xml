@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<org.holoeverywhere.widget.LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <org.holoeverywhere.widget.ListView
+            android:id="@+id/potions_list"
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:fastScrollEnabled="true" >
+    </org.holoeverywhere.widget.ListView>
+
+    <org.holoeverywhere.widget.LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dip"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_gravity="bottom"
+            android:background="#2d2d2d" >
+
+        <org.holoeverywhere.widget.LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dip"
+                android:paddingRight="5dip"
+                android:paddingTop="5dip"
+                android:paddingBottom="2dip"
+                android:orientation="horizontal" >
+
+            <org.holoeverywhere.widget.TextView
+                    android:id="@+id/saldo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="left"
+                    android:text="@string/saldo"
+                    android:textColor="#FFFFFF">
+            </org.holoeverywhere.widget.TextView>
+
+            <org.holoeverywhere.widget.TextView
+                    android:id="@+id/total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="right"
+                    android:text="@string/total"
+                    android:textColor="#FFFFFF">
+            </org.holoeverywhere.widget.TextView>
+
+        </org.holoeverywhere.widget.LinearLayout>
+
+        <org.holoeverywhere.widget.LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingRight="5dip"
+                android:paddingLeft="5dip"
+                android:orientation="horizontal" >
+            <org.holoeverywhere.widget.Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="left"
+                    android:text="@string/clean">
+            </org.holoeverywhere.widget.Button>
+
+            <org.holoeverywhere.widget.Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="right"
+                    android:text="@string/buy">
+            </org.holoeverywhere.widget.Button>
+        </org.holoeverywhere.widget.LinearLayout>
+
+    </org.holoeverywhere.widget.LinearLayout>
+
+</org.holoeverywhere.widget.LinearLayout>

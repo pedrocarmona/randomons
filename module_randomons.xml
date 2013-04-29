@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_randomons" default="compile.module.randomons">
+  <dirname property="module.randomons.basedir" file="${ant.file.module_randomons}"/>
+  
+  <property name="module.jdk.home.randomons" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.randomons" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.randomons" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.randomons" value="${compiler.args}"/>
+  
+  <property name="randomons.output.dir" value="${module.randomons.basedir}/out/production/Randomons"/>
+  <property name="randomons.testoutput.dir" value="${module.randomons.basedir}/out/test/Randomons"/>
+  
+  <path id="randomons.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="randomons.module.production.classpath">
+    <path refid="${module.jdk.classpath.randomons}"/>
+    <pathelement location="${actionbarsherlock.output.dir}"/>
+    <pathelement location="${library.output.dir}"/>
+    <pathelement location="${basedir}/libs/android-support-v4.jar"/>
+  </path>
+  
+  <path id="randomons.runtime.production.module.classpath">
+    <pathelement location="${randomons.output.dir}"/>
+    <path refid="actionbarsherlock.runtime.production.module.classpath"/>
+    <path refid="library.runtime.production.module.classpath"/>
+    <pathelement location="${basedir}/libs/android-support-v4.jar"/>
+  </path>
+  
+  <path id="randomons.module.classpath">
+    <path refid="${module.jdk.classpath.randomons}"/>
+    <pathelement location="${randomons.output.dir}"/>
+    <pathelement location="${actionbarsherlock.testoutput.dir}"/>
+    <pathelement location="${actionbarsherlock.output.dir}"/>
+    <pathelement location="${library.testoutput.dir}"/>
+    <pathelement location="${library.output.dir}"/>
+    <pathelement location="${basedir}/libs/android-support-v4.jar"/>
+  </path>
+  
+  <path id="randomons.runtime.module.classpath">
+    <pathelement location="${randomons.testoutput.dir}"/>
+    <pathelement location="${randomons.output.dir}"/>
+    <path refid="actionbarsherlock.runtime.module.classpath"/>
+    <path refid="library.runtime.module.classpath"/>
+    <pathelement location="${basedir}/libs/android-support-v4.jar"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.randomons">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.randomons">
+    <patternset refid="excluded.from.module.randomons"/>
+  </patternset>
+  
+  <path id="randomons.module.sourcepath">
+    <dirset dir="${module.randomons.basedir}">
+      <include name="src"/>
+      <include name="gen"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.randomons" depends="compile.module.randomons.production,compile.module.randomons.tests" description="Compile module Randomons"/>
+  
+  <target name="compile.module.randomons.production" depends="register.custom.compilers,compile.module.actionbarsherlock,compile.module.library" description="Compile module Randomons; production classes">
+    <mkdir dir="${randomons.output.dir}"/>
+    <javac2 destdir="${randomons.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.randomons}/javac">
+      <compilerarg line="${compiler.args.randomons}"/>
+      <bootclasspath refid="randomons.module.bootclasspath"/>
+      <classpath refid="randomons.module.production.classpath"/>
+      <src refid="randomons.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.randomons"/>
+    </javac2>
+    
+    <copy todir="${randomons.output.dir}">
+      <fileset dir="${module.randomons.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.randomons.basedir}/gen">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.randomons.tests" depends="register.custom.compilers,compile.module.randomons.production" description="compile module Randomons; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.randomons" description="cleanup module">
+    <delete dir="${randomons.output.dir}"/>
+    <delete dir="${randomons.testoutput.dir}"/>
+  </target>
+</project>

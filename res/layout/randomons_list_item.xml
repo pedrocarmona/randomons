@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<org.holoeverywhere.widget.LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:gravity="center_vertical"
+    android:layout_height="80dip" >
+
+    <org.holoeverywhere.widget.TextView
+        android:id="@+id/lvl"
+        android:layout_width="wrap_content"
+        android:layout_height="50dip"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:text="@string/lvl" >
+    </org.holoeverywhere.widget.TextView>
+
+    <ImageView
+        android:id="@+id/randomon_image"
+        android:layout_width="50dip"
+        android:layout_height="50dip"
+        android:src="@drawable/randomom"
+        android:contentDescription="">
+    </ImageView>
+
+    <org.holoeverywhere.widget.LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="80dip"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dip"
+        android:paddingRight="30dip">
+
+        <org.holoeverywhere.widget.TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/name"
+                android:textStyle="bold" >
+        </org.holoeverywhere.widget.TextView>
+
+        <ImageView
+                android:id="@+id/health_bar_image"
+                android:layout_width="match_parent"
+                android:layout_height="4dip"
+                android:src="@drawable/health_bar"
+                android:contentDescription="">
+        </ImageView>
+    </org.holoeverywhere.widget.LinearLayout>
+
+</org.holoeverywhere.widget.LinearLayout>

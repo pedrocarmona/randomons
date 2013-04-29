@@ -1,0 +1,35 @@
+# built application files
+*.apk
+*.ap_
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+# generated files
+bin/
+gen/
+
+# calabash files 
+calabash/test_servers
+calabash/*.png
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Ignore other unneeded files.
+*.swp
+*~
+.DS_Store
+
+#intellij
+.classpath
+.project
+.settings/
+.idea/
+*.iml
+*.iws
+log/
+target/
