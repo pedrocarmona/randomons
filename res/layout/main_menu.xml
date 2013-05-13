@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<org.holoeverywhere.widget.LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <org.holoeverywhere.widget.LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="160dip"
+            android:gravity="center_horizontal"
+            android:paddingLeft="5dip"
+            android:paddingRight="5dip"
+            android:paddingTop="5dip"
+            android:paddingBottom="5dip">
+
+        <ImageView
+                android:id="@+id/avatar_img"
+                android:layout_width="150dip"
+                android:layout_height="150dip"
+                android:src="@drawable/avatar_img"
+                android:contentDescription="">
+        </ImageView>
+
+        <ImageView
+                android:id="@+id/world_map_small"
+                android:layout_width="150dip"
+                android:layout_height="150dip"
+                android:src="@drawable/world_map_small"
+                android:contentDescription="">
+        </ImageView>
+
+
+    </org.holoeverywhere.widget.LinearLayout>
+
+    <org.holoeverywhere.widget.LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="120dip"
+            android:gravity="center_horizontal"
+            android:paddingLeft="5dip"
+            android:paddingRight="5dip"
+            android:paddingTop="5dip">
+
+        <View
+                android:layout_width="match_parent"
+                android:background="@drawable/gradient_line"
+                android:layout_height="4dp"/>
+
+        <org.holoeverywhere.widget.TextView
+                android:id="@+id/txt_prox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nearest Events"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal"
+                android:textColor="#0066cc"/>
+
+        <org.holoeverywhere.widget.LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="70dip"
+                android:layout_marginBottom="10dip"
+                android:gravity="center_horizontal">
+
+            <ImageView
+                    android:layout_width="40dip"
+                    android:layout_height="70dip"
+                    android:layout_marginLeft="25dip"
+                    android:src="@drawable/arrow1"
+                    android:contentDescription="">
+            </ImageView>
+
+            <com.example.adapters.AdapterCloseEvents
+                    android:id="@+id/prox_listview"
+                    android:layout_width="240dip"
+                    android:layout_height="70dip"
+                    />
+
+            <ImageView
+                    android:layout_width="40dip"
+                    android:layout_height="70dip"
+                    android:layout_marginRight="25dip"
+                    android:src="@drawable/arrow2"
+                    android:contentDescription="">
+            </ImageView>
+
+        </org.holoeverywhere.widget.LinearLayout>
+
+        <View
+                android:layout_width="match_parent"
+                android:background="@drawable/gradient_line"
+                android:layout_height="4dp"/>
+
+
+    </org.holoeverywhere.widget.LinearLayout>
+
+    <org.holoeverywhere.widget.LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#B1CBE1"
+            android:paddingLeft="5dip"
+            android:paddingRight="5dip"
+            android:paddingBottom="5dip">
+
+        <org.holoeverywhere.widget.TextView
+                android:id="@+id/txt_last_evt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dip"
+                android:text="Last Events "
+                android:textStyle="bold"
+                android:textColor="#0066cc"/>
+
+        <View
+                android:layout_width="match_parent"
+                android:background="@color/abs__background_holo_dark"
+                android:layout_height="1dp"/>
+
+        <org.holoeverywhere.widget.ListView
+                android:id="@+id/levents_listview"
+                android:layout_marginTop="3dip"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+
+    </org.holoeverywhere.widget.LinearLayout>
+
+</org.holoeverywhere.widget.LinearLayout>
