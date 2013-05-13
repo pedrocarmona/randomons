@@ -3,6 +3,7 @@
 <org.holoeverywhere.widget.LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"
+        android:scrollbars="none"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -12,8 +13,8 @@
         android:id="@+id/users_list"
         android:layout_height="match_parent"
         android:layout_width="wrap_content"
-        android:layout_weight="1"
-        android:fastScrollEnabled="true" >
+        android:scrollbars="none"
+        android:layout_weight="1" >
     </org.holoeverywhere.widget.ListView>
 
 

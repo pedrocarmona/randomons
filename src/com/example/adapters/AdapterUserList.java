@@ -3,6 +3,7 @@ package com.example.adapters;
 
 import android.content.ContentResolver;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -72,6 +73,19 @@ public class AdapterUserList extends BaseAdapter {
 
         return convertView;
     }
+
+
+    class backgroundLoadListView extends AsyncTask<Void, Void, Void> {
+
+
+        @Override
+        protected Void doInBackground(Void... args) {
+
+
+            return null;
+        }
+    }
+
 
 
     static class ViewHolder
