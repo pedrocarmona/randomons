@@ -17,7 +17,7 @@ public class ChooseRandomon extends SherlockActivity {
 
         final ActionBar bar = getSupportActionBar();
         bar.setDisplayHomeAsUpEnabled(true);
-        bar.setTitle("Ranking");
+        bar.setTitle("Welcome");
 
     }
 }

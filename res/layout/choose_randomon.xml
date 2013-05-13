@@ -8,11 +8,211 @@
 
 
     <org.holoeverywhere.widget.LinearLayout
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:paddingTop="15dip"
+            android:paddingBottom="15dip" >
+
+
+        <org.holoeverywhere.widget.LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dip"
+                android:background="@drawable/image_view_border"
+                android:gravity="center_horizontal" >
+
+
+            <ImageView
+                    android:id="@+id/avatar_img"
+                    android:layout_width="100dip"
+                    android:layout_height="100dip"
+                    android:layout_gravity="center"
+                    android:src="@drawable/user"
+                    android:contentDescription="">
+            </ImageView>
+
+        </org.holoeverywhere.widget.LinearLayout>
+
+
+        <ImageView
+                android:id="@+id/lever"
+                android:layout_width="140dip"
+                android:layout_height="100dip"
+                android:layout_marginLeft="10dip"
+                android:background="@drawable/image_view_border"
+                android:src="@drawable/lever_up"
+                android:contentDescription="">
+        </ImageView>
 
 
     </org.holoeverywhere.widget.LinearLayout>
 
+    <View
+            android:layout_width="match_parent"
+            android:background="@drawable/gradient_line"
+            android:layout_height="4dp"/>
+
+    <org.holoeverywhere.widget.LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:paddingTop="10dip"
+            android:paddingBottom="10dip" >
+
+
+        <ImageView
+                android:id="@+id/randomon1"
+                android:layout_width="70dip"
+                android:layout_height="70dip"
+                android:layout_gravity="center"
+                android:layout_marginRight="10dip"
+                android:background="@drawable/image_view_border"
+                android:src="@drawable/randomom"
+                android:contentDescription="">
+        </ImageView>
+
+        <ImageView
+                android:id="@+id/randomon2"
+                android:layout_width="70dip"
+                android:layout_height="70dip"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="10dip"
+                android:background="@drawable/image_view_border"
+                android:src="@drawable/randomom"
+                android:contentDescription="">
+        </ImageView>
+
+        <ImageView
+                android:id="@+id/randomon3"
+                android:layout_width="70dip"
+                android:layout_height="70dip"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dip"
+                android:background="@drawable/image_view_border"
+                android:src="@drawable/randomom"
+                android:contentDescription="">
+        </ImageView>
+
+
+    </org.holoeverywhere.widget.LinearLayout>
+
+
+    <View
+            android:layout_width="match_parent"
+            android:background="@drawable/gradient_line"
+            android:layout_height="4dp"/>
+
+    <View
+            android:layout_width="match_parent"
+            android:background="#fff"
+            android:layout_height="10dip"/>
+
+    <org.holoeverywhere.widget.LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:background="#b1cbe1" >
+
+
+
+        <org.holoeverywhere.widget.TextView
+                android:id="@+id/txt_last_evt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dip"
+                android:layout_marginLeft="3dip"
+                android:textSize="12dip"
+                android:text="Escolhe o teu primeiro Randomon"
+                android:textStyle="normal"
+                android:textColor="#000"/>
+
+
+
+        <View
+                android:layout_width="match_parent"
+                android:background="#6e717a"
+                android:layout_height="1dip"/>
+
+        <org.holoeverywhere.widget.LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent" >
+
+            <org.holoeverywhere.widget.LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="130dip"
+                    android:layout_height="fill_parent"
+                    android:background="#b1cbe1" >
+
+
+                <ImageView
+                        android:id="@+id/randomonmini"
+                        android:layout_width="70dip"
+                        android:layout_height="70dip"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="15dip"
+                        android:background="@drawable/image_view_border"
+                        android:src="@drawable/randomom"
+                        android:contentDescription="">
+                </ImageView>
+
+
+
+                <org.holoeverywhere.widget.Button
+                        android:layout_width="100dip"
+                        android:layout_height="wrap_content"
+                        android:text="Escolher"
+                        android:id="@+id/but_select"
+                        android:layout_marginTop="5dip"
+                        android:textColor="#469FED"
+                        android:layout_gravity="center_horizontal" >
+                </org.holoeverywhere.widget.Button>
+
+
+
+            </org.holoeverywhere.widget.LinearLayout>
+
+
+
+
+            <org.holoeverywhere.widget.LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent" >
+
+                <org.holoeverywhere.widget.TextView
+                        android:id="@+id/desc_randomonX"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dip"
+                        android:textSize="12dip"
+                        android:text="Descrição do Randomon:"
+                        android:textStyle="bold"
+                        android:textColor="#000"/>
+
+                <org.holoeverywhere.widget.TextView
+                        android:id="@+id/desc_randomon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dip"
+                        android:layout_marginTop="10dip"
+                        android:text="O Estranhomon costuma ser encontrado em regiões pantanosas. É um randomon muito agressivo, porém é fácil de encontrar."
+                        android:textStyle="normal"
+                        android:textColor="#000"/>
+
+            </org.holoeverywhere.widget.LinearLayout>
+
+        </org.holoeverywhere.widget.LinearLayout>
+
+
+    </org.holoeverywhere.widget.LinearLayout>
+
+
+
 </org.holoeverywhere.widget.LinearLayout>
+

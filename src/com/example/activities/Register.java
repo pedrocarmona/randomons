@@ -143,7 +143,7 @@ public class Register extends SherlockFragmentActivity
                     editor.commit();
 
                     // launch the HomeActivity and close this one
-                    Intent intent = new Intent(getApplicationContext(), MedicalSpot.class);
+                    Intent intent = new Intent(getApplicationContext(), ChooseRandomon.class);
                     startActivity(intent);
                     finish();
                 }
