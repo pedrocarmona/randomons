@@ -140,7 +140,7 @@ public class Login extends SherlockFragmentActivity
                     editor.commit();
 
                     // launch the HomeActivity and close this one
-                    Intent intent = new Intent(getApplicationContext(), MedicalSpot.class);
+                    Intent intent = new Intent(getApplicationContext(), MainMenu.class);
                     startActivity(intent);
                     finish();
 
