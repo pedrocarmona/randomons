@@ -15,7 +15,7 @@ public class AdapterCloseEventsBase extends BaseAdapter {
 
     private LayoutInflater mInflater;
     private ContentResolver ctx;
-    private static ArrayList<String> proxObjects = new ArrayList<String>();
+    private static ArrayList<Integer> proxObjects = new ArrayList<Integer>();
 
     public AdapterCloseEventsBase(Context context){
         mInflater = LayoutInflater.from(context);
@@ -23,9 +23,9 @@ public class AdapterCloseEventsBase extends BaseAdapter {
     };
 
 
-    public void addItem(String txt)
+    public void addItem(int closeEventType)
     {
-        proxObjects.add(txt);
+        proxObjects.add(closeEventType);
         notifyDataSetChanged();
     }
 
@@ -34,7 +34,7 @@ public class AdapterCloseEventsBase extends BaseAdapter {
     }
 
     public Object getItem(int position) {
-        return null;
+        return proxObjects.get(position);
     }
 
     public long getItemId(int position) {
@@ -50,7 +50,7 @@ public class AdapterCloseEventsBase extends BaseAdapter {
             convertView = mInflater.inflate(R.layout.prox_view_item, null);
             holder = new ViewHolder();
 
-            holder.CloseEventImg = (ImageView) convertView.findViewById(R.id.avatar_img);
+            holder.CloseEventImg = (ImageView) convertView.findViewById(R.id.prox_event_image);
 
             convertView.setTag(holder);
         }
@@ -58,6 +58,15 @@ public class AdapterCloseEventsBase extends BaseAdapter {
         {
             holder = (ViewHolder) convertView.getTag();
         }
+
+        if(proxObjects.get(position) == 1)
+            holder.CloseEventImg.setImageResource(R.drawable.avatar_img);
+        else if(proxObjects.get(position) == 2)
+            holder.CloseEventImg.setImageResource(R.drawable.randomom);
+        else if(proxObjects.get(position) == 3)
+            holder.CloseEventImg.setImageResource(R.drawable.potion);
+        else if(proxObjects.get(position) == 4)
+            holder.CloseEventImg.setImageResource(R.drawable.item);
 
         return convertView;
 

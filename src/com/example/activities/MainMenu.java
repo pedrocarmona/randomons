@@ -23,6 +23,7 @@ import org.holoeverywhere.widget.Toast;
 
 public class MainMenu extends SherlockFragmentActivity {
     private SharedPreferences mPreferences;
+    private AdapterCloseEventsBase proxAdapter;
     final Context ctx = this;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,17 +45,36 @@ public class MainMenu extends SherlockFragmentActivity {
         }
 
         AdapterCloseEvents proxView = (AdapterCloseEvents) findViewById(R.id.prox_listview);
-        AdapterCloseEventsBase proxAdapter = new AdapterCloseEventsBase(this);
+        proxAdapter = new AdapterCloseEventsBase(this);
         proxView.setAdapter(proxAdapter);
 
-        for(int i = 0; i<20; i++)
-            proxAdapter.addItem("Coisas");
+        proxAdapter.addItem(1);
+        proxAdapter.addItem(4);
+        proxAdapter.addItem(2);
+        proxAdapter.addItem(3);
+        proxAdapter.addItem(2);
+        proxAdapter.addItem(3);
+        proxAdapter.addItem(2);
+        proxAdapter.addItem(1);
+        proxAdapter.addItem(1);
+        proxAdapter.addItem(4);
 
         proxView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (position == 1) {
+
+                if ((Integer) proxAdapter.getItem(position) == 1) {
                     Intent intent = new Intent(view.getContext(), PlayerDetails.class);
+                    MainMenu.this.startActivity(intent);
+                }else if((Integer) proxAdapter.getItem(position) == 2)     {
+                    Toast.makeText(ctx, "Not yet!", Toast.LENGTH_LONG).show();
+//                    Intent intent = new Intent(view.getContext(), Shop.class);
+//                    MainMenu.this.startActivity(intent);
+                }else if((Integer) proxAdapter.getItem(position) == 3)     {
+                    Intent intent = new Intent(view.getContext(), MedicalSpot.class);
+                    MainMenu.this.startActivity(intent);
+                }else if((Integer) proxAdapter.getItem(position) == 4)     {
+                    Intent intent = new Intent(view.getContext(), Shop.class);
                     MainMenu.this.startActivity(intent);
                 }
             }
