@@ -78,7 +78,7 @@ public class MainMenu extends SherlockFragmentActivity {
                     Intent intent = new Intent(view.getContext(), PlayerDetails.class);
                     MainMenu.this.startActivity(intent);
                 } else if ((Integer) proxAdapter.getItem(position) == 2) {
-                    Toast.makeText(ctx, "Not yet!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ctx, "Randomon escaped", Toast.LENGTH_LONG).show();
 //                    Intent intent = new Intent(view.getContext(), Shop.class);
 //                    MainMenu.this.startActivity(intent);
                 } else if ((Integer) proxAdapter.getItem(position) == 3) {

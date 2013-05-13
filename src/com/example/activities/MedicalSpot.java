@@ -34,7 +34,7 @@ public class MedicalSpot extends SherlockFragmentActivity
                 MedicalSpotPotions.class, null);
 
         if (savedInstanceState != null)
-            bar.setSelectedNavigationItem(savedInstanceState.getInt("tab", 0));
+            bar.setSelectedNavigationItem(savedInstanceState.getInt("tab", 1));
     }
 
     @Override

@@ -10,6 +10,7 @@ import com.example.adapters.AdapterRandomonsList;
 import com.example.data.Randomon;
 import org.holoeverywhere.widget.Button;
 import org.holoeverywhere.widget.ListView;
+import org.holoeverywhere.widget.Toast;
 
 public class MedicalSpotRandomons extends SherlockFragment
 {
@@ -51,8 +52,8 @@ public class MedicalSpotRandomons extends SherlockFragment
             @Override
             public void onClick(View v)
             {
-                Intent intent = new Intent(v.getContext(), Shop.class);
-                MedicalSpotRandomons.this.startActivity(intent);
+            Intent intent = new Intent(v.getContext(), Shop.class);
+            MedicalSpotRandomons.this.startActivity(intent);
             }
         });
     }
