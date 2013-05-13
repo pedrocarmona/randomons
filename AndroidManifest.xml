@@ -16,7 +16,7 @@
         <activity android:name=".MainMenu"
                   android:label="@string/app_name"
                   android:theme="@style/Holo.Theme.Light.DarkActionBar.NoActionBar">
-        <intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
@@ -30,5 +30,12 @@
         <activity android:name=".MedicalSpot"/>
         <activity android:name=".Shop"/>
         <activity android:name=".Ranking"/>
+        /* bruno - Escreve a seguir a este paragrafo*/
+        /* Carmona - Escreve a seguir a este paragrafo*/
+        /* Antonio- Escreve a seguir a este paragrafo*/
+        /* Monteiro- Escreve a seguir a este paragrafo*/
+        /* Paulo- Escreve a seguir a este paragrafo*/
+        /* Telmo- Escreve a seguir a este paragrafo*/
+        /* Guilherme- Escreve a seguir a este paragrafo*/
     </application>
 </manifest>
