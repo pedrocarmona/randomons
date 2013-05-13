@@ -9,7 +9,7 @@
     <org.holoeverywhere.widget.LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="130dip"
+            android:layout_height="140dip"
             android:gravity="center_horizontal"
             android:paddingLeft="10dip"
             android:paddingRight="5dip"
@@ -18,8 +18,10 @@
 
         <ImageView
                 android:id="@+id/avatar_img"
-                android:layout_width="120dip"
+                android:layout_width="110dip"
                 android:layout_height="120dip"
+                android:background="@drawable/full_rounded_list"
+                android:padding="5dp"
                 android:src="@drawable/avatar_img"
                 android:contentDescription="">
         </ImageView>
