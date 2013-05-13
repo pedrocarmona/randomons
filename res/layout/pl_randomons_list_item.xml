@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<org.holoeverywhere.widget.LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/full_slim_rounded_list"
+        android:layout_marginTop="5dip"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:paddingRight="10dp">
+
+    <org.holoeverywhere.widget.TextView
+            android:id="@+id/pl_randomon_lvl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:layout_gravity="center_vertical"
+            android:textColor="#0066cc"
+            android:text="Lv.15"
+            />
+
+    <View
+            android:layout_height ="match_parent"
+            android:background="#66B5EE"
+            android:layout_width="1dp"/>
+
+    <ImageView
+            android:id="@+id/pl_rndmn_img"
+            android:layout_width="40dip"
+            android:layout_height="40dip"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="2dp"
+            android:padding="5dp"
+            android:background="@drawable/full_rounded_list"
+            android:src="@drawable/randomom"
+            />
+
+
+    <org.holoeverywhere.widget.LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="horizontal"
+            android:layout_marginLeft="5dip"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <org.holoeverywhere.widget.TextView
+                android:id="@+id/pl_rndmn_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textColor="#0066cc"
+                android:text="Pikachu"
+                />
+
+    </org.holoeverywhere.widget.LinearLayout>
+
+</org.holoeverywhere.widget.LinearLayout>

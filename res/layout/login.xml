@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<org.holoeverywhere.widget.LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/holo_blue_light">
+
+
+    <org.holoeverywhere.widget.LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical"
+            android:background="@color/background_holo_light">
+
+        <ImageView
+                android:id="@+id/potion_image"
+                android:layout_width="140dip"
+                android:layout_height="140dip"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/randomon_icon"
+                android:contentDescription="">
+        </ImageView>
+
+        <org.holoeverywhere.widget.EditText
+                android:id="@+id/userEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dip"
+                android:layout_weight="1"
+                android:text="user@example.com"
+                android:ems="10"
+                android:hint="@string/user_email"
+                android:inputType="textEmailAddress" >
+
+            <requestFocus />
+        </org.holoeverywhere.widget.EditText>
+
+        <org.holoeverywhere.widget.EditText
+                android:id="@+id/userPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="5dip"
+                android:ems="10"
+                android:text="secret"
+                android:hint="@string/user_password"
+                android:inputType="textPassword" />
+
+        <org.holoeverywhere.widget.LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal" >
+
+            <org.holoeverywhere.widget.Button
+                    android:id="@+id/loginButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="login"
+                    android:text="@string/login" />
+
+            <org.holoeverywhere.widget.Button
+                    android:id="@+id/registerButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/register" />
+
+
+        </org.holoeverywhere.widget.LinearLayout>
+
+    </org.holoeverywhere.widget.LinearLayout>
+</org.holoeverywhere.widget.LinearLayout>
