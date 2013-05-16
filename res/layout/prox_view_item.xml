@@ -13,10 +13,26 @@
             android:layout_width="70dip"
             android:layout_height="70dip"
             android:onClick="onClick"
-            android:layout_margin="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="2dp"
             android:clickable="true"
-            android:padding="5dp"
+            android:padding="5dip"
+            android:src="@drawable/randomom"
             android:background="@drawable/full_rounded_list"
+            />
+
+    <org.holoeverywhere.widget.TextView
+            android:id="@+id/cl_evt_desc"
+            android:layout_width="70dip"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="10dip"
+            android:text="OLA"
+            android:textColor="#0066cc"
             />
 
 </LinearLayout>
