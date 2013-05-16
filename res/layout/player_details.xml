@@ -80,7 +80,7 @@
         <org.holoeverywhere.widget.Button
                 android:text="Battle"
                 android:id="@+id/but_battle"
-                android:textColor="#469FED"
+                android:textColor="@drawable/pdtls_button_text_color"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dip"
@@ -90,7 +90,7 @@
 
         <org.holoeverywhere.widget.Button
                 android:text="Trade"
-                android:textColor="#469FED"
+                android:textColor="@drawable/pdtls_button_text_color"
                 android:id="@+id/but_trade"
                 android:layout_toRightOf="@+id/Button01"
                 android:layout_marginLeft="5dip"

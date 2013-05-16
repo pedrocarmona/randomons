@@ -1,6 +1,7 @@
 package com.example.activities;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -50,10 +51,14 @@ public class Ranking extends SherlockActivity {
 
                 if(swiped) {
 
-                    String msg =  "Swiped left on row  " + (id+1) + ".";
+                    String msg =  "Open profile from the user in the place " + (id+1) + ".";
                     Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
 
                     swiped = false;
+
+                    Intent intent;
+                    intent = new Intent(view.getContext(), PlayerDetails.class);
+                    Ranking.this.startActivity(intent);
                 }
 
             }
