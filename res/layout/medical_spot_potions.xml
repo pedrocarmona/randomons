@@ -8,8 +8,8 @@
 
     <org.holoeverywhere.widget.ListView
             android:id="@+id/potions_list"
-            android:layout_height="match_parent"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fastScrollEnabled="true" >
     </org.holoeverywhere.widget.ListView>
@@ -18,8 +18,8 @@
             android:layout_width="match_parent"
             android:layout_height="80dip"
             android:orientation="vertical"
-            android:gravity="center_horizontal"
             android:layout_gravity="bottom"
+            android:gravity="center_horizontal"
             android:background="#2d2d2d" >
 
         <org.holoeverywhere.widget.LinearLayout
