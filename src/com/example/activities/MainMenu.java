@@ -5,11 +5,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.example.adapters.AdapterCloseEvents;
@@ -17,8 +14,6 @@ import com.example.adapters.AdapterCloseEventsBase;
 import com.example.adapters.AdapterLastEvents;
 import com.example.data.CloseEvent;
 import com.example.data.Event;
-import com.example.data.Item;
-import com.example.data.Randomon;
 import org.holoeverywhere.widget.ListView;
 import org.holoeverywhere.widget.Toast;
 
@@ -78,8 +73,8 @@ public class MainMenu extends SherlockFragmentActivity {
                     MainMenu.this.startActivity(intent);
                 } else if (((CloseEvent) proxAdapter.getItem(position)).getCloseEventType() == 2) {
                     Toast.makeText(ctx, "Randomon escaped", Toast.LENGTH_LONG).show();
-//                    Intent intent = new Intent(view.getContext(), Shop.class);
-//                    MainMenu.this.startActivity(intent);
+                    Intent intent = new Intent(view.getContext(), MyRandomons.class);
+                    MainMenu.this.startActivity(intent);
                 } else if (((CloseEvent) proxAdapter.getItem(position)).getCloseEventType() == 3) {
                     Intent intent = new Intent(view.getContext(), MedicalSpot.class);
                     MainMenu.this.startActivity(intent);
