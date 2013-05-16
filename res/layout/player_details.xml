@@ -4,7 +4,8 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#fff">
 
     <org.holoeverywhere.widget.LinearLayout
             android:orientation="horizontal"
@@ -18,8 +19,9 @@
 
         <ImageView
                 android:id="@+id/avatar_img"
-                android:layout_width="110dip"
+                android:layout_width="120dip"
                 android:layout_height="120dip"
+                android:scaleType="fitXY"
                 android:background="@drawable/full_rounded_list"
                 android:padding="5dp"
                 android:src="@drawable/avatar_img"
@@ -32,41 +34,41 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:paddingLeft="15dp">
-            <TextView
+            <org.holoeverywhere.widget.TextView
                     android:id="@+id/user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Name: John Ramboias"
                     android:textColor="#0066cc">
-            </TextView>
-            <TextView
+            </org.holoeverywhere.widget.TextView>
+            <org.holoeverywhere.widget.TextView
                     android:id="@+id/user_nat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Country: Hawai"
                     android:textColor="#0066cc">
-            </TextView>
-            <TextView
+            </org.holoeverywhere.widget.TextView>
+            <org.holoeverywhere.widget.TextView
                     android:id="@+id/user_rank"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Rank: -500"
                     android:textColor="#0066cc">
-            </TextView>
-            <TextView
+            </org.holoeverywhere.widget.TextView>
+            <org.holoeverywhere.widget.TextView
                     android:id="@+id/user_victories"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Battles Won: -50"
                     android:textColor="#0066cc">
-            </TextView>
-            <TextView
+            </org.holoeverywhere.widget.TextView>
+            <org.holoeverywhere.widget.TextView
                     android:id="@+id/user_randomons"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="# Randomons: Nem um"
                     android:textColor="#0066cc">
-            </TextView>
+            </org.holoeverywhere.widget.TextView>
 
         </org.holoeverywhere.widget.LinearLayout>
 
@@ -80,7 +82,7 @@
         <org.holoeverywhere.widget.Button
                 android:text="Battle"
                 android:id="@+id/but_battle"
-                android:textColor="#469FED"
+                android:textColor="@drawable/pdtls_button_text_color"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dip"
@@ -90,7 +92,7 @@
 
         <org.holoeverywhere.widget.Button
                 android:text="Trade"
-                android:textColor="#469FED"
+                android:textColor="@drawable/pdtls_button_text_color"
                 android:id="@+id/but_trade"
                 android:layout_toRightOf="@+id/Button01"
                 android:layout_marginLeft="5dip"
