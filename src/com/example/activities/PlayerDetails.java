@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import com.example.data.Event;
 import com.example.data.Randomon;
 import org.holoeverywhere.widget.Button;
 import org.holoeverywhere.widget.ListView;
+import org.holoeverywhere.widget.TextView;
 import org.holoeverywhere.widget.Toast;
 
 import java.util.ArrayList;
@@ -30,6 +32,7 @@ public class PlayerDetails extends SherlockFragmentActivity {
 
     private Context ctx = this;
     private Button but_battle, but_trade;
+    private TextView textName, textNat, textRank, textVictories, textRandomons;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,18 @@ public class PlayerDetails extends SherlockFragmentActivity {
 
         but_battle = (Button) findViewById(R.id.but_battle);
         but_trade = (Button) findViewById(R.id.but_trade);
+        textName = (TextView) findViewById(R.id.user_name);
+        textNat = (TextView) findViewById(R.id.user_nat);
+        textRank = (TextView) findViewById(R.id.user_rank);
+        textVictories = (TextView) findViewById(R.id.user_victories);
+        textRandomons = (TextView) findViewById(R.id.user_randomons);
+
+        textName.setText(Html.fromHtml("<b>Name: </b>" + "John Ramboias"));
+        textNat.setText(Html.fromHtml("<b>Country: </b>" + "Hawai"));
+        textRank.setText(Html.fromHtml("<b>Rank: </b>" + "-5000"));
+        textVictories.setText(Html.fromHtml("<b>Battles Won: </b>" + "-1"));
+        textRandomons.setText(Html.fromHtml("<b># Randomons: </b>" + "Nem um"));
+
 
         ListView plRandomonsView = (ListView) findViewById(R.id.pl_randomons_listview);
 
@@ -46,7 +61,6 @@ public class PlayerDetails extends SherlockFragmentActivity {
 
         plRandomonsView.setAdapter(plRandomonsAdapter);
 
-        //PARA EXEMPLO
         for(int i = 0; i<20; i++)
             plRandomonsAdapter.addItem(new Randomon("Pikachu", 15));
 
