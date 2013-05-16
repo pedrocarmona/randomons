@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<org.holoeverywhere.widget.LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/choose_bottom_content"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="fill_parent">
+
+        <org.holoeverywhere.widget.LinearLayout
+                android:orientation="vertical"
+                android:layout_width="130dip"
+                android:layout_height="wrap_content" >
+
+
+            <ImageView
+                    android:id="@+id/randomonmini"
+                    android:layout_width="70dip"
+                    android:layout_height="70dip"
+                    android:layout_gravity="center_horizontal"
+                    android:scaleType="fitXY"
+                    android:padding="5dip"
+                    android:layout_marginTop="25dip"
+                    android:background="@drawable/image_view_border"
+                    android:src="@drawable/randomom"
+                    android:contentDescription="">
+            </ImageView>
+
+
+
+            <org.holoeverywhere.widget.Button
+                    android:id="@+id/but_select"
+                    android:layout_width="85dip"
+                    android:layout_height="40dip"
+                    android:text="Select"
+                    android:layout_marginTop="25dip"
+                    android:textColor="@drawable/pdtls_button_text_color"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/pdtls_buttons">
+            </org.holoeverywhere.widget.Button>
+
+
+        </org.holoeverywhere.widget.LinearLayout>
+
+
+        <org.holoeverywhere.widget.LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent" >
+
+            <org.holoeverywhere.widget.TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dip"
+                    android:textSize="12dip"
+                    android:text="Randomon description:"
+                    android:textStyle="bold"
+                    android:textColor="#000"/>
+
+            <org.holoeverywhere.widget.TextView
+                    android:id="@+id/desc_randomon"
+                    android:layout_width="180dip"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dip"
+                    android:layout_marginTop="10dip"
+                    android:text="O Estranhomon costuma ser encontrado em regiões pantanosas. É um randomon muito agressivo, porém é fácil de encontrar."
+                    android:textStyle="normal"
+                    android:textColor="#000" />
+
+        </org.holoeverywhere.widget.LinearLayout>
+
+</org.holoeverywhere.widget.LinearLayout>

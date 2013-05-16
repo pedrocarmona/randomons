@@ -11,5 +11,4 @@
     <!--  Pressed
      -->
     <item android:state_pressed="true" android:drawable="@drawable/pdtls_button_press" />
-
 </selector>
