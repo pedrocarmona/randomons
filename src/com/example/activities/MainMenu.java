@@ -15,6 +15,7 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.example.adapters.AdapterCloseEvents;
 import com.example.adapters.AdapterCloseEventsBase;
 import com.example.adapters.AdapterLastEvents;
+import com.example.data.CloseEvent;
 import com.example.data.Event;
 import com.example.data.Item;
 import com.example.data.Randomon;
@@ -52,16 +53,14 @@ public class MainMenu extends SherlockFragmentActivity {
         proxAdapter = new AdapterCloseEventsBase(this);
         proxView.setAdapter(proxAdapter);
 
-        proxAdapter.addItem(1);
-        proxAdapter.addItem(4);
-        proxAdapter.addItem(2);
-        proxAdapter.addItem(3);
-        proxAdapter.addItem(2);
-        proxAdapter.addItem(3);
-        proxAdapter.addItem(2);
-        proxAdapter.addItem(1);
-        proxAdapter.addItem(1);
-        proxAdapter.addItem(4);
+        proxAdapter.addItem(new CloseEvent(1, "Monteirovsky"));
+        proxAdapter.addItem(new CloseEvent(4, "Shop"));
+        proxAdapter.addItem(new CloseEvent(2, "Randobattle"));
+        proxAdapter.addItem(new CloseEvent(3, "Medic"));
+        proxAdapter.addItem(new CloseEvent(1, "Monteirovsky"));
+        proxAdapter.addItem(new CloseEvent(4, "Shop"));
+        proxAdapter.addItem(new CloseEvent(2, "Randobattle"));
+        proxAdapter.addItem(new CloseEvent(3, "Medic"));
 
         profPic.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -74,17 +73,17 @@ public class MainMenu extends SherlockFragmentActivity {
 
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                if ((Integer) proxAdapter.getItem(position) == 1) {
+                if (((CloseEvent) proxAdapter.getItem(position)).getCloseEventType() == 1) {
                     Intent intent = new Intent(view.getContext(), PlayerDetails.class);
                     MainMenu.this.startActivity(intent);
-                } else if ((Integer) proxAdapter.getItem(position) == 2) {
-                    Toast.makeText(ctx, "Not yet!", Toast.LENGTH_LONG).show();
+                } else if (((CloseEvent) proxAdapter.getItem(position)).getCloseEventType() == 2) {
+                    Toast.makeText(ctx, "Randomon escaped", Toast.LENGTH_LONG).show();
 //                    Intent intent = new Intent(view.getContext(), Shop.class);
 //                    MainMenu.this.startActivity(intent);
-                } else if ((Integer) proxAdapter.getItem(position) == 3) {
+                } else if (((CloseEvent) proxAdapter.getItem(position)).getCloseEventType() == 3) {
                     Intent intent = new Intent(view.getContext(), MedicalSpot.class);
                     MainMenu.this.startActivity(intent);
-                } else if ((Integer) proxAdapter.getItem(position) == 4) {
+                } else if (((CloseEvent) proxAdapter.getItem(position)).getCloseEventType() == 4) {
                     Intent intent = new Intent(view.getContext(), Shop.class);
                     MainMenu.this.startActivity(intent);
                 }
