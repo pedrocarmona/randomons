@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import com.example.activities.R;
+import com.example.data.CloseEvent;
+import org.holoeverywhere.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -15,7 +17,7 @@ public class AdapterCloseEventsBase extends BaseAdapter {
 
     private LayoutInflater mInflater;
     private ContentResolver ctx;
-    private static ArrayList<Integer> proxObjects = new ArrayList<Integer>();
+    private static ArrayList<CloseEvent> closeEvents = new ArrayList<CloseEvent>();
 
     public AdapterCloseEventsBase(Context context){
         mInflater = LayoutInflater.from(context);
@@ -23,18 +25,18 @@ public class AdapterCloseEventsBase extends BaseAdapter {
     };
 
 
-    public void addItem(int closeEventType)
+    public void addItem(CloseEvent clEvent)
     {
-        proxObjects.add(closeEventType);
+        closeEvents.add(clEvent);
         notifyDataSetChanged();
     }
 
     public int getCount() {
-        return proxObjects.size();
+        return closeEvents.size();
     }
 
     public Object getItem(int position) {
-        return proxObjects.get(position);
+        return closeEvents.get(position);
     }
 
     public long getItemId(int position) {
@@ -51,6 +53,7 @@ public class AdapterCloseEventsBase extends BaseAdapter {
             holder = new ViewHolder();
 
             holder.CloseEventImg = (ImageView) convertView.findViewById(R.id.prox_event_image);
+            holder.CloseEventDesc = (TextView) convertView.findViewById(R.id.cl_evt_desc);
 
             convertView.setTag(holder);
         }
@@ -59,14 +62,16 @@ public class AdapterCloseEventsBase extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        if(proxObjects.get(position) == 1)
+        if(closeEvents.get(position).getCloseEventType() == 1)
             holder.CloseEventImg.setImageResource(R.drawable.avatar_img);
-        else if(proxObjects.get(position) == 2)
+        else if(closeEvents.get(position).getCloseEventType() == 2)
             holder.CloseEventImg.setImageResource(R.drawable.randomom);
-        else if(proxObjects.get(position) == 3)
-            holder.CloseEventImg.setImageResource(R.drawable.potion);
-        else if(proxObjects.get(position) == 4)
-            holder.CloseEventImg.setImageResource(R.drawable.item);
+        else if(closeEvents.get(position).getCloseEventType() == 3)
+            holder.CloseEventImg.setImageResource(R.drawable.medics);
+        else if(closeEvents.get(position).getCloseEventType() == 4)
+            holder.CloseEventImg.setImageResource(R.drawable.shop);
+
+        holder.CloseEventDesc.setText(closeEvents.get(position).getCloseEventDesc());
 
         return convertView;
 
@@ -75,6 +80,7 @@ public class AdapterCloseEventsBase extends BaseAdapter {
     static class ViewHolder
     {
         ImageView CloseEventImg;
+        TextView CloseEventDesc;
     }
 
 }
