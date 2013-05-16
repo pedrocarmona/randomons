@@ -1,6 +1,5 @@
 package com.example.menus;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -12,30 +11,24 @@ import org.holoeverywhere.widget.ListView;
 
 public class SlidingMenu
 {
-    public SlidingMenu(final Context context)
+    public SlidingMenu(final Context context, com.jeremyfeinstein.slidingmenu.lib.SlidingMenu sm)
     {
         //Adicionar items ao slidingmenu
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.menu_frame, null);
         ListView slidingMenuList = (ListView) view.findViewById(R.id.sliding_menu_list);
         String[] items = new String[]{"Home","My Randomons","My Items","Ranking","R-Guide","Map","Store","Medical Spot"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(context ,android.R.layout.simple_list_item_1, android.R.id.text1, items);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,android.R.layout.simple_list_item_1, android.R.id.text1, items);
         slidingMenuList.setAdapter(adapter);
 
-        //////////////////////////////////////
-
-        // configure the SlidingMenu
-        com.jeremyfeinstein.slidingmenu.lib.SlidingMenu menu = new com.jeremyfeinstein.slidingmenu.lib.SlidingMenu(context);
-        menu.setMode(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.LEFT);
-        menu.setTouchModeAbove(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.TOUCHMODE_MARGIN);
-        menu.setShadowWidthRes(R.dimen.shadow_width);
-        menu.setShadowDrawable(R.drawable.shadow);
-        menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
-        menu.setFadeDegree(0.35f);
-        menu.attachToActivity((Activity) context, com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.SLIDING_WINDOW);
-        menu.setMenu(view);
-
-        //////////////////////////////////////
+        // customize the SlidingMenu
+        sm.setTouchModeAbove(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.TOUCHMODE_MARGIN);
+        sm.setBehindOffsetRes(R.dimen.slidingmenu_offset);
+        sm.setShadowWidthRes(R.dimen.shadow_width);
+        sm.setShadowDrawable(R.drawable.shadow);
+        sm.setBehindScrollScale(0.25f);
+        sm.setFadeDegree(0.25f);
+        sm.setMenu(view);
 
         // adicionar listener
 
