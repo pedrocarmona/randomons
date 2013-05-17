@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import com.example.activities.R;
-import com.example.data.Item;
+import com.example.data.CaptureItem;
 import org.holoeverywhere.widget.NumberPicker;
 import org.holoeverywhere.widget.TextView;
 
@@ -18,7 +18,7 @@ public class AdapterItemList extends BaseAdapter
 {
     private LayoutInflater mInflater;
     private ContentResolver ctx;
-    private ArrayList<Item> itemList = new ArrayList<Item>();
+    private ArrayList<CaptureItem> itemList = new ArrayList<CaptureItem>();
 
     public AdapterItemList(Context context)
     {
@@ -26,7 +26,7 @@ public class AdapterItemList extends BaseAdapter
         ctx = context.getContentResolver();
     }
 
-    public void addItem(final Item item)
+    public void addItem(final CaptureItem item)
     {
         itemList.add(item);
         notifyDataSetChanged();

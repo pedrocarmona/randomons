@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<org.holoeverywhere.widget.LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<org.holoeverywhere.widget.LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
               android:id="@+id/choose_bottom_content"
               android:orientation="horizontal"
               android:layout_width="match_parent"
@@ -13,7 +14,7 @@
 
 
             <ImageView
-                    android:id="@+id/randomonmini"
+                    android:id="@+id/choose_bottom_img"
                     android:layout_width="70dip"
                     android:layout_height="70dip"
                     android:layout_gravity="center_horizontal"
@@ -28,7 +29,7 @@
 
 
             <org.holoeverywhere.widget.Button
-                    android:id="@+id/but_select"
+                    android:id="@+id/choose_bottom_btn"
                     android:layout_width="85dip"
                     android:layout_height="40dip"
                     android:text="Select"
@@ -48,6 +49,7 @@
                 android:layout_height="fill_parent" >
 
             <org.holoeverywhere.widget.TextView
+                    android:id="@+id/choose_descr_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dip"
@@ -57,7 +59,7 @@
                     android:textColor="#000"/>
 
             <org.holoeverywhere.widget.TextView
-                    android:id="@+id/desc_randomon"
+                    android:id="@+id/choose_desc_text"
                     android:layout_width="180dip"
                     android:layout_height="wrap_content"
                     android:textSize="12dip"

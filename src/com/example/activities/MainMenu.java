@@ -5,35 +5,35 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.example.adapters.AdapterCloseEvents;
+import com.example.adapters.AdapterHorizontalList;
+import com.actionbarsherlock.view.MenuItem;
 import com.example.adapters.AdapterCloseEventsBase;
 import com.example.adapters.AdapterLastEvents;
 import com.example.data.CloseEvent;
 import com.example.data.Event;
-import com.example.data.Item;
-import com.example.data.Randomon;
+import com.example.menus.SlidingMenu;
+import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import org.holoeverywhere.widget.ListView;
 import org.holoeverywhere.widget.Toast;
 
-public class MainMenu extends SherlockFragmentActivity {
+public class MainMenu extends SlidingFragmentActivity
+{
     private SharedPreferences mPreferences;
     private AdapterCloseEventsBase proxAdapter;
-    private ImageView profPic;
 
     final Context ctx = this;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.main_menu);
 
+        addSlidingMenu();
 
         mPreferences = getSharedPreferences("CurrentUser", MODE_PRIVATE);
 
@@ -47,9 +47,9 @@ public class MainMenu extends SherlockFragmentActivity {
             startActivityForResult(intent, 0);
         }
 
-        profPic = (ImageView) findViewById(R.id.avatar_img);
+        ImageView profPic = (ImageView) findViewById(R.id.avatar_img);
 
-        AdapterCloseEvents proxView = (AdapterCloseEvents) findViewById(R.id.prox_listview);
+        AdapterHorizontalList proxView = (AdapterHorizontalList) findViewById(R.id.prox_listview);
         proxAdapter = new AdapterCloseEventsBase(this);
         proxView.setAdapter(proxAdapter);
 
@@ -66,7 +66,8 @@ public class MainMenu extends SherlockFragmentActivity {
             public void onClick(View v) {
                 Intent intent;
                 intent = new Intent(v.getContext(), Ranking.class);
-                MainMenu.this.startActivity(intent);            }
+                MainMenu.this.startActivity(intent);
+            }
         });
 
         proxView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -78,8 +79,8 @@ public class MainMenu extends SherlockFragmentActivity {
                     MainMenu.this.startActivity(intent);
                 } else if (((CloseEvent) proxAdapter.getItem(position)).getCloseEventType() == 2) {
                     Toast.makeText(ctx, "Randomon escaped", Toast.LENGTH_LONG).show();
-//                    Intent intent = new Intent(view.getContext(), Shop.class);
-//                    MainMenu.this.startActivity(intent);
+                    Intent intent = new Intent(view.getContext(), MyRandomons.class);
+                    MainMenu.this.startActivity(intent);
                 } else if (((CloseEvent) proxAdapter.getItem(position)).getCloseEventType() == 3) {
                     Intent intent = new Intent(view.getContext(), MedicalSpot.class);
                     MainMenu.this.startActivity(intent);
@@ -120,4 +121,41 @@ public class MainMenu extends SherlockFragmentActivity {
         }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case android.R.id.home:
+                toggle();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void addSlidingMenu()
+    {
+        com.jeremyfeinstein.slidingmenu.lib.SlidingMenu sm = getSlidingMenu();
+        // check if the content frame contains the menu frame
+        if (findViewById(R.id.menu_frame) == null)
+        {
+            setBehindContentView(R.layout.menu_frame);
+            sm.setSlidingEnabled(true);
+            sm.setTouchModeAbove(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.TOUCHMODE_FULLSCREEN);
+            // show home as up so we can toggle
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+        else
+        {
+            // add a dummy view
+            View v = new View(this);
+            setBehindContentView(v);
+            sm.setSlidingEnabled(false);
+            sm.setTouchModeAbove(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.TOUCHMODE_NONE);
+        }
+
+        new SlidingMenu(this, getSlidingMenu());
+    }
 }
