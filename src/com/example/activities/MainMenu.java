@@ -64,9 +64,7 @@ public class MainMenu extends SlidingFragmentActivity
 
         profPic.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent;
-                intent = new Intent(v.getContext(), Ranking.class);
-                MainMenu.this.startActivity(intent);
+                Toast.makeText(ctx, "Sou bonito eu sei!", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -79,8 +77,8 @@ public class MainMenu extends SlidingFragmentActivity
                     MainMenu.this.startActivity(intent);
                 } else if (((CloseEvent) proxAdapter.getItem(position)).getCloseEventType() == 2) {
                     Toast.makeText(ctx, "Randomon escaped", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(view.getContext(), MyRandomons.class);
-                    MainMenu.this.startActivity(intent);
+                    /*Intent intent = new Intent(view.getContext(), MyRandomons.class);
+                    MainMenu.this.startActivity(intent);*/
                 } else if (((CloseEvent) proxAdapter.getItem(position)).getCloseEventType() == 3) {
                     Intent intent = new Intent(view.getContext(), MedicalSpot.class);
                     MainMenu.this.startActivity(intent);
