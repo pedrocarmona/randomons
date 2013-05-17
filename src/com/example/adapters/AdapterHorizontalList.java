@@ -42,7 +42,7 @@ import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.Scroller;
 
-public class AdapterCloseEvents extends AdapterView<ListAdapter> {
+public class AdapterHorizontalList extends AdapterView<ListAdapter> {
 
     public boolean mAlwaysOverrideTouch = true;
     protected ListAdapter mAdapter;
@@ -60,7 +60,7 @@ public class AdapterCloseEvents extends AdapterView<ListAdapter> {
     private boolean mDataChanged = false;
 
 
-    public AdapterCloseEvents(Context context, AttributeSet attrs) {
+    public AdapterHorizontalList(Context context, AttributeSet attrs) {
         super(context, attrs);
         initView();
     }
@@ -90,7 +90,7 @@ public class AdapterCloseEvents extends AdapterView<ListAdapter> {
 
         @Override
         public void onChanged() {
-            synchronized(AdapterCloseEvents.this){
+            synchronized(AdapterHorizontalList.this){
                 mDataChanged = true;
             }
             invalidate();
@@ -287,7 +287,7 @@ public class AdapterCloseEvents extends AdapterView<ListAdapter> {
 
     protected boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
                               float velocityY) {
-        synchronized(AdapterCloseEvents.this){
+        synchronized(AdapterHorizontalList.this){
             mScroller.fling(mNextX, 0, (int)-velocityX, 0, 0, mMaxX, 0, 0);
         }
         requestLayout();
@@ -304,20 +304,20 @@ public class AdapterCloseEvents extends AdapterView<ListAdapter> {
 
         @Override
         public boolean onDown(MotionEvent e) {
-            return AdapterCloseEvents.this.onDown(e);
+            return AdapterHorizontalList.this.onDown(e);
         }
 
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
                                float velocityY) {
-            return AdapterCloseEvents.this.onFling(e1, e2, velocityX, velocityY);
+            return AdapterHorizontalList.this.onFling(e1, e2, velocityX, velocityY);
         }
 
         @Override
         public boolean onScroll(MotionEvent e1, MotionEvent e2,
                                 float distanceX, float distanceY) {
 
-            synchronized(AdapterCloseEvents.this){
+            synchronized(AdapterHorizontalList.this){
                 mNextX += (int)distanceX;
             }
             requestLayout();
@@ -337,10 +337,10 @@ public class AdapterCloseEvents extends AdapterView<ListAdapter> {
                 viewRect.set(left, top, right, bottom);
                 if(viewRect.contains((int)e.getX(), (int)e.getY())){
                     if(mOnItemClicked != null){
-                        mOnItemClicked.onItemClick(AdapterCloseEvents.this, child, mLeftViewIndex + 1 + i, mAdapter.getItemId( mLeftViewIndex + 1 + i ));
+                        mOnItemClicked.onItemClick(AdapterHorizontalList.this, child, mLeftViewIndex + 1 + i, mAdapter.getItemId( mLeftViewIndex + 1 + i ));
                     }
                     if(mOnItemSelected != null){
-                        mOnItemSelected.onItemSelected(AdapterCloseEvents.this, child, mLeftViewIndex + 1 + i, mAdapter.getItemId( mLeftViewIndex + 1 + i ));
+                        mOnItemSelected.onItemSelected(AdapterHorizontalList.this, child, mLeftViewIndex + 1 + i, mAdapter.getItemId( mLeftViewIndex + 1 + i ));
                     }
                     break;
                 }

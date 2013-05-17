@@ -24,15 +24,11 @@ public class ChooseRandomon extends SherlockActivity {
     private LinearLayout bottomContainer;
     private LinearLayout bottomContent;
     private TextView pullLever;
-    private ImageView randomonMini;
-    private TextView descRandomon;
-    private Button selectButton;
     float historicY = Float.NaN;
 
     static final int DELTA = 40;
 
     Randomon[] sortedRandomons = new Randomon[3];
-    int[] selectedRandomon = new int[3];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +48,7 @@ public class ChooseRandomon extends SherlockActivity {
         randomon1 = (ImageView) findViewById(R.id.randomon1);
         randomon2 = (ImageView) findViewById(R.id.randomon2);
         randomon3 = (ImageView) findViewById(R.id.randomon3);
-        pullLever = (TextView) findViewById(R.id.pull_lever);
+        pullLever = (TextView) findViewById(R.id.choose_info_msg);
 
 
         randomon1.setOnClickListener(new View.OnClickListener() {
@@ -165,8 +161,7 @@ public class ChooseRandomon extends SherlockActivity {
     private int paddingDipToPx(int dip) {
 
         final float scale = getResources().getDisplayMetrics().density;
-        int padding_in_px = (int) (dip * scale + 0.5f);
-        return padding_in_px;
+        return (int) (dip * scale + 0.5f);
     }
 
 
@@ -175,9 +170,9 @@ public class ChooseRandomon extends SherlockActivity {
         bottomContainer.removeAllViews();
         bottomContainer.addView(bottomContent);
 
-        randomonMini = (ImageView) findViewById(R.id.randomonmini);
-        descRandomon = (TextView) findViewById(R.id.desc_randomon);
-        selectButton = (Button) findViewById(R.id.but_select);
+        ImageView randomonMini = (ImageView) findViewById(R.id.choose_bottom_img);
+        TextView descRandomon = (TextView) findViewById(R.id.choose_desc_text);
+        Button selectButton = (Button) findViewById(R.id.choose_bottom_btn);
 
         selectButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -185,7 +180,7 @@ public class ChooseRandomon extends SherlockActivity {
 
                 /* REALLY SELECT IT AND GO TO THE MAIN MENU */
 
-                Toast.makeText(getApplicationContext(), "Selected randomon " + (index+1), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Selected randomon " + (index + 1), Toast.LENGTH_SHORT).show();
 
                 Intent intent;
                 intent = new Intent(v.getContext(), MainMenu.class);

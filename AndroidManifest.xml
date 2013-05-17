@@ -15,7 +15,7 @@
             android:theme="@style/Holo.Theme.Light.DarkActionBar">
 
 
-        <activity android:name=".ChooseRandomon"
+        <activity android:name=".Items"
                   android:label="@string/app_name"
                    android:theme="@style/Theme.Sherlock.Light.DarkActionBar" >
         <!--android:theme="@style/Holo.Theme.Light.DarkActionBar.NoActionBar"-->
@@ -41,6 +41,7 @@
         /* Antonio- Escreve a seguir a este paragrafo*/
         /* Monteiro- Escreve a seguir a este paragrafo*/
         /* Paulo- Escreve a seguir a este paragrafo*/
+        <activity android:name=".ChooseRandomon"/>
         /* Telmo- Escreve a seguir a este paragrafo*/
         /* Guilherme- Escreve a seguir a este paragrafo*/
     </application>

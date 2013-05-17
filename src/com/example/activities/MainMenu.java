@@ -5,20 +5,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.example.adapters.AdapterCloseEvents;
+import com.example.adapters.AdapterHorizontalList;
 import com.example.adapters.AdapterCloseEventsBase;
 import com.example.adapters.AdapterLastEvents;
 import com.example.data.CloseEvent;
 import com.example.data.Event;
-import com.example.data.Item;
-import com.example.data.Randomon;
 import org.holoeverywhere.widget.ListView;
 import org.holoeverywhere.widget.Toast;
 
@@ -49,7 +44,7 @@ public class MainMenu extends SherlockFragmentActivity {
 
         profPic = (ImageView) findViewById(R.id.avatar_img);
 
-        AdapterCloseEvents proxView = (AdapterCloseEvents) findViewById(R.id.prox_listview);
+        AdapterHorizontalList proxView = (AdapterHorizontalList) findViewById(R.id.prox_listview);
         proxAdapter = new AdapterCloseEventsBase(this);
         proxView.setAdapter(proxAdapter);
 
