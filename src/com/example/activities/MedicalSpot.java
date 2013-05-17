@@ -7,12 +7,15 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.MenuItem;
+import com.example.menus.SlidingMenu;
+import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
 import java.util.ArrayList;
 
-public class MedicalSpot extends SherlockFragmentActivity
+public class MedicalSpot extends SlidingFragmentActivity
 {
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -22,8 +25,9 @@ public class MedicalSpot extends SherlockFragmentActivity
 
         final ActionBar bar = getSupportActionBar();
         bar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        bar.setDisplayHomeAsUpEnabled(true);
         bar.setTitle("Medical Spot");
+
+        addSlidingMenu();
 
         ViewPager mPager = (ViewPager) findViewById(R.id.pager);
 
@@ -128,5 +132,43 @@ public class MedicalSpot extends SherlockFragmentActivity
         @Override
         public void onPageScrollStateChanged(int i) {
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case android.R.id.home:
+                toggle();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void addSlidingMenu()
+    {
+        com.jeremyfeinstein.slidingmenu.lib.SlidingMenu sm = getSlidingMenu();
+        // check if the content frame contains the menu frame
+        if (findViewById(R.id.menu_frame) == null)
+        {
+            setBehindContentView(R.layout.menu_frame);
+            sm.setSlidingEnabled(true);
+            sm.setTouchModeAbove(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.TOUCHMODE_FULLSCREEN);
+            // show home as up so we can toggle
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+        else
+        {
+            // add a dummy view
+            View v = new View(this);
+            setBehindContentView(v);
+            sm.setSlidingEnabled(false);
+            sm.setTouchModeAbove(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.TOUCHMODE_NONE);
+        }
+
+        new SlidingMenu(this, getSlidingMenu());
     }
 }

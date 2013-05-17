@@ -6,19 +6,21 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.MenuItem;
 import com.example.adapters.AdapterBagItem;
 import com.example.adapters.AdapterHorizontalList;
 import com.example.data.CaptureItem;
 import com.example.data.Potion;
+import com.example.menus.SlidingMenu;
+import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
 import org.holoeverywhere.widget.Button;
 import org.holoeverywhere.widget.LinearLayout;
 import org.holoeverywhere.widget.TextView;
 import org.holoeverywhere.widget.Toast;
 
 
-public class Items extends SherlockActivity {
-
+public class Items extends SlidingActivity
+{
     private View selectedView = null;
     private LinearLayout bottomContainer;
     private LinearLayout bottomContent;
@@ -29,7 +31,7 @@ public class Items extends SherlockActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
@@ -43,8 +45,9 @@ public class Items extends SherlockActivity {
         selectButton = (Button) findViewById(R.id.choose_bottom_btn);
 
         final ActionBar bar = getSupportActionBar();
-        bar.setDisplayHomeAsUpEnabled(true);
         bar.setTitle("Bag");
+
+        addSlidingMenu();
 
         AdapterHorizontalList potionsList = (AdapterHorizontalList) findViewById(R.id.potion_items);
         final AdapterHorizontalList captureList = (AdapterHorizontalList) findViewById(R.id.capture_items);
@@ -142,6 +145,43 @@ public class Items extends SherlockActivity {
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case android.R.id.home:
+                toggle();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void addSlidingMenu()
+    {
+        com.jeremyfeinstein.slidingmenu.lib.SlidingMenu sm = getSlidingMenu();
+        // check if the content frame contains the menu frame
+        if (findViewById(R.id.menu_frame) == null)
+        {
+            setBehindContentView(R.layout.menu_frame);
+            sm.setSlidingEnabled(true);
+            sm.setTouchModeAbove(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.TOUCHMODE_FULLSCREEN);
+            // show home as up so we can toggle
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+        else
+        {
+            // add a dummy view
+            View v = new View(this);
+            setBehindContentView(v);
+            sm.setSlidingEnabled(false);
+            sm.setTouchModeAbove(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.TOUCHMODE_NONE);
+        }
+
+        new SlidingMenu(this, getSlidingMenu());
+    }
 }
 
 

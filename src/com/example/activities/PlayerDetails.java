@@ -5,25 +5,29 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.MenuItem;
 import com.example.adapters.AdapterPlayerRandomonsList;
 import com.example.data.Randomon;
+import com.example.menus.SlidingMenu;
+import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import org.holoeverywhere.widget.Button;
 import org.holoeverywhere.widget.ListView;
 import org.holoeverywhere.widget.TextView;
 import org.holoeverywhere.widget.Toast;
 
-public class PlayerDetails extends SherlockFragmentActivity {
+public class PlayerDetails extends SlidingFragmentActivity {
 
     private Context ctx = this;
     private Button but_battle, but_trade;
     private TextView textName, textNat, textRank, textVictories, textRandomons;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.player_details);
+
+        addSlidingMenu();
 
         but_battle = (Button) findViewById(R.id.but_battle);
         but_trade = (Button) findViewById(R.id.but_trade);
@@ -67,6 +71,44 @@ public class PlayerDetails extends SherlockFragmentActivity {
                 PlayerDetails.this.startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case android.R.id.home:
+                toggle();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void addSlidingMenu()
+    {
+        com.jeremyfeinstein.slidingmenu.lib.SlidingMenu sm = getSlidingMenu();
+        // check if the content frame contains the menu frame
+        if (findViewById(R.id.menu_frame) == null)
+        {
+            setBehindContentView(R.layout.menu_frame);
+            sm.setSlidingEnabled(true);
+            sm.setTouchModeAbove(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.TOUCHMODE_FULLSCREEN);
+            // show home as up so we can toggle
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+        else
+        {
+            // add a dummy view
+            View v = new View(this);
+            setBehindContentView(v);
+            sm.setSlidingEnabled(false);
+            sm.setTouchModeAbove(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.TOUCHMODE_NONE);
+        }
+
+        new SlidingMenu(this, getSlidingMenu());
     }
 
 }

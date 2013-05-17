@@ -40,7 +40,6 @@ public class ChooseRandomon extends SlidingActivity
         setContentView(R.layout.choose_randomon);
 
         final ActionBar bar = getSupportActionBar();
-        bar.setDisplayHomeAsUpEnabled(true);
         bar.setTitle("Starter Randomon");
 
         addSlidingMenu();
