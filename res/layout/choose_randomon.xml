@@ -155,7 +155,7 @@
 
 
                 <org.holoeverywhere.widget.TextView
-                        android:id="@+id/pull_lever"
+                        android:id="@+id/choose_info_msg"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="50dip"

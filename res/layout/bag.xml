@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<org.holoeverywhere.widget.LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#fff">
+
+
+    <org.holoeverywhere.widget.LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:paddingLeft="15dip"
+            android:paddingRight="15dip"
+            android:paddingTop="5dip"
+            android:paddingBottom="5dip">
+
+        <org.holoeverywhere.widget.TextView
+                android:id="@+id/txt_capture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Capture Items"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal"
+                android:textColor="#0066cc"/>
+
+        <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/horizontal_list_arrow" />
+
+        <com.example.adapters.AdapterHorizontalList
+                android:id="@+id/capture_items"
+                android:layout_width="match_parent"
+                android:layout_height="80dip"  />
+
+
+        <View
+                android:layout_width="match_parent"
+                android:background="@drawable/gradient_line"
+                android:layout_height="4dp"/>
+
+        <org.holoeverywhere.widget.TextView
+                android:id="@+id/txt_potion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Potions"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal"
+                android:textColor="#0066cc"/>
+
+        <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/horizontal_list_arrow" />
+
+        <com.example.adapters.AdapterHorizontalList
+                android:id="@+id/potion_items"
+                android:layout_width="match_parent"
+                android:layout_height="80dip"  />
+
+        <View
+                android:layout_width="match_parent"
+                android:background="@drawable/gradient_line"
+                android:layout_height="4dp"/>
+
+        </org.holoeverywhere.widget.LinearLayout>
+
+
+    <org.holoeverywhere.widget.LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:background="#b1cbe1" >
+
+
+
+        <org.holoeverywhere.widget.TextView
+                android:id="@+id/txt_last_evt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dip"
+                android:layout_marginLeft="3dip"
+                android:textSize="12dip"
+                android:text="Item selection"
+                android:textStyle="normal"
+                android:textColor="#000"/>
+
+
+        <View
+                android:layout_width="match_parent"
+                android:background="#6e717a"
+                android:layout_height="1dip"/>
+
+
+
+        <org.holoeverywhere.widget.LinearLayout
+                android:id="@+id/choose_bottom"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent" >
+
+            <org.holoeverywhere.widget.LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+
+                <org.holoeverywhere.widget.TextView
+                        android:id="@+id/bag_info_msg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="50dip"
+                        android:layout_gravity="center"
+                        android:textSize="15dip"
+                        android:text="Press an item to see the description"
+                        android:textStyle="normal"
+                        android:textColor="#000"/>
+
+            </org.holoeverywhere.widget.LinearLayout>
+
+
+        </org.holoeverywhere.widget.LinearLayout>
+
+
+    </org.holoeverywhere.widget.LinearLayout>
+
+</org.holoeverywhere.widget.LinearLayout>

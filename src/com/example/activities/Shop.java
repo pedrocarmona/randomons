@@ -9,7 +9,7 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.example.adapters.AdapterItemList;
-import com.example.data.Item;
+import com.example.data.CaptureItem;
 import org.holoeverywhere.widget.Button;
 import org.holoeverywhere.widget.ListView;
 
@@ -38,7 +38,7 @@ public class Shop extends SherlockActivity
 
         //PARA EXEMPLO
         for(int i = 0; i<20; i++)
-            adapter.addItem(new Item("Swiss Army Knife", "Useful for everything and something else."));
+            adapter.addItem(new CaptureItem("Swiss Army Knife", "Useful for everything and something else."));
 
         addClickListeners();
     }

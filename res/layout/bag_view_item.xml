@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<org.holoeverywhere.widget.LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/item_border"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:background="#fff" >
+
+    <org.holoeverywhere.widget.LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/full_rounded_list">
+
+
+        <ImageView
+                android:id="@+id/bag_item_image"
+                android:layout_width="50dip"
+                android:layout_height="50dip"
+                android:paddingLeft="5dp"
+                android:paddingTop="5dp"
+                android:layout_marginRight="15dp" />
+
+
+        <org.holoeverywhere.widget.TextView
+                android:id="@+id/bag_txt_num_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|right"
+                android:paddingRight="5dip"
+                android:gravity="right"
+                android:textStyle="bold"
+                android:textSize="12dip"
+                android:text="x99"
+                android:textColor="#009bdb"  />
+
+    </org.holoeverywhere.widget.LinearLayout>
+
+</org.holoeverywhere.widget.LinearLayout>
