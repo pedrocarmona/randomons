@@ -278,7 +278,7 @@ public class Battle extends SimpleBaseGameActivity {
                 snapdragon.animate(new long[] { 100, 100 }, 11, 12, 5,anime);
                 banana.animate(new long[] { 100, 100, 100 }, 2, 4, 5);
                 commandsGroup.setVisible(false);
-                updateHitPoints(false);
+                //updateHitPoints(false);
 
                 this.animation=-1;
 
