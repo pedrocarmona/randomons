@@ -20,4 +20,10 @@
     <string name="title_activity_register">Registar nos Randomons</string>
     <string name="user_name">Username</string>
     <string name="user_points">1975292</string>
+    <string name="randomon_details">Randomon Details:</string>
+    <string name="evolution">Evolution</string>
+
+    <color name="white">#ffffffff</color>
+    <color name="black">#000000</color>
+    <color name="light_blue">#00a7e5</color>
 </resources>
