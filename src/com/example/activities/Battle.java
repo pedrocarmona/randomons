@@ -68,7 +68,6 @@ public class Battle extends SimpleBaseGameActivity {
     private Randomon leftRandomon;
     private Randomon rightRandomon;
 
-    private boolean isAnimating;
 
     private int animation;
     AnimatedSprite banana;
@@ -161,23 +160,23 @@ public class Battle extends SimpleBaseGameActivity {
         scene.registerTouchArea(rect4);
 
 
-        final Rectangle redLife1 = this.makeLifeRectangle(-200, 20,150, 1, 0, 0);
+        Rectangle redLife1 = this.makeLifeRectangle(-200, 20,150, 1, 0, 0);
         leftRandomonHitPoints = this.makeLifeRectangle(-200, 20,140, 0, 1, 0);
-        final Rectangle redLife2 = this.makeLifeRectangle(50, 20, 150,1,0, 0);
+        Rectangle redLife2 = this.makeLifeRectangle(50, 20, 150,1,0, 0);
         rightRandomonHitPoints = this.makeLifeRectangle(50,20 ,140, 0, 1, 0);
 
-        final VertexBufferObjectManager vertexBufferObjectManager = this.getVertexBufferObjectManager();
+        VertexBufferObjectManager vertexBufferObjectManager = this.getVertexBufferObjectManager();
         String text1 = leftRandomon.getName()+" lvl."+leftRandomon.getLevel()+" "+" ("+leftRandomon.getCurrent_hitpoints()+"/"+leftRandomon.getHitpoints()+")";
         String text2 = rightRandomon.getName()+" lvl."+rightRandomon.getLevel()+" "+" ("+rightRandomon.getCurrent_hitpoints()+"/"+rightRandomon.getHitpoints()+")";
-        final Text nameText1 = new Text(-200, 0, this.mFont, text1 , new TextOptions(HorizontalAlign.LEFT), vertexBufferObjectManager);
-        final Text nameText2 = new Text(50, 0, this.mFont, text2, new TextOptions(HorizontalAlign.LEFT), vertexBufferObjectManager);
+        Text nameText1 = new Text(-200, 0, this.mFont, text1 , new TextOptions(HorizontalAlign.LEFT), vertexBufferObjectManager);
+        Text nameText2 = new Text(50, 0, this.mFont, text2, new TextOptions(HorizontalAlign.LEFT), vertexBufferObjectManager);
 
-        final Entity lifeGroup = new Entity(CAMERA_WIDTH / 2, 20);
+        Entity lifeGroup = new Entity(CAMERA_WIDTH / 2, 20);
 
         lifeGroup.attachChild(redLife1);
         lifeGroup.attachChild(leftRandomonHitPoints);
         lifeGroup.attachChild(redLife2);
-        lifeGroup.attachChild(leftRandomonHitPoints);
+        lifeGroup.attachChild(rightRandomonHitPoints);
         lifeGroup.attachChild(nameText1);
         lifeGroup.attachChild(nameText2);
 
@@ -285,6 +284,22 @@ public class Battle extends SimpleBaseGameActivity {
 
 
         }
+    }
+
+    private void updateHitPoints(){
+        rightRandomon.setCurrent_hitpoints(rightRandomon.getCurrent_hitpoints()-leftRandomon.getAttack());
+
+        if (leftRandomon.getCurrent_hitpoints()>0){
+            leftRandomonHitPoints.setWidth(leftRandomon.getCurrent_hitpoints()*150/leftRandomon.getHitpoints());
+        }
+        else
+            leftRandomonHitPoints.setVisible(false);
+
+        if (rightRandomon.getCurrent_hitpoints()>0)
+            rightRandomonHitPoints.setWidth(rightRandomon.getCurrent_hitpoints()*150/rightRandomon.getHitpoints());
+        else
+            rightRandomonHitPoints.setVisible(false);
+
     }
     // ===========================================================
     // Inner and Anonymous Classes
