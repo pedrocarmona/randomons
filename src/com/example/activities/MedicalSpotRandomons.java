@@ -39,7 +39,7 @@ public class MedicalSpotRandomons extends SherlockFragment
 
         //PARA EXEMPLO
         for(int i = 0; i<10; i++)
-            adapter.addItem(new Randomon("Coiso", 15));
+            adapter.addItem(new Randomon("Coiso "+i, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal"));
 
         addClickListeners();
 

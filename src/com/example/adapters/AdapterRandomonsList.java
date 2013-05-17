@@ -71,7 +71,7 @@ public class AdapterRandomonsList extends BaseAdapter
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.lvl.setText("lvl. "+randomonsList.get(position).getLvl());
+        holder.lvl.setText("lvl. "+randomonsList.get(position).getLevel());
 
         holder.name.setText(randomonsList.get(position).getName());
 

@@ -76,9 +76,8 @@ public class MainMenu extends SlidingFragmentActivity
                     Intent intent = new Intent(view.getContext(), PlayerDetails.class);
                     MainMenu.this.startActivity(intent);
                 } else if (((CloseEvent) proxAdapter.getItem(position)).getCloseEventType() == 2) {
-                    Toast.makeText(ctx, "Randomon escaped", Toast.LENGTH_LONG).show();
-                    /*Intent intent = new Intent(view.getContext(), MyRandomons.class);
-                    MainMenu.this.startActivity(intent);*/
+                    Intent intent = new Intent(view.getContext(), Battle.class);
+                    MainMenu.this.startActivity(intent);
                 } else if (((CloseEvent) proxAdapter.getItem(position)).getCloseEventType() == 3) {
                     Intent intent = new Intent(view.getContext(), MedicalSpot.class);
                     MainMenu.this.startActivity(intent);
