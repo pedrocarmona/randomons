@@ -3,21 +3,19 @@ package com.example.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
-import android.support.v4.app.TaskStackBuilder;
 import android.view.View;
 import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.example.adapters.AdapterItemList;
 import com.example.data.CaptureItem;
+import com.example.menus.SlidingMenu;
+import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
 import org.holoeverywhere.widget.Button;
 import org.holoeverywhere.widget.ListView;
 import org.holoeverywhere.widget.Toast;
 
-public class Shop extends SherlockActivity
+public class Shop extends SlidingActivity
 {
-
     private Context ctx = this;
     private Button clean;
 
@@ -28,8 +26,9 @@ public class Shop extends SherlockActivity
         setContentView(R.layout.shop);
 
         final ActionBar bar = getSupportActionBar();
-        bar.setDisplayHomeAsUpEnabled(true);
         bar.setTitle("Shop");
+
+        addSlidingMenu();
 
         ListView listView = (ListView) findViewById(R.id.items_list);
 
@@ -46,39 +45,56 @@ public class Shop extends SherlockActivity
         addClickListeners();
     }
 
-    private void addClickListeners() {
-
+    private void addClickListeners()
+    {
         clean.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-
                 Toast.makeText(ctx,"Tudo Limpo",Toast.LENGTH_LONG).show();
+
+                Intent intent = new Intent(getApplicationContext(), Ranking.class);
+                Shop.this.startActivity(intent);
             }
         });
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
             case android.R.id.home:
-                Intent upIntent = new Intent(this, MedicalSpot.class);
-                if (NavUtils.shouldUpRecreateTask(this, upIntent)) {
-                    // This activity is not part of the application's task, so create a new task
-                    // with a synthesized back stack.
-                    TaskStackBuilder.from(this)
-                            .addNextIntent(new Intent(this, MedicalSpot.class))
-                            .addNextIntent(upIntent)
-                            .startActivities();
-                    finish();
-                } else {
-                    // This activity is part of the application's task, so simply
-                    // navigate up to the hierarchical parent activity.
-                    NavUtils.navigateUpTo(this, upIntent);
-                }
+                toggle();
                 return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
+    }
+
+    private void addSlidingMenu()
+    {
+        com.jeremyfeinstein.slidingmenu.lib.SlidingMenu sm = getSlidingMenu();
+        // check if the content frame contains the menu frame
+        if (findViewById(R.id.menu_frame) == null)
+        {
+            setBehindContentView(R.layout.menu_frame);
+            sm.setSlidingEnabled(true);
+            sm.setTouchModeAbove(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.TOUCHMODE_FULLSCREEN);
+            // show home as up so we can toggle
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+        else
+        {
+            // add a dummy view
+            View v = new View(this);
+            setBehindContentView(v);
+            sm.setSlidingEnabled(false);
+            sm.setTouchModeAbove(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.TOUCHMODE_NONE);
+        }
+
+        new SlidingMenu(this, getSlidingMenu());
     }
 }

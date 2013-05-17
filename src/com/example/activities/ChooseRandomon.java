@@ -7,15 +7,17 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.MenuItem;
 import com.example.data.Randomon;
+import com.example.menus.SlidingMenu;
+import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
 import org.holoeverywhere.widget.Button;
 import org.holoeverywhere.widget.LinearLayout;
 import org.holoeverywhere.widget.TextView;
 import org.holoeverywhere.widget.Toast;
 
-public class ChooseRandomon extends SherlockActivity {
-
+public class ChooseRandomon extends SlidingActivity
+{
     private boolean LEVER_UP;
     private ImageView leverImg;
     private ImageView randomon1;
@@ -31,15 +33,16 @@ public class ChooseRandomon extends SherlockActivity {
     Randomon[] sortedRandomons = new Randomon[3];
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.choose_randomon);
 
         final ActionBar bar = getSupportActionBar();
-        bar.setDisplayHomeAsUpEnabled(true);
         bar.setTitle("Starter Randomon");
+
+        addSlidingMenu();
 
         LEVER_UP = true;
         leverImg = (ImageView) findViewById(R.id.lever);
@@ -195,4 +198,41 @@ public class ChooseRandomon extends SherlockActivity {
         randomonMini.setImageResource(R.drawable.randomom);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case android.R.id.home:
+                toggle();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void addSlidingMenu()
+    {
+        com.jeremyfeinstein.slidingmenu.lib.SlidingMenu sm = getSlidingMenu();
+        // check if the content frame contains the menu frame
+        if (findViewById(R.id.menu_frame) == null)
+        {
+            setBehindContentView(R.layout.menu_frame);
+            sm.setSlidingEnabled(true);
+            sm.setTouchModeAbove(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.TOUCHMODE_FULLSCREEN);
+            // show home as up so we can toggle
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+        else
+        {
+            // add a dummy view
+            View v = new View(this);
+            setBehindContentView(v);
+            sm.setSlidingEnabled(false);
+            sm.setTouchModeAbove(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.TOUCHMODE_NONE);
+        }
+
+        new SlidingMenu(this, getSlidingMenu());
+    }
 }

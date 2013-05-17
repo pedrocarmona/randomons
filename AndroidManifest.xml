@@ -36,6 +36,7 @@
         <activity android:name=".Shop"/>
         <activity android:name=".Ranking"/>
         /* bruno - Escreve a seguir a este paragrafo*/
+        <activity android:name=".RandomonDexInfo"/>
         /* Carmona - Escreve a seguir a este paragrafo*/
         /* Antonio- Escreve a seguir a este paragrafo*/
         <activity android:screenOrientation="landscape" android:name=".Trade"/>
