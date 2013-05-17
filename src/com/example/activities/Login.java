@@ -46,7 +46,7 @@ public class Login extends SherlockFragmentActivity
                     public void onClick(View v) {
                         // No account, load new account view
                         Intent intent = new Intent(Login.this,
-                                Register.class);
+                                Randomon_Info.class);
                         startActivityForResult(intent, 0);
                     }
                 });

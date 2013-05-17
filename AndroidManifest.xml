@@ -43,6 +43,7 @@
         /* Paulo- Escreve a seguir a este paragrafo*/
         /* Telmo- Escreve a seguir a este paragrafo*/
         <activity android:name=".MyRandomons"/>
+        <activity android:name=".Randomon_Info"/>
         /* Guilherme- Escreve a seguir a este paragrafo*/
     </application>
 </manifest>

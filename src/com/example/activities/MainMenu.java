@@ -98,6 +98,7 @@ public class MainMenu extends SherlockFragmentActivity {
 
         //PARA EXEMPLO
         for(int i = 0; i<20; i++)
+
             leventsAdapter.addEvent(new Event((i+1)+" minutos atras","Perdeu com o utilizador facadas."));
 
     }

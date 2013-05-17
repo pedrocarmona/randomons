@@ -48,6 +48,7 @@ public class MyRandomons extends SherlockActivity {
         Drawable drawable;
         drawable.draw(mCanvas);
         */
+
         ImageView img = new ImageView(this);
         img.setImageResource(images[0]);
         layout.addView(img);
