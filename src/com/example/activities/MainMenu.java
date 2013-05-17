@@ -101,7 +101,7 @@ public class MainMenu extends SherlockFragmentActivity {
     public void onResume() {
         super.onResume();
         Log.v("erros", "no resume");
-
+/**/
         if (mPreferences.contains("AuthToken")) {
             //loadTasksFromAPI(TASKS_URL);
             Log.v("erros", "Auth="+ mPreferences.getString("AuthToken", ""));

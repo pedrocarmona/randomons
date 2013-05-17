@@ -78,7 +78,8 @@ public class PlayerDetails extends SherlockFragmentActivity {
             @Override
             public void onClick(View v)
             {
-                Toast.makeText(ctx,"No business!",Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(v.getContext(), Trade.class);
+                PlayerDetails.this.startActivity(intent);
             }
         });
     }

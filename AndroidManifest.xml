@@ -39,6 +39,7 @@
         /* bruno - Escreve a seguir a este paragrafo*/
         /* Carmona - Escreve a seguir a este paragrafo*/
         /* Antonio- Escreve a seguir a este paragrafo*/
+        <activity android:screenOrientation="landscape" android:name=".Trade"/>
         /* Monteiro- Escreve a seguir a este paragrafo*/
         /* Paulo- Escreve a seguir a este paragrafo*/
         /* Telmo- Escreve a seguir a este paragrafo*/

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<org.holoeverywhere.widget.LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <org.holoeverywhere.widget.LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="220dip" >
+
+        <org.holoeverywhere.widget.LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#B1CBE1"
+                android:paddingLeft="40dip"
+                android:paddingRight="40dip"
+                android:paddingTop="30dip"
+                android:paddingBottom="10dip">
+
+            <org.holoeverywhere.widget.LinearLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/my_trade_randomon"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dip"
+                    android:background="@drawable/full_rounded_list" >
+
+                <ImageView
+                        android:id="@+id/my_randomon_trade_img"
+                        android:layout_width="90dip"
+                        android:layout_height="90dip"
+                        android:layout_gravity="center"
+                        android:src="@drawable/quest_mark"/>
+
+                <org.holoeverywhere.widget.TextView
+                        android:id="@+id/my_randomon_trade_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dip"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:text="Touch Here!"/>
+
+            </org.holoeverywhere.widget.LinearLayout>
+
+            <org.holoeverywhere.widget.LinearLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dip"
+                    android:background="@drawable/full_rounded_list" >
+
+                <ImageView
+                        android:layout_width="30dip"
+                        android:layout_height="30dip"
+                        android:padding="3dip"
+                        android:layout_marginRight="5dip"
+                        android:background="@drawable/full_rounded_list"
+                        android:src="@drawable/avatar_img"/>
+
+                <org.holoeverywhere.widget.TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textStyle="bold"
+                        android:text="Joao Monteiro" />
+
+            </org.holoeverywhere.widget.LinearLayout>
+        </org.holoeverywhere.widget.LinearLayout>
+
+        <org.holoeverywhere.widget.LinearLayout
+                android:orientation="vertical"
+                android:layout_width="50dip"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:background="@drawable/trade_div_bg">
+
+            <ImageView
+                    android:layout_width="50dip"
+                    android:layout_height="50dip"
+                    android:padding="5dip"
+                    android:layout_marginBottom="15dip"
+                    android:src="@drawable/trade_icon"
+                    android:background="@drawable/full_rounded_list"/>
+
+            <ImageView
+                    android:layout_width="50dip"
+                    android:layout_height="50dip"
+                    android:padding="5dip"
+                    android:src="@drawable/cancel_trade"
+                    android:background="@drawable/full_rounded_list"/>
+
+        </org.holoeverywhere.widget.LinearLayout>
+
+        <org.holoeverywhere.widget.LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#fff"
+                android:paddingLeft="40dip"
+                android:paddingRight="40dip"
+                android:paddingTop="30dip"
+                android:paddingBottom="10dip"
+                android:layout_weight="1">
+
+            <org.holoeverywhere.widget.LinearLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/player_trade_randomon"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dip"
+                    android:background="@drawable/full_rounded_list" >
+
+                <ImageView
+                        android:id="@+id/player_randomon_trade_img"
+                        android:layout_width="90dip"
+                        android:layout_height="90dip"
+                        android:layout_gravity="center"
+                        android:src="@drawable/quest_mark"/>
+
+                <org.holoeverywhere.widget.TextView
+                        android:id="@+id/player_randomon_trade_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dip"
+                        android:gravity="center"
+                        android:textStyle="bold"
+                        android:text="Touch Here!"/>
+
+            </org.holoeverywhere.widget.LinearLayout>
+
+            <org.holoeverywhere.widget.LinearLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dip"
+                    android:background="@drawable/full_rounded_list" >
+
+                <ImageView
+                        android:layout_width="30dip"
+                        android:layout_height="30dip"
+                        android:padding="3dip"
+                        android:layout_marginRight="5dip"
+                        android:background="@drawable/full_rounded_list"
+                        android:src="@drawable/avatar_img"/>
+
+                <org.holoeverywhere.widget.TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textStyle="bold"
+                        android:text="Joao Monteiro" />
+
+            </org.holoeverywhere.widget.LinearLayout>
+        </org.holoeverywhere.widget.LinearLayout>
+
+    </org.holoeverywhere.widget.LinearLayout>
+
+    <org.holoeverywhere.widget.LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#7897B9">
+
+    </org.holoeverywhere.widget.LinearLayout>
+
+</org.holoeverywhere.widget.LinearLayout>

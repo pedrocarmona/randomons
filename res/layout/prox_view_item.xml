@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<org.holoeverywhere.widget.LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"
         android:layout_width="wrap_content"
@@ -35,4 +35,4 @@
             android:textColor="#0066cc"
             />
 
-</LinearLayout>
+</org.holoeverywhere.widget.LinearLayout>
