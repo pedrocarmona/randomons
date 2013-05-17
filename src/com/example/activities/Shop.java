@@ -27,8 +27,6 @@ public class Shop extends SlidingActivity
 
         addSlidingMenu();
 
-        addClickListeners();
-
         ListView listView = (ListView) findViewById(R.id.items_list);
 
         clean = (Button) findViewById(R.id.shop_clean_button);
@@ -44,14 +42,13 @@ public class Shop extends SlidingActivity
         addClickListeners();
     }
 
-    private void addClickListeners() {
-
+    private void addClickListeners()
+    {
         clean.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-
                 Intent intent = new Intent(getApplicationContext(), Ranking.class);
                 Shop.this.startActivity(intent);
             }
