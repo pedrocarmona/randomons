@@ -68,6 +68,8 @@ public class Battle extends SimpleBaseGameActivity {
     private Randomon leftRandomon;
     private Randomon rightRandomon;
 
+    private boolean leftAtacked;
+
 
     private int animation;
     AnimatedSprite banana;
@@ -255,6 +257,13 @@ public class Battle extends SimpleBaseGameActivity {
             public void onAnimationFinished(AnimatedSprite pAnimatedSprite) {
                 //To change body of implemented methods use File | Settings | File Templates.
                 movimento();
+                if(leftAtacked){
+                    updateHitPoints(true);
+
+                }else {
+                    updateHitPoints(false);
+
+                }
 
             }
         };
@@ -264,7 +273,8 @@ public class Battle extends SimpleBaseGameActivity {
                 snapdragon.animate(new long[] { 600, 200 }, 0, 1, true);
                 banana.animate(new long[] { 600, 200 }, 0, 1, true);
                 commandsGroup.setVisible(true);
-                break;
+
+            break;
             case 1:
                 // Left player atacks
                 snapdragon.animate(new long[] { 100, 100, 100 }, 8, 10, 5,anime);
@@ -277,6 +287,7 @@ public class Battle extends SimpleBaseGameActivity {
                 snapdragon.animate(new long[] { 100, 100 }, 11, 12, 5,anime);
                 banana.animate(new long[] { 100, 100, 100 }, 2, 4, 5);
                 commandsGroup.setVisible(false);
+                updateHitPoints(false);
 
                 this.animation=-1;
 
@@ -286,9 +297,14 @@ public class Battle extends SimpleBaseGameActivity {
         }
     }
 
-    private void updateHitPoints(){
-        rightRandomon.setCurrent_hitpoints(rightRandomon.getCurrent_hitpoints()-leftRandomon.getAttack());
+    private void updateHitPoints(boolean leftP){
+        if(leftP){
+            rightRandomon.setCurrent_hitpoints(rightRandomon.getCurrent_hitpoints()-leftRandomon.getAttack());
 
+        }else{
+            leftRandomon.setCurrent_hitpoints(leftRandomon.getCurrent_hitpoints()-rightRandomon.getAttack());
+
+        }
         if (leftRandomon.getCurrent_hitpoints()>0){
             leftRandomonHitPoints.setWidth(leftRandomon.getCurrent_hitpoints()*150/leftRandomon.getHitpoints());
         }
@@ -299,6 +315,7 @@ public class Battle extends SimpleBaseGameActivity {
             rightRandomonHitPoints.setWidth(rightRandomon.getCurrent_hitpoints()*150/rightRandomon.getHitpoints());
         else
             rightRandomonHitPoints.setVisible(false);
+
 
     }
     // ===========================================================
