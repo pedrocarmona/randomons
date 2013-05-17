@@ -14,7 +14,6 @@ import org.holoeverywhere.widget.ListView;
 
 public class Shop extends SlidingActivity
 {
-
     private Button clean;
 
     public void onCreate(Bundle savedInstanceState)
@@ -25,6 +24,8 @@ public class Shop extends SlidingActivity
 
         final ActionBar bar = getSupportActionBar();
         bar.setTitle("Shop");
+
+        addSlidingMenu();
 
         addClickListeners();
 
