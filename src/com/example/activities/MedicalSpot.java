@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.MenuItem;
@@ -171,13 +170,5 @@ public class MedicalSpot extends SlidingFragmentActivity
         }
 
         new SlidingMenu(this, getSlidingMenu());
-    }
-
-    @Override
-    public void onPause()
-    {
-        super.onPause();
-        Log.i("MAIN", "FINISH");
-        finish();
     }
 }
