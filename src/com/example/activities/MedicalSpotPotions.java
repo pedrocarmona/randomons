@@ -28,6 +28,8 @@ public class MedicalSpotPotions extends SherlockFragment
         view = inflater.inflate(R.layout.medical_spot_potions, container, false);
 
         ListView listView = (ListView) view.findViewById(R.id.potions_list);
+        cleanButton = (Button) view.findViewById(R.id.med_clean_btn);
+        buyButton = (Button) view.findViewById(R.id.med_buy_btn);
 
         AdapterPotionList adapter = new AdapterPotionList(view.getContext());
 

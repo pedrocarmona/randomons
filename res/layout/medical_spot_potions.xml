@@ -60,6 +60,7 @@
                 android:paddingLeft="5dip"
                 android:orientation="horizontal" >
             <org.holoeverywhere.widget.Button
+                    android:id="@+id/med_clean_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -68,6 +69,7 @@
             </org.holoeverywhere.widget.Button>
 
             <org.holoeverywhere.widget.Button
+                    android:id="@+id/med_buy_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
