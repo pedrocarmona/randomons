@@ -17,7 +17,7 @@ import org.holoeverywhere.widget.Toast;
 public class Shop extends SlidingActivity
 {
     private Context ctx = this;
-    private Button clean;
+    private Button clean, buy;
 
     public void onCreate(Bundle savedInstanceState)
     {
@@ -33,6 +33,8 @@ public class Shop extends SlidingActivity
         ListView listView = (ListView) findViewById(R.id.items_list);
 
         clean = (Button) findViewById(R.id.shop_clean_button);
+        buy = (Button) findViewById(R.id.shop_buy_button);
+
 
         AdapterItemList adapter = new AdapterItemList(this);
 
@@ -54,8 +56,16 @@ public class Shop extends SlidingActivity
             {
                 Toast.makeText(ctx,"Tudo Limpo",Toast.LENGTH_LONG).show();
 
-                Intent intent = new Intent(getApplicationContext(), Ranking.class);
-                Shop.this.startActivity(intent);
+            }
+        });
+
+        buy.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Toast.makeText(ctx,"Tudo comprado",Toast.LENGTH_LONG).show();
+
             }
         });
     }
