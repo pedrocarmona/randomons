@@ -3,30 +3,15 @@ package com.example.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
 import android.text.Html;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.example.adapters.AdapterCloseEvents;
-import com.example.adapters.AdapterLastEvents;
 import com.example.adapters.AdapterPlayerRandomonsList;
-import com.example.adapters.AdapterRandomonsList;
-import com.example.data.Event;
 import com.example.data.Randomon;
 import org.holoeverywhere.widget.Button;
 import org.holoeverywhere.widget.ListView;
 import org.holoeverywhere.widget.TextView;
 import org.holoeverywhere.widget.Toast;
-
-import java.util.ArrayList;
 
 public class PlayerDetails extends SherlockFragmentActivity {
 
@@ -78,7 +63,8 @@ public class PlayerDetails extends SherlockFragmentActivity {
             @Override
             public void onClick(View v)
             {
-                Toast.makeText(ctx,"No business!",Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(v.getContext(), Trade.class);
+                PlayerDetails.this.startActivity(intent);
             }
         });
     }

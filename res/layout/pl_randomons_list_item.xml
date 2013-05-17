@@ -51,7 +51,6 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:textColor="#0066cc"
-                android:text="Pikachu"
                 />
 
     </org.holoeverywhere.widget.LinearLayout>

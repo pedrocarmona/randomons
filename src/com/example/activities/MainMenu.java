@@ -8,8 +8,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import com.example.adapters.AdapterHorizontalList;
 import com.actionbarsherlock.view.MenuItem;
-import com.example.adapters.AdapterCloseEvents;
 import com.example.adapters.AdapterCloseEventsBase;
 import com.example.adapters.AdapterLastEvents;
 import com.example.data.CloseEvent;
@@ -49,7 +49,7 @@ public class MainMenu extends SlidingFragmentActivity
 
         ImageView profPic = (ImageView) findViewById(R.id.avatar_img);
 
-        AdapterCloseEvents proxView = (AdapterCloseEvents) findViewById(R.id.prox_listview);
+        AdapterHorizontalList proxView = (AdapterHorizontalList) findViewById(R.id.prox_listview);
         proxAdapter = new AdapterCloseEventsBase(this);
         proxView.setAdapter(proxAdapter);
 
@@ -99,6 +99,7 @@ public class MainMenu extends SlidingFragmentActivity
 
         //PARA EXEMPLO
         for(int i = 0; i<20; i++)
+
             leventsAdapter.addEvent(new Event((i+1)+" minutos atras","Perdeu com o utilizador facadas."));
 
     }
@@ -107,7 +108,7 @@ public class MainMenu extends SlidingFragmentActivity
     public void onResume() {
         super.onResume();
         Log.v("erros", "no resume");
-
+/**/
         if (mPreferences.contains("AuthToken")) {
             //loadTasksFromAPI(TASKS_URL);
             Log.v("erros", "Auth="+ mPreferences.getString("AuthToken", ""));

@@ -118,7 +118,7 @@
                 android:src="@drawable/horizontal_list_arrow"
                 />
 
-        <com.example.adapters.AdapterCloseEvents
+        <com.example.adapters.AdapterHorizontalList
                 android:id="@+id/prox_listview"
                 android:layout_width="match_parent"
                 android:layout_height="80dip"

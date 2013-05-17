@@ -47,12 +47,12 @@ public class SlidingMenu
                         //finish();
                         break;
                     case 1:
-                        intent = new Intent(view.getContext(), ChooseRandomon.class);
+                        intent = new Intent(view.getContext(), MyRandomons.class);
                         context.startActivity(intent);
                         //finish();
                         break;
                     case 2:
-                        intent = new Intent(view.getContext(), MedicalSpot.class);
+                        intent = new Intent(view.getContext(), Items.class);
                         context.startActivity(intent);
                         //finish();
                         break;
