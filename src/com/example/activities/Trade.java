@@ -70,8 +70,10 @@ public class Trade extends SlidingActivity
             @Override
             public void onClick(View view) {
 
-                for(int i = 0; i<20; i++)
-                    plRandomonsAdapter.addItem(new Randomon("Charmander", 16));
+
+                for(int i = 0; i<10; i++)
+                    plRandomonsAdapter.addItem(new Randomon("Charmander "+i, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal"));
+
 
                 dialog.setCancelable(true);
                 dialog.show();
