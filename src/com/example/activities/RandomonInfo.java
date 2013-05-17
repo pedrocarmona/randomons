@@ -16,7 +16,7 @@ import org.holoeverywhere.widget.ListView;
  * Time: 14:53
  * To change this template use File | Settings | File Templates.
  */
-public class Randomon_Info extends SherlockActivity {
+public class RandomonInfo extends SherlockActivity {
 
     public void onCreate(Bundle savedInstanceState)
 
