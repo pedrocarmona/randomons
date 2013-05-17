@@ -2,6 +2,7 @@ package com.example.activities;
 
 import android.os.Bundle;
 import android.view.View;
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.MenuItem;
 import com.example.menus.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
@@ -14,6 +15,9 @@ public class RandomonDexInfo extends SlidingActivity
         setContentView(R.layout.randomon_dex_info);
 
         addSlidingMenu();
+
+        final ActionBar bar = getSupportActionBar();
+        bar.setTitle("Randomon Info");
     }
 
     @Override
