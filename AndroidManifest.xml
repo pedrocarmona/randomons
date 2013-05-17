@@ -37,12 +37,14 @@
         <activity android:name=".Ranking"/>
         <activity android:name=".MainMenu"/>
         /* bruno - Escreve a seguir a este paragrafo*/
+        <activity android:name=".RandomonDexInfo"/>
         /* Carmona - Escreve a seguir a este paragrafo*/
         /* Antonio- Escreve a seguir a este paragrafo*/
         /* Monteiro- Escreve a seguir a este paragrafo*/
         /* Paulo- Escreve a seguir a este paragrafo*/
         /* Telmo- Escreve a seguir a este paragrafo*/
         <activity android:name=".MyRandomons"/>
+        <activity android:name=".RandomonDexInfo"/>
         /* Guilherme- Escreve a seguir a este paragrafo*/
     </application>
 </manifest>
