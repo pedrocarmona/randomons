@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import com.actionbarsherlock.view.MenuItem;
 import com.example.adapters.AdapterPlayerRandomonsList;
@@ -25,7 +26,7 @@ public class Trade extends SlidingActivity
     private TextView myRandoTradeName, playerRandoTradeName;
     private Dialog dialog;
     private ListView randomonsDialog;
-    private AdapterPlayerRandomonsList plRandomonsAdapter;
+    private AdapterPlayerRandomonsList myRandomonsAdapter, playerRandomonsAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,20 +49,19 @@ public class Trade extends SlidingActivity
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         randomonsDialog = (ListView) dialog.findViewById(R.id.randomons_dialog);
-        plRandomonsAdapter = new AdapterPlayerRandomonsList(context);
-        randomonsDialog.setAdapter(plRandomonsAdapter);
 
         myRandomonTrade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+                myRandomonsAdapter = new AdapterPlayerRandomonsList(context);
+                randomonsDialog.setAdapter(myRandomonsAdapter);
 
                 for(int i = 0; i<10; i++)
-                    plRandomonsAdapter.addItem(new Randomon("Pikachu "+i, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal"));
+                    myRandomonsAdapter.addItem(new Randomon("Pikachu "+i, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal", R.drawable.randomom));
 
                 dialog.setCancelable(true);
                 dialog.show();
-                refreshTrade();
 
             }
         });
@@ -70,22 +70,33 @@ public class Trade extends SlidingActivity
             @Override
             public void onClick(View view) {
 
+                playerRandomonsAdapter = new AdapterPlayerRandomonsList(context);
+                randomonsDialog.setAdapter(playerRandomonsAdapter);
 
                 for(int i = 0; i<10; i++)
-                    plRandomonsAdapter.addItem(new Randomon("Charmander "+i, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal"));
-
+                    playerRandomonsAdapter.addItem(new Randomon("Charmander "+i, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal", R.drawable.randomom));
 
                 dialog.setCancelable(true);
                 dialog.show();
-                refreshTrade();
+
+            }
+        });
+
+        randomonsDialog.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                myRandoTradeImg.setImageResource(((Randomon)myRandomonsAdapter.getItem(position)).getPicId());
+                dialog.dismiss();
 
             }
         });
 
     }
 
-
     public void refreshTrade(){
+
+
 
     }
 

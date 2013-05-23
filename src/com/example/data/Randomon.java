@@ -13,9 +13,10 @@ public class Randomon
     private int current_experience;
     private String status;
     private int preference;
+    private int picId;
     private User user;
 
-    public Randomon(String name, int attack, int defense, int speed, double growth, int hitpoints, int level, int current_hitpoints, int current_experience, String status) {
+    public Randomon(String name, int attack, int defense, int speed, double growth, int hitpoints, int level, int current_hitpoints, int current_experience, String status, int picId) {
         this.name = name;
         this.attack = attack;
         this.defense = defense;
@@ -26,6 +27,8 @@ public class Randomon
         this.current_hitpoints = current_hitpoints;
         this.current_experience = current_experience;
         this.status = status;
+        this.picId = picId;
+
     }
 
     public String getName() {
@@ -106,6 +109,14 @@ public class Randomon
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public int getPicId() {
+        return picId;
+    }
+
+    public void setPicId(int picId) {
+        this.picId = picId;
     }
 
     public int getPreference() {

@@ -75,6 +75,8 @@ public class AdapterPlayerRandomonsList extends BaseAdapter
 
         holder.name.setText(randomonsList.get(position).getName());
 
+        holder.randomonImage.setImageResource(randomonsList.get(position).getPicId());
+
         return convertView;
     }
 
