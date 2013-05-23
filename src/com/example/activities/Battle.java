@@ -1,6 +1,7 @@
 package com.example.activities;
 
 import android.graphics.Typeface;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import com.example.data.Randomon;
 import org.andengine.engine.camera.Camera;
@@ -11,43 +12,34 @@ import org.andengine.entity.Entity;
 import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.Background;
-import org.andengine.entity.scene.background.RepeatingSpriteBackground;
 import org.andengine.entity.sprite.AnimatedSprite;
-import org.andengine.entity.sprite.ButtonSprite;
 import org.andengine.entity.text.Text;
 import org.andengine.entity.text.TextOptions;
 import org.andengine.entity.util.FPSLogger;
 import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.font.Font;
 import org.andengine.opengl.font.FontFactory;
-import org.andengine.opengl.texture.TextureOptions;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
-import org.andengine.opengl.texture.atlas.bitmap.BuildableBitmapTextureAtlas;
-import org.andengine.opengl.texture.atlas.bitmap.source.AssetBitmapTextureAtlasSource;
-import org.andengine.opengl.texture.atlas.bitmap.source.IBitmapTextureAtlasSource;
-import org.andengine.opengl.texture.atlas.buildable.builder.BlackPawnTextureAtlasBuilder;
-import org.andengine.opengl.texture.atlas.buildable.builder.ITextureAtlasBuilder.TextureAtlasBuilderException;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.ui.activity.SimpleBaseGameActivity;
 import org.andengine.util.HorizontalAlign;
-import org.andengine.util.debug.Debug;
 
 /**
- * (c) 2010 Nicolas Gramlich
- * (c) 2011 Zynga
+ * (c) 2013 Peter Carmons
+ * (c) 2013 Randomon Team
  *
- * @author Nicolas Gramlich
- * @since 11:54:51 - 03.04.2010
+ * @author Peter O Carmona
+ * @since 08:52:27 - 18.05.2013
  */
 public class Battle extends SimpleBaseGameActivity {
     // ===========================================================
     // Constants
     // ===========================================================
 
-    private static final int CAMERA_WIDTH = 480;
-    private static final int CAMERA_HEIGHT = 320;
+    private static final int CAMERA_WIDTH = 800;
+    private static final int CAMERA_HEIGHT = 480;
 
     // ===========================================================
     // Fields
@@ -91,9 +83,15 @@ public class Battle extends SimpleBaseGameActivity {
 
     @Override
     public EngineOptions onCreateEngineOptions() {
-        final Camera camera = new Camera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
 
-        return new EngineOptions(true, ScreenOrientation.LANDSCAPE_FIXED, new RatioResolutionPolicy(CAMERA_WIDTH, CAMERA_HEIGHT), camera);
+        float cameraHeight = 480;
+        final DisplayMetrics displayMetrics = new DisplayMetrics();
+        this.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        float aspectRatio = (float) displayMetrics.widthPixels / (float) displayMetrics.heightPixels;
+
+        float cameraWidth = Math.round(aspectRatio * CAMERA_HEIGHT);
+        final Camera camera = new Camera(0, 0, cameraWidth, cameraHeight);
+        return new EngineOptions(true, ScreenOrientation.LANDSCAPE_FIXED, new RatioResolutionPolicy(cameraWidth, cameraHeight), camera);
     }
 
     @Override
