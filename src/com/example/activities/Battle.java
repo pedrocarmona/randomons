@@ -257,13 +257,7 @@ public class Battle extends SimpleBaseGameActivity {
             public void onAnimationFinished(AnimatedSprite pAnimatedSprite) {
                 //To change body of implemented methods use File | Settings | File Templates.
                 movimento();
-                if(leftAtacked){
-                    updateHitPoints(true);
-
-                }else {
-                    updateHitPoints(false);
-
-                }
+                updateHitPoints();
 
             }
         };
@@ -280,6 +274,7 @@ public class Battle extends SimpleBaseGameActivity {
                 snapdragon.animate(new long[] { 100, 100, 100 }, 8, 10, 5,anime);
                 banana.animate(new long[] { 100, 100 }, 5, 6, 5);
                 commandsGroup.setVisible(false);
+                leftAtacked=true;
 
                 break;
             case 2:
@@ -287,7 +282,7 @@ public class Battle extends SimpleBaseGameActivity {
                 snapdragon.animate(new long[] { 100, 100 }, 11, 12, 5,anime);
                 banana.animate(new long[] { 100, 100, 100 }, 2, 4, 5);
                 commandsGroup.setVisible(false);
-                updateHitPoints(false);
+                leftAtacked=false;
 
                 this.animation=-1;
 
@@ -297,14 +292,13 @@ public class Battle extends SimpleBaseGameActivity {
         }
     }
 
-    private void updateHitPoints(boolean leftP){
-        if(leftP){
+    private void updateHitPoints(){
+        if(leftAtacked){
             rightRandomon.setCurrent_hitpoints(rightRandomon.getCurrent_hitpoints()-leftRandomon.getAttack());
-
         }else{
             leftRandomon.setCurrent_hitpoints(leftRandomon.getCurrent_hitpoints()-rightRandomon.getAttack());
-
         }
+
         if (leftRandomon.getCurrent_hitpoints()>0){
             leftRandomonHitPoints.setWidth(leftRandomon.getCurrent_hitpoints()*150/leftRandomon.getHitpoints());
         }
