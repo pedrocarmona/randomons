@@ -2,11 +2,14 @@ package com.example.activities;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import com.actionbarsherlock.view.MenuItem;
 import com.antipodalwall.AntipodalWallLayout;
 import com.example.menus.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
+import org.holoeverywhere.widget.Toast;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,6 +20,15 @@ import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
  */
 public class MyRandomons extends SlidingActivity
 {
+
+    int images[]={  R.drawable.img1,R.drawable.img5,
+            R.drawable.img2,R.drawable.img6,
+            R.drawable.img3,R.drawable.img7,
+            R.drawable.img4,R.drawable.img8,
+            R.drawable.item,R.drawable.avatar_img,
+            R.drawable.avatar_img
+    };
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
@@ -26,13 +38,6 @@ public class MyRandomons extends SlidingActivity
 
         addSlidingMenu();
 
-        int images[]={  R.drawable.img1,R.drawable.img5,
-                        R.drawable.img2,R.drawable.img6,
-                        R.drawable.img3,R.drawable.img7,
-                        R.drawable.img4,R.drawable.img8,
-                        R.drawable.item,R.drawable.avatar_img,
-                        R.drawable.avatar_img
-        };
 
         AntipodalWallLayout layout = (AntipodalWallLayout)findViewById(R.id.antipodal_wall);
 
@@ -43,25 +48,14 @@ public class MyRandomons extends SlidingActivity
         drawable.draw(mCanvas);
         */
 
-        ImageView img = new ImageView(this);
-        img.setImageResource(images[0]);
-        layout.addView(img);
 
-        ImageView img1 = new ImageView(this);
-        img1.setImageResource(images[1]);
-        layout.addView(img1);
+        setImage(0,layout);
+        setImage(1,layout);
+        setImage(2,layout);
+        setImage(3,layout);
+        setImage(4,layout);
 
-        ImageView img2 = new ImageView(this);
-        img2.setImageResource(images[2]);
-        layout.addView(img2);
-
-        ImageView img3 = new ImageView(this);
-        img3.setImageResource(images[3]);
-        layout.addView(img3);
-
-        ImageView img4 = new ImageView(this);
-        img4.setImageResource(images[4]);
-        layout.addView(img4);
+        Toast.makeText(getApplicationContext(),"shit",Toast.LENGTH_LONG).show();
 
         ImageView img5 = new ImageView(this);
         img5.setImageResource(images[5]);
@@ -86,6 +80,34 @@ public class MyRandomons extends SlidingActivity
         ImageView img10 = new ImageView(this);
         img10.setImageResource(images[10]);
         layout.addView(img10);
+
+        ImageView img11 = new ImageView(this);
+        img11.setImageResource(R.drawable.img_pentagono);
+        layout.addView(img11);
+
+        ImageView img12 = new ImageView(this);
+        img12.setImageResource(R.drawable.img_pentagono);
+        layout.addView(img12);
+
+        ImageView img13 = new ImageView(this);
+        img13.setImageResource(R.drawable.img_pentagono);
+        layout.addView(img13);
+
+        ImageView img14 = new ImageView(this);
+        img14.setImageResource(R.drawable.img_pentagono);
+    layout.addView(img14);
+
+
+    }
+
+    public void setImage(int j,AntipodalWallLayout layout){
+
+        ImageView img = new ImageView(this);
+        img.setImageResource(images[j]);
+
+        layout.addView(img);
+
+
 
     }
 
