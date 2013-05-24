@@ -33,8 +33,8 @@ public class RandomonInfo extends SherlockActivity {
 
         View layout = findViewById(R.id.layout_pentagono);
 
-        int cima = 70;
-        int esquerda = 80;
+        int cima = 30;
+        int esquerda = 10;
         int direita = 80;
         int baixo_esquerda=20;
         int baixo_direita=60;

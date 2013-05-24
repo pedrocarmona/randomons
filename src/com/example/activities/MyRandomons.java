@@ -1,5 +1,6 @@
 package com.example.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -95,9 +96,15 @@ public class MyRandomons extends SlidingActivity
 
         ImageView img14 = new ImageView(this);
         img14.setImageResource(R.drawable.img_pentagono);
-    layout.addView(img14);
+        layout.addView(img14);
 
+        img10.setOnClickListener(new View.OnClickListener(){
 
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), RandomonInfo.class);
+                MyRandomons.this.startActivity(intent);            }
+        });
     }
 
     public void setImage(int j,AntipodalWallLayout layout){
