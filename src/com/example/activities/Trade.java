@@ -95,6 +95,7 @@ public class Trade extends SlidingActivity
         myRandoTradeName = (TextView) findViewById(R.id.my_randomon_trade_name);
         playerRandoTradeName = (TextView) findViewById(R.id.player_randomon_trade_name);
         randomonsDialog = (ListView) dialog.findViewById(R.id.randomons_dialog);
+        tradeIcon = (ImageView) findViewById(R.id.trade_icon);
 
     }
 
