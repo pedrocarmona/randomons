@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.MenuItem;
+import com.example.data.Move;
 import com.example.data.Randomon;
 import com.example.menus.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
@@ -15,6 +16,8 @@ import org.holoeverywhere.widget.Button;
 import org.holoeverywhere.widget.LinearLayout;
 import org.holoeverywhere.widget.TextView;
 import org.holoeverywhere.widget.Toast;
+
+import java.util.ArrayList;
 
 public class ChooseRandomon extends SlidingActivity
 {
@@ -135,9 +138,15 @@ public class ChooseRandomon extends SlidingActivity
                             leverImg.setImageResource(R.drawable.lever_down);
 
                            /* SORT STARTER RANDOMONS HERE */
-                            Randomon r1 = new Randomon("Randomon 1 ", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal");
-                            Randomon r2 = new Randomon("Randomon 2 ", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal");
-                            Randomon r3 = new Randomon("Randomon 3 ", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal");
+                            ArrayList<Move> moves1 = new ArrayList<Move>();
+                            moves1.add(new Move("fire","fire.png"));
+                            ArrayList<Move> moves2 = new ArrayList<Move>();
+                            moves2.add(new Move("water","water.png"));
+                            ArrayList<Move> moves3 = new ArrayList<Move>();
+                            moves1.add(new Move("fire","fire.png"));
+                            Randomon r1 = new Randomon("Randomon 1 ", "Fuego", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal", "fast randomon lives in mountains", R.drawable.t_lion,1,moves1);
+                            Randomon r2 = new Randomon("Randomon 2 ", "Aqua", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal", "randomon lives near the beach", R.drawable.ponycorn,2,moves2);
+                            Randomon r3 = new Randomon("Randomon 3 ", "Planta", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal", "Cute randomon present everywhere, strong by nature", R.drawable.cyclosnake,3,moves3);
                             sortedRandomons[0] = r1;
                             sortedRandomons[1] = r2;
                             sortedRandomons[2] = r3;

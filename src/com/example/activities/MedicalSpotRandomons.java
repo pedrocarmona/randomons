@@ -8,10 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.example.adapters.AdapterRandomonsList;
+import com.example.data.Move;
 import com.example.data.Randomon;
 import org.holoeverywhere.widget.Button;
 import org.holoeverywhere.widget.ListView;
 import org.holoeverywhere.widget.Toast;
+
+import java.util.ArrayList;
 
 public class MedicalSpotRandomons extends SherlockFragment
 {
@@ -36,10 +39,13 @@ public class MedicalSpotRandomons extends SherlockFragment
         AdapterRandomonsList adapter = new AdapterRandomonsList(view.getContext());
 
         listView.setAdapter(adapter);
+        ArrayList<Move> moves1 = new ArrayList<Move>();
+        moves1.add(new Move("fire","fire.png"));
 
         //PARA EXEMPLO
         for(int i = 0; i<10; i++)
-            adapter.addItem(new Randomon("Coiso "+i, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal"));
+
+            adapter.addItem(new Randomon("T-Lion", "Fire", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.t_lion,i,moves1));
 
         addClickListeners();
 

@@ -5,9 +5,11 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import com.actionbarsherlock.view.MenuItem;
 import com.example.adapters.AdapterPlayerRandomonsList;
+import com.example.data.Move;
 import com.example.data.Randomon;
 import com.example.menus.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
@@ -17,15 +19,18 @@ import org.holoeverywhere.widget.LinearLayout;
 import org.holoeverywhere.widget.ListView;
 import org.holoeverywhere.widget.TextView;
 
+import java.util.ArrayList;
+
 public class Trade extends SlidingActivity
 {
+    private int setRandomon = 1;
     private Context context = this;
     private LinearLayout myRandomonTrade, playerRandomonTrade;
-    private ImageView myRandoTradeImg, playerRandoTradeImg;
+    private ImageView myRandoTradeImg, playerRandoTradeImg, tradeIcon;
     private TextView myRandoTradeName, playerRandoTradeName;
     private Dialog dialog;
     private ListView randomonsDialog;
-    private AdapterPlayerRandomonsList plRandomonsAdapter;
+    private AdapterPlayerRandomonsList myRandomonsAdapter, playerRandomonsAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,57 +40,14 @@ public class Trade extends SlidingActivity
 
         addSlidingMenu();
 
-        myRandomonTrade = (LinearLayout) findViewById(R.id.my_trade_randomon);
-        playerRandomonTrade = (LinearLayout) findViewById(R.id.player_trade_randomon);
-        myRandoTradeImg = (ImageView) findViewById(R.id.my_randomon_trade_img);
-        playerRandoTradeImg = (ImageView) findViewById(R.id.player_randomon_trade_img);
-        myRandoTradeName = (TextView) findViewById(R.id.my_randomon_trade_name);
-        playerRandoTradeName = (TextView) findViewById(R.id.player_randomon_trade_name);
-
         dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.randomons_list_dialog);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        randomonsDialog = (ListView) dialog.findViewById(R.id.randomons_dialog);
-        plRandomonsAdapter = new AdapterPlayerRandomonsList(context);
-        randomonsDialog.setAdapter(plRandomonsAdapter);
+        findViews();
 
-        myRandomonTrade.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-                for(int i = 0; i<10; i++)
-                    plRandomonsAdapter.addItem(new Randomon("Pikachu "+i, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal"));
-
-                dialog.setCancelable(true);
-                dialog.show();
-                refreshTrade();
-
-            }
-        });
-
-        playerRandomonTrade.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-                for(int i = 0; i<10; i++)
-                    plRandomonsAdapter.addItem(new Randomon("Charmander "+i, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal"));
-
-
-                dialog.setCancelable(true);
-                dialog.show();
-                refreshTrade();
-
-            }
-        });
-
-    }
-
-
-    public void refreshTrade(){
+        addOnClickListeners();
 
     }
 
@@ -125,5 +87,95 @@ public class Trade extends SlidingActivity
         }
 
         new SlidingMenu(this, getSlidingMenu());
+    }
+
+    private void findViews(){
+
+        myRandomonTrade = (LinearLayout) findViewById(R.id.my_trade_randomon);
+        playerRandomonTrade = (LinearLayout) findViewById(R.id.player_trade_randomon);
+        myRandoTradeImg = (ImageView) findViewById(R.id.my_randomon_trade_img);
+        playerRandoTradeImg = (ImageView) findViewById(R.id.player_randomon_trade_img);
+        myRandoTradeName = (TextView) findViewById(R.id.my_randomon_trade_name);
+        playerRandoTradeName = (TextView) findViewById(R.id.player_randomon_trade_name);
+        randomonsDialog = (ListView) dialog.findViewById(R.id.randomons_dialog);
+        tradeIcon = (ImageView) findViewById(R.id.trade_icon);
+
+    }
+
+    private void addOnClickListeners(){
+
+        myRandomonTrade.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                myRandomonsAdapter = new AdapterPlayerRandomonsList(context);
+                randomonsDialog.setAdapter(myRandomonsAdapter);
+
+
+                ArrayList<Move> moves1 = new ArrayList<Move>();
+                moves1.add(new Move("fire","fire.png"));
+
+                for(int i = 0; i<10; i++)
+                    myRandomonsAdapter.addItem(new Randomon("T-Lion", "Fire", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.t_lion,1,moves1));
+
+                setRandomon = 1;
+                dialog.setCancelable(true);
+                dialog.show();
+
+            }
+        });
+
+        playerRandomonTrade.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                playerRandomonsAdapter = new AdapterPlayerRandomonsList(context);
+                randomonsDialog.setAdapter(playerRandomonsAdapter);
+
+
+
+                ArrayList<Move> moves1 = new ArrayList<Move>();
+                moves1.add(new Move("fire","fire.png"));
+
+                for(int i = 0; i<10; i++)
+                    playerRandomonsAdapter.addItem(new Randomon("T-Lion", "Fire", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.chinelong,1,moves1));
+
+                setRandomon = 2;
+                dialog.setCancelable(true);
+                dialog.show();
+
+            }
+        });
+
+        randomonsDialog.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (setRandomon == 1){
+                    myRandoTradeImg.setImageResource(((Randomon)myRandomonsAdapter.getItem(position)).getPicId());
+                    myRandoTradeName.setText(((Randomon)myRandomonsAdapter.getItem(position)).getName());
+                }else{
+                    playerRandoTradeImg.setImageResource(((Randomon)playerRandomonsAdapter.getItem(position)).getPicId());
+                    playerRandoTradeName.setText(((Randomon)playerRandomonsAdapter.getItem(position)).getName());
+                }
+                dialog.dismiss();
+
+            }
+        });
+
+        tradeIcon.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                refreshTrade();
+            }
+        });
+
+
+    }
+
+    public void refreshTrade(){
+
+
+
     }
 }
