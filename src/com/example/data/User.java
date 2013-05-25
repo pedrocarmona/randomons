@@ -9,12 +9,14 @@ public class User {
     private String name;
     private long points;
     private ArrayList<Randomon> randomonCollection;
+    private ArrayList<CloseEvent> lastEvents;
 
 
     public User(long ranking, String name, long points) {
         this.ranking = ranking;
         this.name = name;
         this.points = points;
+        this.lastEvents = new ArrayList<CloseEvent>();
         this.randomonCollection = new ArrayList<Randomon>();
     }
 
