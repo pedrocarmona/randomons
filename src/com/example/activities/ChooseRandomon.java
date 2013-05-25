@@ -135,9 +135,9 @@ public class ChooseRandomon extends SlidingActivity
                             leverImg.setImageResource(R.drawable.lever_down);
 
                            /* SORT STARTER RANDOMONS HERE */
-                            Randomon r1 = new Randomon("Randomon 1 ", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal", R.drawable.randomom);
-                            Randomon r2 = new Randomon("Randomon 2 ", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal", R.drawable.randomom);
-                            Randomon r3 = new Randomon("Randomon 3 ", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal", R.drawable.randomom);
+                            Randomon r1 = new Randomon("Randomon 1 ", "Fuego", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal", "fast randomon lives in mountains", R.drawable.t_lion);
+                            Randomon r2 = new Randomon("Randomon 2 ", "Aqua", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal", "randomon lives near the beach", R.drawable.ponycorn);
+                            Randomon r3 = new Randomon("Randomon 3 ", "Planta", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal", "Cute randomon present everywhere, strong by nature", R.drawable.cyclosnake);
                             sortedRandomons[0] = r1;
                             sortedRandomons[1] = r2;
                             sortedRandomons[2] = r3;

@@ -109,7 +109,7 @@ public class Trade extends SlidingActivity
                 randomonsDialog.setAdapter(myRandomonsAdapter);
 
                 for(int i = 0; i<10; i++)
-                    myRandomonsAdapter.addItem(new Randomon("Pikachu "+i, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal", R.drawable.randomom));
+                    myRandomonsAdapter.addItem(new Randomon("T-Lion", "Fire", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.t_lion));
 
                 setRandomon = 1;
                 dialog.setCancelable(true);
@@ -126,7 +126,7 @@ public class Trade extends SlidingActivity
                 randomonsDialog.setAdapter(playerRandomonsAdapter);
 
                 for(int i = 0; i<10; i++)
-                    playerRandomonsAdapter.addItem(new Randomon("Charmander "+i, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal", R.drawable.randomom));
+                    playerRandomonsAdapter.addItem(new Randomon("T-Lion", "Fire", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.chinelong));
 
                 setRandomon = 2;
                 dialog.setCancelable(true);

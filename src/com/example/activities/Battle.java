@@ -114,8 +114,8 @@ public class Battle extends SimpleBaseGameActivity {
         this.mFont = FontFactory.create(this.getFontManager(), this.getTextureManager(), 256, 256, Typeface.create(Typeface.DEFAULT, Typeface.BOLD), 16);
         this.mFont.load();
         
-        this.leftRandomon = new Randomon("Randomon 1 ", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal", R.drawable.randomom);
-        this.rightRandomon =  new Randomon("Randomina", 60, 40, 30, 1.1, 200, 4, 100, 13, "Normal", R.drawable.randomom);
+        this.leftRandomon = new Randomon("Randomon 1 ", "Doidao", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.randomom);
+        this.rightRandomon =  new Randomon("Randomina", "Minado", 60, 40, 30, 1.1, 200, 4, 100, 13, "Normal", "fast randomon lives in mountains", R.drawable.randomom);
 
 
     }
