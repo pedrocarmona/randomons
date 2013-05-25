@@ -52,4 +52,12 @@ public class User {
     public void setRandomonCollection(ArrayList<Randomon> randomonCollection) {
         this.randomonCollection = randomonCollection;
     }
+
+    public ArrayList<CloseEvent> getLastEvents() {
+        return lastEvents;
+    }
+
+    public void setLastEvents(ArrayList<CloseEvent> lastEvents) {
+        this.lastEvents = lastEvents;
+    }
 }
