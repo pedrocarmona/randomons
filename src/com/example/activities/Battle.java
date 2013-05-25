@@ -159,17 +159,13 @@ public class Battle extends SimpleBaseGameActivity {
         this.mRightRandomonTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(this.mRightRandomonTextureAtlas, this, "ldpi/randomon2.png", 0, 0, 4, 4);
         this.mRightRandomonTextureAtlas.load();
 
-
-
-
         ArrayList<Move> moves1 = new ArrayList<Move>();
         moves1.add(new Move("fire","fire.png"));
         ArrayList<Move> moves2 = new ArrayList<Move>();
         moves2.add(new Move("water","water.png"));
 
-
-        this.leftRandomon = new Randomon("Randomon 1 ","Normal", 40, 30, 60, 1.1, 4, 200, 13,200 , "doente","randomom muito bonito" ,1,1,moves1);
-        this.rightRandomon =  new Randomon("Randomina", "Normal" , 60, 40, 30, 1.1, 4, 200, 13, 200,"sedutora","randomomina muito sexy",1,1,moves2);
+        this.leftRandomon = new Randomon("Randomon 1 ","Normal", 40, 30, 60, 1.1, 200, 13,200 ,19, "doente","randomom muito bonito" ,1,1,moves1);
+        this.rightRandomon =  new Randomon("Randomina", "Normal" , 60, 40, 30, 1.1, 200, 13, 200,31,"sedutora","randomomina muito sexy",1,1,moves2);
 
         this.mBitmapTextureAtlas = new BitmapTextureAtlas(this.getTextureManager(), 32, 32, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
         this.mParticleTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(this.mBitmapTextureAtlas, this, "particle_fire.png", 0, 0);

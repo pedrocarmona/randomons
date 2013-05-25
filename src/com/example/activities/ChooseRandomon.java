@@ -145,7 +145,7 @@ public class ChooseRandomon extends SlidingActivity
                             ArrayList<Move> moves3 = new ArrayList<Move>();
                             moves1.add(new Move("fire","fire.png"));
                             Randomon r1 = new Randomon("Randomon 1 ", "Fuego", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal", "fast randomon lives in mountains", R.drawable.t_lion,1,moves1);
-                            Randomon r2 = new Randomon("Randomon 2 ", "Aqua", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal", "randomon lives near the beach", R.drawable.ponycornq,2,moves2);
+                            Randomon r2 = new Randomon("Randomon 2 ", "Aqua", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal", "randomon lives near the beach", R.drawable.ponycorn,2,moves2);
                             Randomon r3 = new Randomon("Randomon 3 ", "Planta", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal", "Cute randomon present everywhere, strong by nature", R.drawable.cyclosnake,3,moves3);
                             sortedRandomons[0] = r1;
                             sortedRandomons[1] = r2;
