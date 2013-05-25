@@ -85,6 +85,7 @@
                 android:background="@drawable/trade_div_bg">
 
             <ImageView
+                    android:id="@+id/trade_icon"
                     android:layout_width="50dip"
                     android:layout_height="50dip"
                     android:padding="5dip"

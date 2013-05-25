@@ -1,8 +1,12 @@
 package com.example.data;
 
-public class Randomon
+import java.io.Serializable;
+import java.util.ArrayList;
+
+public class Randomon implements Serializable
 {
     private String name;
+    private String type;
     private int hitpoints;
     private int attack;
     private int defense;
@@ -12,11 +16,17 @@ public class Randomon
     private int current_hitpoints;
     private int current_experience;
     private String status;
+    private String description;
     private int preference;
+    private int picId;
     private User user;
+    private ArrayList<Move> moves;
 
-    public Randomon(String name, int attack, int defense, int speed, double growth, int hitpoints, int level, int current_hitpoints, int current_experience, String status) {
+    public Randomon(String name, String type, int attack, int defense, int speed, double growth, int hitpoints,
+                    int level, int current_hitpoints, int current_experience, String status, String description, int picId
+                    , int creatureId,  ArrayList<Move> moves) {
         this.name = name;
+        this.type = type;
         this.attack = attack;
         this.defense = defense;
         this.speed = speed;
@@ -26,6 +36,18 @@ public class Randomon
         this.current_hitpoints = current_hitpoints;
         this.current_experience = current_experience;
         this.status = status;
+        this.description = description;
+        this.picId = picId;
+        this.moves = moves;
+
+    }
+
+    public ArrayList<Move> getMoves() {
+        return moves;
+    }
+
+    public void setMoves(ArrayList<Move> moves) {
+        this.moves = moves;
     }
 
     public String getName() {
@@ -34,6 +56,14 @@ public class Randomon
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public int getHitpoints() {
@@ -106,6 +136,22 @@ public class Randomon
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getPicId() {
+        return picId;
+    }
+
+    public void setPicId(int picId) {
+        this.picId = picId;
     }
 
     public int getPreference() {

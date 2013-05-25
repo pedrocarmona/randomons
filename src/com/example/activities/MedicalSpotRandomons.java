@@ -39,7 +39,7 @@ public class MedicalSpotRandomons extends SherlockFragment
 
         //PARA EXEMPLO
         for(int i = 0; i<10; i++)
-            adapter.addItem(new Randomon("Coiso "+i, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal"));
+            adapter.addItem(new Randomon("T-Lion", "Fire", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.t_lion));
 
         addClickListeners();
 

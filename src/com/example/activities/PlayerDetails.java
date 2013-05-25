@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
+import android.widget.AdapterView;
 import com.actionbarsherlock.view.MenuItem;
 import com.example.adapters.AdapterPlayerRandomonsList;
 import com.example.data.Randomon;
@@ -15,17 +16,31 @@ import org.holoeverywhere.widget.ListView;
 import org.holoeverywhere.widget.TextView;
 import org.holoeverywhere.widget.Toast;
 
+import java.util.ArrayList;
+
 public class PlayerDetails extends SlidingFragmentActivity {
 
     private Context ctx = this;
     private Button but_battle, but_trade;
     private TextView textName, textNat, textRank, textVictories, textRandomons;
+    private ListView playerRandomonList;
+    private AdapterPlayerRandomonsList plRandomonsAdapter;
+
+    private ArrayList<Randomon> userRandomons = new ArrayList<Randomon>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.player_details);
+
+        userRandomons.add(new Randomon("Catzinga", "Psychic", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.catzinga));
+        userRandomons.add(new Randomon("Canibalape", "Earth", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.canibalape));
+        userRandomons.add(new Randomon("Cyclosnake", "Grass", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.cyclosnake));
+        userRandomons.add(new Randomon("T-Lion", "Fire", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.t_lion));
+        userRandomons.add(new Randomon("Ponycorn", "Water", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.ponycorn));
+        userRandomons.add(new Randomon("Chinelong", "Dragon", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.chinelong));
+
 
         addSlidingMenu();
 
@@ -43,15 +58,16 @@ public class PlayerDetails extends SlidingFragmentActivity {
         textVictories.setText(Html.fromHtml("<b>Battles Won: </b>" + "-1"));
         textRandomons.setText(Html.fromHtml("<b># Randomons: </b>" + "Nem um"));
 
+        playerRandomonList = (ListView) findViewById(R.id.pl_randomons_listview);
 
         ListView plRandomonsView = (ListView) findViewById(R.id.pl_randomons_listview);
 
-        AdapterPlayerRandomonsList plRandomonsAdapter = new AdapterPlayerRandomonsList(this);
+        plRandomonsAdapter = new AdapterPlayerRandomonsList(this);
 
         plRandomonsView.setAdapter(plRandomonsAdapter);
 
-        for(int i = 0; i<20; i++)
-            plRandomonsAdapter.addItem(new Randomon("Randomon "+i, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal"));
+        for(int i = 0; i<userRandomons.size(); i++)
+            plRandomonsAdapter.addItem(userRandomons.get(i));
 
         but_battle.setOnClickListener(new View.OnClickListener()
         {
@@ -71,6 +87,19 @@ public class PlayerDetails extends SlidingFragmentActivity {
                 PlayerDetails.this.startActivity(intent);
             }
         });
+
+        playerRandomonList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //Carrega no randomon e deve abrir o menu dex do randomon
+                Bundle bnd = new Bundle();
+                bnd.putSerializable("randomon", ((Randomon) plRandomonsAdapter.getItem(position)));
+                Intent intent = new Intent(view.getContext(), RandomonDexInfo.class);
+                intent.putExtras(bnd);
+                PlayerDetails.this.startActivity(intent);
+            }
+        });
+
     }
 
     @Override
