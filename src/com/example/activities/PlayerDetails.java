@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import com.actionbarsherlock.view.MenuItem;
 import com.example.adapters.AdapterPlayerRandomonsList;
+import com.example.data.Move;
 import com.example.data.Randomon;
 import com.example.menus.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
@@ -34,12 +35,15 @@ public class PlayerDetails extends SlidingFragmentActivity {
 
         setContentView(R.layout.player_details);
 
-        userRandomons.add(new Randomon("Catzinga", "Psychic", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.catzinga));
-        userRandomons.add(new Randomon("Canibalape", "Earth", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.canibalape));
-        userRandomons.add(new Randomon("Cyclosnake", "Grass", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.cyclosnake));
-        userRandomons.add(new Randomon("T-Lion", "Fire", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.t_lion));
-        userRandomons.add(new Randomon("Ponycorn", "Water", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.ponycorn));
-        userRandomons.add(new Randomon("Chinelong", "Dragon", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.chinelong));
+
+        ArrayList<Move> moves1 = new ArrayList<Move>();
+        moves1.add(new Move("fire","fire.png"));
+        userRandomons.add(new Randomon("Catzinga", "Psychic", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.catzinga,1,moves1));
+        userRandomons.add(new Randomon("Canibalape", "Earth", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.canibalape,2,moves1));
+        userRandomons.add(new Randomon("Cyclosnake", "Grass", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.cyclosnake,3,moves1));
+        userRandomons.add(new Randomon("T-Lion", "Fire", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.t_lion,4,moves1));
+        userRandomons.add(new Randomon("Ponycorn", "Water", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.ponycorn,5,moves1));
+        userRandomons.add(new Randomon("Chinelong", "Dragon", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.chinelong,6,moves1));
 
 
         addSlidingMenu();

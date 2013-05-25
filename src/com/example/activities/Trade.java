@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import com.actionbarsherlock.view.MenuItem;
 import com.example.adapters.AdapterPlayerRandomonsList;
+import com.example.data.Move;
 import com.example.data.Randomon;
 import com.example.menus.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
@@ -17,6 +18,8 @@ import org.holoeverywhere.drawable.ColorDrawable;
 import org.holoeverywhere.widget.LinearLayout;
 import org.holoeverywhere.widget.ListView;
 import org.holoeverywhere.widget.TextView;
+
+import java.util.ArrayList;
 
 public class Trade extends SlidingActivity
 {
@@ -108,8 +111,12 @@ public class Trade extends SlidingActivity
                 myRandomonsAdapter = new AdapterPlayerRandomonsList(context);
                 randomonsDialog.setAdapter(myRandomonsAdapter);
 
+
+                ArrayList<Move> moves1 = new ArrayList<Move>();
+                moves1.add(new Move("fire","fire.png"));
+
                 for(int i = 0; i<10; i++)
-                    myRandomonsAdapter.addItem(new Randomon("T-Lion", "Fire", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.t_lion));
+                    myRandomonsAdapter.addItem(new Randomon("T-Lion", "Fire", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.t_lion,1,moves1));
 
                 setRandomon = 1;
                 dialog.setCancelable(true);
@@ -125,8 +132,13 @@ public class Trade extends SlidingActivity
                 playerRandomonsAdapter = new AdapterPlayerRandomonsList(context);
                 randomonsDialog.setAdapter(playerRandomonsAdapter);
 
+
+
+                ArrayList<Move> moves1 = new ArrayList<Move>();
+                moves1.add(new Move("fire","fire.png"));
+
                 for(int i = 0; i<10; i++)
-                    playerRandomonsAdapter.addItem(new Randomon("T-Lion", "Fire", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.chinelong));
+                    playerRandomonsAdapter.addItem(new Randomon("T-Lion", "Fire", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.chinelong,1,moves1));
 
                 setRandomon = 2;
                 dialog.setCancelable(true);

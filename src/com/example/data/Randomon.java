@@ -1,6 +1,7 @@
 package com.example.data;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Randomon implements Serializable
 {
@@ -19,8 +20,11 @@ public class Randomon implements Serializable
     private int preference;
     private int picId;
     private User user;
+    private ArrayList<Move> moves;
 
-    public Randomon(String name, String type, int attack, int defense, int speed, double growth, int hitpoints, int level, int current_hitpoints, int current_experience, String status, String description, int picId) {
+    public Randomon(String name, String type, int attack, int defense, int speed, double growth, int hitpoints,
+                    int level, int current_hitpoints, int current_experience, String status, String description, int picId
+                    , int creatureId,  ArrayList<Move> moves) {
         this.name = name;
         this.type = type;
         this.attack = attack;
@@ -34,7 +38,16 @@ public class Randomon implements Serializable
         this.status = status;
         this.description = description;
         this.picId = picId;
+        this.moves = moves;
 
+    }
+
+    public ArrayList<Move> getMoves() {
+        return moves;
+    }
+
+    public void setMoves(ArrayList<Move> moves) {
+        this.moves = moves;
     }
 
     public String getName() {
