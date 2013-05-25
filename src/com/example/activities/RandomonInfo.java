@@ -78,17 +78,6 @@ public class RandomonInfo extends SherlockActivity {
         tempCanvas.drawLine((float)(targetWidth/2+targetWidth/2*Math.sin(0.45)),tmp_down_r,(float)(targetWidth/2-targetWidth/2*Math.sin(0.45)),tmp_down_l,paint);
 
 
-
-        //tempCanvas.drawCircle(tmp_left+screen_Size,targetHeight/2-screen_Size,10,paint);
-        //tempCanvas.drawCircle(tmp_right-screen_Size,targetHeight/2-screen_Size,10,paint);
-
-        //tempCanvas.drawCircle(tmp_left+30,targetHeight/2-30,10,paint);
-        //tempCanvas.drawCircle(tmp_right-30,targetHeight/2+30,10,paint);
-
-
-
-
-
         imgPentagono.setImageDrawable(new BitmapDrawable(getResources(), tempBitmap));
 
 
