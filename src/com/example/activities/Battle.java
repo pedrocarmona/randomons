@@ -182,7 +182,7 @@ public class Battle extends SimpleBaseGameActivity {
         this.mRightRandomonTextureAtlas.load();
 
 
-        this.movesTextureAtlas = new BitmapTextureAtlas(this.getTextureManager(), 2048, 2048);
+        this.movesTextureAtlas = new BitmapTextureAtlas(this.getTextureManager(), 1024, 1024);
         this.movesTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(this.movesTextureAtlas, this, "packattack.png", 0, 0, 4, 4);
         this.movesTextureAtlas.load();
 
@@ -235,10 +235,9 @@ public class Battle extends SimpleBaseGameActivity {
         scene.attachChild(leftRandomonSprite);
         rightRandomonSprite = new AnimatedSprite(CAMERA_WIDTH-160, CAMERA_HEIGHT-128,128,128,  this.mRightRandomonTextureRegion, this.getVertexBufferObjectManager());
         scene.attachChild(rightRandomonSprite);
-        movimentoInicial();
-        movesSprite = new AnimatedSprite(CAMERA_WIDTH/2, CAMERA_HEIGHT/2,128,128,  this.movesTextureRegion, this.getVertexBufferObjectManager());
+        movesSprite = new AnimatedSprite(CAMERA_WIDTH/2, CAMERA_HEIGHT/2,64,64,  this.movesTextureRegion, this.getVertexBufferObjectManager());
         scene.attachChild(movesSprite);
-        movesSprite.setVisible(true);
+        movimentoInicial();
 
         /* Create the rectangles. */
         final Rectangle rect1 = this.makeColoredRectangle(-60, -60, 1, 0, 0);
@@ -353,7 +352,9 @@ public class Battle extends SimpleBaseGameActivity {
     public void movimentoInicial(){
         leftRandomonSprite.animate(new long[]{400, 400}, 0, 1, true);
         rightRandomonSprite.animate(new long[]{400, 400}, 0, 1, true);
-        movesSprite.animate(new long[]{100, 100,100,100}, 0, 3, true);
+        movesSprite.setX(leftRandomonSprite.getX());
+        movesSprite.setY(leftRandomonSprite.getY());
+        movesSprite.animate(new long[]{100,100,100,100}, 0, 3, true);
     }
 
 
@@ -385,8 +386,7 @@ public class Battle extends SimpleBaseGameActivity {
         };
 
         leftIsFirst=true;
-        final Engine.EngineLock engineLock = this.mEngine.getEngineLock();
-        engineLock.lock();
+
 
         switch (step){
             case SPRITE_INICIO:
@@ -405,23 +405,25 @@ public class Battle extends SimpleBaseGameActivity {
                 }
                 break;
             case SPRITE_AFTER_ATTACK1:
-                if(true){
-                    break;
-                }
+                final Engine.EngineLock engineLock = this.mEngine.getEngineLock();
+                engineLock.lock();
                 if(leftIsFirst){
                     // start move
-                    //movesSprite.setX(leftRandomonSprite.getX()+leftRandomonSprite.getWidth());
-                    //movesSprite.setY(leftRandomonSprite.getY());
+
+                    movesSprite.setX(leftRandomonSprite.getX()+leftRandomonSprite.getWidth());
+                    movesSprite.setY(leftRandomonSprite.getY());
 
                     movesSprite.setVisible(true);
-                    movesSprite.animate(new long[]{100, 100,100,100}, 0 , 4,1,anime);
+                    movesSprite.animate(new long[]{200, 200,200,200}, 0 , 4,1,anime);
+
                 }else{
-                    //movesSprite.setX(leftRandomonSprite.getX()+leftRandomonSprite.getWidth());
-                    //movesSprite.setY(leftRandomonSprite.getY());
+                    movesSprite.setX(leftRandomonSprite.getX()+leftRandomonSprite.getWidth());
+                    movesSprite.setY(leftRandomonSprite.getY());
                     movesSprite.setVisible(true);
-                    movesSprite.animate(new long[]{100, 100, 100, 100}, 0, 4,1,anime);
-                }
+                    movesSprite.animate(new long[]{200, 200, 200, 200}, 0, 4,1,anime);
 
+                }
+                engineLock.unlock();
                 break;
             case SPRITE_AFTER_MOVE1:
 
@@ -434,9 +436,7 @@ public class Battle extends SimpleBaseGameActivity {
 
                 break;
             case SPRITE_AFTER_DEFENSE1:
-                if(true){
-                    break;
-                }
+
                 if(leftIsFirst){
                     leftAtacked = true;
 
@@ -450,9 +450,7 @@ public class Battle extends SimpleBaseGameActivity {
 
                 break;
             case SPRITE_AFTER_PAUSE:
-                if(true){
-                    break;
-                }
+
                 if (leftIsFirst){
                     // Righs side player atacks
                     rightRandomonSprite.animate(new long[]{100, 100, 100}, 2, 4, 5, anime);
@@ -466,9 +464,7 @@ public class Battle extends SimpleBaseGameActivity {
 
                 break;
             case SPRITE_AFTER_ATTACK2:
-                if(true){
-                    break;
-                }
+
                 if(leftIsFirst){
                     // start move
                     movesSprite.setX(leftRandomonSprite.getX()+leftRandomonSprite.getWidth());
@@ -485,9 +481,7 @@ public class Battle extends SimpleBaseGameActivity {
 
                 break;
             case SPRITE_AFTER_MOVE2:
-                if(true){
-                    break;
-                }
+
                 if (leftIsFirst){
                     // Righs side player atacks
                     rightRandomonSprite.animate(new long[]{100, 100, 100}, 2, 4, 5, anime);
@@ -501,9 +495,7 @@ public class Battle extends SimpleBaseGameActivity {
 
                 break;
             case SPRITE_AFTER_DEFENSE2:
-                if(true){
-                    break;
-                }
+
                 if(leftIsFirst){
                     leftAtacked = true;
                 }else{
@@ -512,7 +504,6 @@ public class Battle extends SimpleBaseGameActivity {
                 updateHitPoints();
                 break;
         }
-        engineLock.unlock();
 
         step++;
         if(step==SPRITE_AFTER_DEFENSE2+1)
@@ -571,9 +562,7 @@ public class Battle extends SimpleBaseGameActivity {
         resultText.setVisible(true);
     }
 
-    private String initWallpaper(){
-        return "";
-    }
+
 
     private void updateText(){
         String text1 = leftRandomon.getName()+" lvl."+leftRandomon.getLevel()+" "+" ("+leftRandomon.getCurrent_hitpoints()+"/"+leftRandomon.getHitpoints()+")";
