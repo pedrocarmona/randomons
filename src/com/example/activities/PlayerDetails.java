@@ -37,11 +37,11 @@ public class PlayerDetails extends SlidingFragmentActivity {
 
 
         ArrayList<Move> moves1 = new ArrayList<Move>();
-        moves1.add(new Move("fire","fire.png"));
+        moves1.add(new Move("fire",R.drawable.quest_mark, 50));
         userRandomons.add(new Randomon("Catzinga", "Psychic", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.catzinga,1,moves1));
         userRandomons.add(new Randomon("Canibalape", "Earth", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.canibalape,2,moves1));
         userRandomons.add(new Randomon("Cyclosnake", "Grass", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.cyclosnake,3,moves1));
-        userRandomons.add(new Randomon("T-Lion", "Fire", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.t_lion,4,moves1));
+        userRandomons.add(new Randomon("T-Lion", "Fire", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.tetrauros,4,moves1));
         userRandomons.add(new Randomon("Ponycorn", "Water", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.ponycorn,5,moves1));
         userRandomons.add(new Randomon("Chinelong", "Dragon", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.chinelong,6,moves1));
 

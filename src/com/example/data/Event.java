@@ -4,10 +4,12 @@ public class Event {
 
     private String date;
     private String description;
+    private int evtPicId;
 
-    public Event(String date, String description) {
+    public Event(String date, String description, int evtPicId) {
         this.date = date;
         this.description = description;
+        this.evtPicId = evtPicId;
     }
 
     public String getDate() {
@@ -26,4 +28,11 @@ public class Event {
         this.description = description;
     }
 
+    public int getEvtPicId() {
+        return evtPicId;
+    }
+
+    public void setEvtPicId(int evtPicId) {
+        this.evtPicId = evtPicId;
+    }
 }

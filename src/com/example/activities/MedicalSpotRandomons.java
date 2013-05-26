@@ -40,12 +40,12 @@ public class MedicalSpotRandomons extends SherlockFragment
 
         listView.setAdapter(adapter);
         ArrayList<Move> moves1 = new ArrayList<Move>();
-        moves1.add(new Move("fire","fire.png"));
+        moves1.add(new Move("fire",R.drawable.tetrauros,50));
 
         //PARA EXEMPLO
         for(int i = 0; i<10; i++)
 
-            adapter.addItem(new Randomon("T-Lion", "Fire", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.t_lion,i,moves1));
+            adapter.addItem(new Randomon("T-Lion", "Fire", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.tetrauros,i,moves1));
 
         addClickListeners();
 

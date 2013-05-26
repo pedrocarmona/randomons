@@ -2,6 +2,7 @@ package com.example.activities;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.MenuItem;
 import com.example.data.Randomon;
@@ -13,7 +14,8 @@ public class RandomonDexInfo extends SlidingActivity
 {
 
     private Randomon randomonSelected;
-    private TextView randomonDexName, randomonDexType;
+    private ImageView randomonDexImg;
+    private TextView randomonDexName, randomonDexType, randomonDexDesc;
 
     public void onCreate(Bundle savedInstanceState)
     {
@@ -21,17 +23,21 @@ public class RandomonDexInfo extends SlidingActivity
         setContentView(R.layout.randomon_dex_info);
 
         randomonSelected = (Randomon) getIntent().getSerializableExtra("randomon");
-
+        randomonDexImg = (ImageView) findViewById(R.id.randomon_dex_img);
         randomonDexName = (TextView) findViewById(R.id.randomon_dex_name);
         randomonDexType = (TextView) findViewById(R.id.randomon_dex_type);
+        randomonDexDesc = (TextView) findViewById(R.id.randomon_dex_desc);
+
 
         addSlidingMenu();
 
         final ActionBar bar = getSupportActionBar();
         bar.setTitle("Randomon Info");
 
+        randomonDexImg.setImageResource(randomonSelected.getPicId());
         randomonDexName.setText(randomonSelected.getName());
         randomonDexType.setText(randomonSelected.getType());
+        randomonDexDesc.setText(randomonSelected.getDescription());
     }
 
     @Override

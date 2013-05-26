@@ -3,19 +3,21 @@ package com.example.data;
 
 import java.util.ArrayList;
 
-public class User {
+public class Player {
 
     private long ranking;
     private String name;
     private long points;
+    private int playerImg;
     private ArrayList<Randomon> randomonCollection;
     private ArrayList<CloseEvent> lastEvents;
 
 
-    public User(long ranking, String name, long points) {
+    public Player(long ranking, String name, long points, int playerImg) {
         this.ranking = ranking;
         this.name = name;
         this.points = points;
+        this.playerImg = playerImg;
         this.lastEvents = new ArrayList<CloseEvent>();
         this.randomonCollection = new ArrayList<Randomon>();
     }
@@ -43,6 +45,14 @@ public class User {
 
     public void setPoints(long points) {
         this.points = points;
+    }
+
+    public int getPlayerImg() {
+        return playerImg;
+    }
+
+    public void setPlayerImg(int playerImg) {
+        this.playerImg = playerImg;
     }
 
     public ArrayList<Randomon> getRandomonCollection() {

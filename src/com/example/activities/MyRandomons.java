@@ -8,27 +8,17 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import com.actionbarsherlock.view.MenuItem;
 import com.antipodalwall.AntipodalWallLayout;
+import com.example.data.Move;
+import com.example.data.Randomon;
 import com.example.menus.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
 import org.holoeverywhere.widget.Toast;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Telmo
- * Date: 16-05-2013
- * Time: 0:19
- * To change this template use File | Settings | File Templates.
- */
+import java.util.ArrayList;
+
 public class MyRandomons extends SlidingActivity
 {
-
-    int images[]={  R.drawable.img1,R.drawable.img5,
-            R.drawable.img2,R.drawable.img6,
-            R.drawable.img3,R.drawable.img7,
-            R.drawable.img4,R.drawable.img8,
-            R.drawable.item,R.drawable.avatar_img,
-            R.drawable.avatar_img
-    };
+    private ArrayList<Randomon> playerRandomons = new ArrayList<Randomon>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,79 +32,40 @@ public class MyRandomons extends SlidingActivity
 
         AntipodalWallLayout layout = (AntipodalWallLayout)findViewById(R.id.antipodal_wall);
 
-        /*Bitmap mBitmap = Bitmap.createBitmap(500, 500, Bitmap.Config.ARGB_8888);
-        Canvas mCanvas = new Canvas(mBitmap);
-        mCanvasgetResources().getDrawable(R.drawable.img1);
-        Drawable drawable;
-        drawable.draw(mCanvas);
-        */
-
-
-        setImage(0,layout);
-        setImage(1,layout);
-        setImage(2,layout);
-        setImage(3,layout);
-        setImage(4,layout);
-
         Toast.makeText(getApplicationContext(),"shit",Toast.LENGTH_LONG).show();
 
-        ImageView img5 = new ImageView(this);
-        img5.setImageResource(images[5]);
-        layout.addView(img5);
+        /*TEMPORARY DATA*/
+        ArrayList<Move> moves1 = new ArrayList<Move>();
+        moves1.add(new Move("fire",R.drawable.quest_mark, 50));
+        playerRandomons.add(new Randomon("Catzinga", "Psychic", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.catzinga,1,moves1));
+        playerRandomons.add(new Randomon("Tetrauros", "Prehistoric", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.tetrauros,2,moves1));
+        playerRandomons.add(new Randomon("Canibalape", "Canibal", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.canibalape,3,moves1));
+        playerRandomons.add(new Randomon("Chinelong", "Flying", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.chinelong,4,moves1));
+        playerRandomons.add(new Randomon("Ponycorn", "Mythical", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.ponycorn,5,moves1));
+        playerRandomons.add(new Randomon("Cyclosnake", "Poison", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.cyclosnake,6,moves1));
 
-        ImageView img6 = new ImageView(this);
-        img6.setImageResource(images[6]);
-        layout.addView(img6);
+        for (Randomon plRandomons : playerRandomons) {
+            ImageView img = new ImageView(this);
+            img.setImageResource(plRandomons.getPicId());
+            layout.addView(img);
+            addImgListener(img, plRandomons);
+        }
 
-        ImageView img7 = new ImageView(this);
-        img7.setImageResource(images[7]);
-        layout.addView(img7);
+    }
 
-        ImageView img8 = new ImageView(this);
-        img8.setImageResource(images[8]);
-        layout.addView(img8);
+    public void addImgListener(ImageView img, final Randomon plRandomons){
 
-        ImageView img9 = new ImageView(this);
-        img9.setImageResource(images[9]);
-        layout.addView(img9);
-
-        ImageView img10 = new ImageView(this);
-        img10.setImageResource(images[10]);
-        layout.addView(img10);
-
-        ImageView img11 = new ImageView(this);
-        img11.setImageResource(R.drawable.img_pentagono);
-        layout.addView(img11);
-
-        ImageView img12 = new ImageView(this);
-        img12.setImageResource(R.drawable.img_pentagono);
-        layout.addView(img12);
-
-        ImageView img13 = new ImageView(this);
-        img13.setImageResource(R.drawable.img_pentagono);
-        layout.addView(img13);
-
-        ImageView img14 = new ImageView(this);
-        img14.setImageResource(R.drawable.img_pentagono);
-        layout.addView(img14);
-
-        img10.setOnClickListener(new View.OnClickListener(){
+        img.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
+                Bundle bnd = new Bundle();
+                bnd.putSerializable("randomon", plRandomons);
                 Intent intent = new Intent(v.getContext(), RandomonInfo.class);
-                MyRandomons.this.startActivity(intent);            }
+                intent.putExtras(bnd);
+                MyRandomons.this.startActivity(intent);
+            }
         });
-    }
-
-    public void setImage(int j,AntipodalWallLayout layout){
-
-        ImageView img = new ImageView(this);
-        img.setImageResource(images[j]);
-
-        layout.addView(img);
-
-
 
     }
 

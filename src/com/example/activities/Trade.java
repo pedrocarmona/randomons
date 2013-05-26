@@ -113,10 +113,10 @@ public class Trade extends SlidingActivity
 
 
                 ArrayList<Move> moves1 = new ArrayList<Move>();
-                moves1.add(new Move("fire","fire.png"));
+                moves1.add(new Move("fire",R.drawable.tetrauros, 50));
 
                 for(int i = 0; i<10; i++)
-                    myRandomonsAdapter.addItem(new Randomon("T-Lion", "Fire", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.t_lion,1,moves1));
+                    myRandomonsAdapter.addItem(new Randomon("T-Lion", "Fire", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.tetrauros,1,moves1));
 
                 setRandomon = 1;
                 dialog.setCancelable(true);
@@ -135,7 +135,7 @@ public class Trade extends SlidingActivity
 
 
                 ArrayList<Move> moves1 = new ArrayList<Move>();
-                moves1.add(new Move("fire","fire.png"));
+                moves1.add(new Move("fire",R.drawable.tetrauros,50));
 
                 for(int i = 0; i<10; i++)
                     playerRandomonsAdapter.addItem(new Randomon("T-Lion", "Fire", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.chinelong,1,moves1));
