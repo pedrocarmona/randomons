@@ -95,7 +95,7 @@ public class Battle extends SimpleBaseGameActivity {
     private boolean leftIsFirst;
 
 
-
+    Scene scene;
 
     AnimatedSprite rightRandomonSprite;
     AnimatedSprite leftRandomonSprite;
@@ -182,7 +182,7 @@ public class Battle extends SimpleBaseGameActivity {
         this.mRightRandomonTextureAtlas.load();
 
 
-        this.movesTextureAtlas = new BitmapTextureAtlas(this.getTextureManager(), 2048, 2048);
+        this.movesTextureAtlas = new BitmapTextureAtlas(this.getTextureManager(), 1024, 1024);
         this.movesTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(this.movesTextureAtlas, this, "packattack.png", 0, 0, 4, 4);
         this.movesTextureAtlas.load();
 
@@ -216,7 +216,7 @@ public class Battle extends SimpleBaseGameActivity {
     @Override
     public Scene onCreateScene() {
         this.mEngine.registerUpdateHandler(new FPSLogger());
-        final Scene scene = new Scene();
+        scene = new Scene();
         scene.setBackground(new Background(0.09804f, 0.6274f, 0.8784f));
 
         final VertexBufferObjectManager vertexBufferObjectManager = this.getVertexBufferObjectManager();
@@ -236,9 +236,6 @@ public class Battle extends SimpleBaseGameActivity {
         rightRandomonSprite = new AnimatedSprite(CAMERA_WIDTH-160, CAMERA_HEIGHT-128,128,128,  this.mRightRandomonTextureRegion, this.getVertexBufferObjectManager());
         scene.attachChild(rightRandomonSprite);
         movimentoInicial();
-        movesSprite = new AnimatedSprite(CAMERA_WIDTH/2, CAMERA_HEIGHT/2,128,128,  this.movesTextureRegion, this.getVertexBufferObjectManager());
-        scene.attachChild(movesSprite);
-        movesSprite.setVisible(true);
 
         /* Create the rectangles. */
         final Rectangle rect1 = this.makeColoredRectangle(-60, -60, 1, 0, 0);
@@ -353,13 +350,15 @@ public class Battle extends SimpleBaseGameActivity {
     public void movimentoInicial(){
         leftRandomonSprite.animate(new long[]{400, 400}, 0, 1, true);
         rightRandomonSprite.animate(new long[]{400, 400}, 0, 1, true);
-        movesSprite.animate(new long[]{100, 100,100,100}, 0, 3, true);
+        movesSprite.setX(leftRandomonSprite.getX());
+        movesSprite.setY(leftRandomonSprite.getY());
+        movesSprite.animate(new long[]{100,100,100,100}, 0, 3, true);
     }
 
 
     public void movimento() {
 
-        AnimatedSprite.IAnimationListener anime = new AnimatedSprite.IAnimationListener() {
+        final AnimatedSprite.IAnimationListener anime = new AnimatedSprite.IAnimationListener() {
             @Override
             public void onAnimationStarted(AnimatedSprite pAnimatedSprite, int pInitialLoopCount) {
                 //To change body of implemented methods use File | Settings | File Templates.
@@ -385,8 +384,7 @@ public class Battle extends SimpleBaseGameActivity {
         };
 
         leftIsFirst=true;
-        final Engine.EngineLock engineLock = this.mEngine.getEngineLock();
-        engineLock.lock();
+
 
         switch (step){
             case SPRITE_INICIO:
@@ -405,23 +403,40 @@ public class Battle extends SimpleBaseGameActivity {
                 }
                 break;
             case SPRITE_AFTER_ATTACK1:
-                if(true){
-                    break;
-                }
+                final Engine.EngineLock engineLock = this.mEngine.getEngineLock();
+                engineLock.lock();
                 if(leftIsFirst){
                     // start move
-                    //movesSprite.setX(leftRandomonSprite.getX()+leftRandomonSprite.getWidth());
-                    //movesSprite.setY(leftRandomonSprite.getY());
+                    movesSprite = new AnimatedSprite(leftRandomonSprite.getX()+leftRandomonSprite.getWidth(),
+                            leftRandomonSprite.getY(),256,256,  this.movesTextureRegion, this.getVertexBufferObjectManager());
 
-                    movesSprite.setVisible(true);
-                    movesSprite.animate(new long[]{100, 100,100,100}, 0 , 4,1,anime);
+                    this.runOnUpdateThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            scene.attachChild(movesSprite);
+                            movesSprite.animate(new long[]{200, 200, 200, 200}, 0, 4, 1, anime);
+
+                        }
+                    });
+
+
                 }else{
-                    //movesSprite.setX(leftRandomonSprite.getX()+leftRandomonSprite.getWidth());
-                    //movesSprite.setY(leftRandomonSprite.getY());
-                    movesSprite.setVisible(true);
-                    movesSprite.animate(new long[]{100, 100, 100, 100}, 0, 4,1,anime);
-                }
+                    movesSprite = new AnimatedSprite(leftRandomonSprite.getX()+leftRandomonSprite.getWidth(),
+                            leftRandomonSprite.getY(),256,256,  this.movesTextureRegion, this.getVertexBufferObjectManager());
 
+                    this.runOnUpdateThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            scene.attachChild(movesSprite);
+                            movesSprite.animate(new long[]{200, 200, 200, 200}, 0, 4, 1, anime);
+
+                        }
+                    });
+
+                }
+                engineLock.unlock();
                 break;
             case SPRITE_AFTER_MOVE1:
 
@@ -434,9 +449,7 @@ public class Battle extends SimpleBaseGameActivity {
 
                 break;
             case SPRITE_AFTER_DEFENSE1:
-                if(true){
-                    break;
-                }
+
                 if(leftIsFirst){
                     leftAtacked = true;
 
@@ -450,9 +463,7 @@ public class Battle extends SimpleBaseGameActivity {
 
                 break;
             case SPRITE_AFTER_PAUSE:
-                if(true){
-                    break;
-                }
+
                 if (leftIsFirst){
                     // Righs side player atacks
                     rightRandomonSprite.animate(new long[]{100, 100, 100}, 2, 4, 5, anime);
@@ -466,9 +477,7 @@ public class Battle extends SimpleBaseGameActivity {
 
                 break;
             case SPRITE_AFTER_ATTACK2:
-                if(true){
-                    break;
-                }
+
                 if(leftIsFirst){
                     // start move
                     movesSprite.setX(leftRandomonSprite.getX()+leftRandomonSprite.getWidth());
@@ -485,9 +494,7 @@ public class Battle extends SimpleBaseGameActivity {
 
                 break;
             case SPRITE_AFTER_MOVE2:
-                if(true){
-                    break;
-                }
+
                 if (leftIsFirst){
                     // Righs side player atacks
                     rightRandomonSprite.animate(new long[]{100, 100, 100}, 2, 4, 5, anime);
@@ -501,9 +508,7 @@ public class Battle extends SimpleBaseGameActivity {
 
                 break;
             case SPRITE_AFTER_DEFENSE2:
-                if(true){
-                    break;
-                }
+
                 if(leftIsFirst){
                     leftAtacked = true;
                 }else{
@@ -512,14 +517,9 @@ public class Battle extends SimpleBaseGameActivity {
                 updateHitPoints();
                 break;
         }
-        engineLock.unlock();
-
         step++;
         if(step==SPRITE_AFTER_DEFENSE2+1)
             step=0;
-
-
-
     }
 
     private void updateHitPoints(){
@@ -571,18 +571,16 @@ public class Battle extends SimpleBaseGameActivity {
         resultText.setVisible(true);
     }
 
-    private String initWallpaper(){
-        return "";
-    }
+
 
     private void updateText(){
         String text1 = leftRandomon.getName()+" lvl."+leftRandomon.getLevel()+" "+" ("+leftRandomon.getCurrent_hitpoints()+"/"+leftRandomon.getHitpoints()+")";
         String text2 = rightRandomon.getName()+" lvl."+rightRandomon.getLevel()+" "+" ("+rightRandomon.getCurrent_hitpoints()+"/"+rightRandomon.getHitpoints()+")";
         leftRandomonText.setText(text1);
         rightRandomonText.setText(text2);
-
-
     }
+
+
     // ===========================================================
     // Inner and Anonymous Classes
     // ===========================================================
@@ -617,8 +615,6 @@ public class Battle extends SimpleBaseGameActivity {
 
         }
     };
-
-
     final AnimatedSprite.IAnimationListener animeMoveSecond = new AnimatedSprite.IAnimationListener() {
         @Override
         public void onAnimationStarted(AnimatedSprite pAnimatedSprite, int pInitialLoopCount) {
@@ -684,7 +680,6 @@ public class Battle extends SimpleBaseGameActivity {
 
         }
     };
-
     final AnimatedSprite.IAnimationListener animePause = new AnimatedSprite.IAnimationListener() {
         @Override
         public void onAnimationStarted(AnimatedSprite pAnimatedSprite, int pInitialLoopCount) {
@@ -749,8 +744,6 @@ public class Battle extends SimpleBaseGameActivity {
 
         }
     };
-
-
     final AnimatedSprite.IAnimationListener animeMove = new AnimatedSprite.IAnimationListener() {
         @Override
         public void onAnimationStarted(AnimatedSprite pAnimatedSprite, int pInitialLoopCount) {
@@ -778,7 +771,6 @@ public class Battle extends SimpleBaseGameActivity {
             }
         }
     };
-
     final AnimatedSprite.IAnimationListener animeFirstAtack = new AnimatedSprite.IAnimationListener() {
         @Override
         public void onAnimationStarted(AnimatedSprite pAnimatedSprite, int pInitialLoopCount) {
