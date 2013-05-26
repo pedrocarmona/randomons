@@ -353,6 +353,7 @@ public class Battle extends SimpleBaseGameActivity {
     public void movimentoInicial(){
         leftRandomonSprite.animate(new long[]{400, 400}, 0, 1, true);
         rightRandomonSprite.animate(new long[]{400, 400}, 0, 1, true);
+        movesSprite.animate(new long[]{100, 100,100,100}, 0, 3, true);
     }
 
 
