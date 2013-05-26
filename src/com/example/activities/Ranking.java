@@ -8,8 +8,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.MenuItem;
-import com.example.adapters.AdapterUserList;
-import com.example.data.User;
+import com.example.adapters.AdapterPlayerList;
+import com.example.data.Player;
 import com.example.menus.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
 import org.holoeverywhere.widget.ListView;
@@ -35,16 +35,16 @@ public class Ranking extends SlidingActivity
 
         ListView listView = (ListView) findViewById(R.id.users_list);
 
-        AdapterUserList adapter = new AdapterUserList(this);
+        AdapterPlayerList adapter = new AdapterPlayerList(this);
 
         listView.setAdapter(adapter);
 
         //PARA EXEMPLO
         for(int i = 0; i<500; i++)
             if(i%2 == 0)
-                adapter.addUser(new User((i+1), "Monteiro", 2094851));
+                adapter.addPlayer(new Player((i + 1), "Monteiro", 2094851, R.drawable.avatar_img));
            else
-                adapter.addUser(new User((i+1), "Carmonaman", 2094852));
+                adapter.addPlayer(new Player((i + 1), "Carmonaman", 2094852, R.drawable.avatar_img));
 
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

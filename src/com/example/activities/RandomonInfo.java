@@ -6,23 +6,19 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.view.Display;
-import android.widget.TextView;
 import com.actionbarsherlock.app.SherlockActivity;
-import com.example.adapters.AdapterLastDetails;
-import com.example.adapters.AdapterLastEvents;
+import com.example.adapters.AdapterMoves;
 import com.example.data.Event;
-import com.example.others.DrawView;
-import org.holoeverywhere.widget.LinearLayout;
+import com.example.data.Move;
+import com.example.data.Randomon;
 import org.holoeverywhere.widget.ListView;
+import org.holoeverywhere.widget.TextView;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Telmo
- * Date: 16-05-2013
- * Time: 14:53
- * To change this template use File | Settings | File Templates.
- */
 public class RandomonInfo extends SherlockActivity {
+
+    private Randomon randomonSelected;
+    private ImageView randomonInfoImg;
+    private TextView randomonInfoName, randomonInfoType, randomonInfoLvl;
 
     public void onCreate(Bundle savedInstanceState)
 
@@ -30,6 +26,11 @@ public class RandomonInfo extends SherlockActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.info_randomons);
 
+        randomonSelected = (Randomon) getIntent().getSerializableExtra("randomon");
+        randomonInfoImg = (ImageView) findViewById(R.id.randomon_info_img);
+        randomonInfoName = (TextView) findViewById(R.id.randomon_info_name);
+        randomonInfoLvl = (TextView) findViewById(R.id.randomon_info_lvl);
+        randomonInfoType = (TextView) findViewById(R.id.randomon_info_type);
 
         View layout = findViewById(R.id.layout_pentagono);
 
@@ -40,8 +41,6 @@ public class RandomonInfo extends SherlockActivity {
         int baixo_direita=60;
 
         ImageView imgPentagono = (ImageView) findViewById(R.id.pentagono);
-
-        //imgPentagono.setImageResource(R.drawable.pentagono);
 
         Bitmap bitmapOrg = BitmapFactory.decodeResource(getResources(),R.drawable.pentagon);
         int targetWidth  = bitmapOrg.getWidth();
@@ -55,8 +54,6 @@ public class RandomonInfo extends SherlockActivity {
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(Color.BLUE);
         tempCanvas.drawCircle(targetWidth/2,targetHeight/2,20,paint);
-
-
 
         float tmp_top = (float)(targetHeight/2-((cima*0.01)*targetHeight/2));
         float tmp_left = (float)(targetWidth/2-((esquerda*0.01)*targetWidth/2));
@@ -81,21 +78,24 @@ public class RandomonInfo extends SherlockActivity {
         imgPentagono.setImageDrawable(new BitmapDrawable(getResources(), tempBitmap));
 
 
-        ListView leventsView = (ListView) findViewById(R.id.randomino_details);
+        ListView movesView = (ListView) findViewById(R.id.randomino_details);
 
-        AdapterLastDetails allEvents = new AdapterLastDetails(this);
+        AdapterMoves randomonMoves = new AdapterMoves(this);
 
-        leventsView.setAdapter(allEvents);
+        movesView.setAdapter(randomonMoves);
 
         //PARA EXEMPLO
-        int img = R.drawable.randomom;
-        for(int i = 0; i<20; i++){
-
-            Event event = new Event((i+1)+" ",""+i*1.5+" HP");
 
 
-            allEvents.addEvent(event,img);
+        randomonInfoImg.setImageResource(randomonSelected.getPicId());
+        randomonInfoLvl.setText("Level " + randomonSelected.getLevel());
+        randomonInfoName.setText(randomonSelected.getName());
+        randomonInfoType.setText("Type: " + randomonSelected.getType());
+
+        for(Move mv: randomonSelected.getMoves()){
+            randomonMoves.addItem(mv);
         }
+
 
     }
 

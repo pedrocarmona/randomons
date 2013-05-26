@@ -19,7 +19,7 @@ public class Randomon implements Serializable
     private String description;
     private int preference;
     private int picId;
-    private User user;
+    private Player player;
     private ArrayList<Move> moves;
 
     public Randomon(String name, String type, int attack, int defense, int speed, double growth, int hitpoints,
@@ -162,11 +162,11 @@ public class Randomon implements Serializable
         this.preference = preference;
     }
 
-    public User getUser() {
-        return user;
+    public Player getUser() {
+        return player;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(Player user) {
+        this.player = user;
     }
 }
