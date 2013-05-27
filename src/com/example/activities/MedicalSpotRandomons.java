@@ -58,7 +58,7 @@ public class MedicalSpotRandomons extends SherlockFragment
             @Override
             public void onClick(View v)
             {
-                Toast.makeText(getSherlockActivity(),"Tudo curado",Toast.LENGTH_LONG).show();
+                //Toast.makeText(getSherlockActivity(),"Tudo curado",Toast.LENGTH_LONG).show();
             }
         });
     }

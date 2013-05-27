@@ -3,6 +3,8 @@ package com.example.menus;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,6 +19,7 @@ import java.util.ArrayList;
 
 public class SlidingMenu extends Activity {
 
+    private Context ctx;
     private LayoutInflater inflater;
     private View view;
     private ListView slidingMenuList;
@@ -38,7 +41,9 @@ public class SlidingMenu extends Activity {
         sMenuItems.add(new SlideMenuItem(R.drawable.shop_smenu, "Shop"));
         sMenuItems.add(new SlideMenuItem(R.drawable.medics_smenu, "Medical Spot"));
 
+        ctx = context;
         adapterSMenu = new AdapterSlideMenu(context,R.layout.slide_menu_item,sMenuItems);
+
         slidingMenuList.setAdapter(adapterSMenu);
 
         // customize the SlidingMenu
@@ -50,7 +55,7 @@ public class SlidingMenu extends Activity {
         sm.setFadeDegree(0.25f);
         sm.setMenu(view);
 
-        // adicionar listener
+
 
         slidingMenuList.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
@@ -62,43 +67,64 @@ public class SlidingMenu extends Activity {
                 switch (position)
                 {
                     case 0:
-                        intent = new Intent(view.getContext(), MainMenu.class);
-                        context.startActivity(intent);
+                        if(!(context.getClass().getSimpleName().equals("MainMenu"))){
+                            intent = new Intent(view.getContext(), MainMenu.class);
+                            context.startActivity(intent);
+                        }
                         //finish();
                         break;
                     case 1:
-                        intent = new Intent(view.getContext(), MyRandomons.class);
-                        context.startActivity(intent);
+                        if(!(context.getClass().getSimpleName().equals("MyRandomons"))){
+                            intent = new Intent(view.getContext(), MyRandomons.class);
+                            context.startActivity(intent);
+                        }
                         //finish();
                         break;
                     case 2:
-                        intent = new Intent(view.getContext(), Items.class);
-                        context.startActivity(intent);
+                        if(!(context.getClass().getSimpleName().equals("Items"))){
+
+                            intent = new Intent(view.getContext(), Items.class);
+                            context.startActivity(intent);}
                         //finish();
                         break;
                     case 3:
-                        intent = new Intent(view.getContext(), Ranking.class);
-                        context.startActivity(intent);
+                        if(!(context.getClass().getSimpleName().equals("Ranking"))){
+
+                            intent = new Intent(view.getContext(), Ranking.class);
+                            context.startActivity(intent);
+                        }
                         //finish();
                         break;
                     case 4:
-                        intent = new Intent(view.getContext(), MedicalSpot.class);
-                        context.startActivity(intent);
+                        if(!(context.getClass().getSimpleName().equals("MedicalSpot"))){
+
+                            intent = new Intent(view.getContext(), MedicalSpot.class);
+                            context.startActivity(intent);
+                        }
                         //finish();
                         break;
                     case 5:
-                        intent = new Intent(view.getContext(), MedicalSpot.class);
-                        context.startActivity(intent);
+                        if(!(context.getClass().getSimpleName().equals("MedicalSpot"))){
+
+                            intent = new Intent(view.getContext(), MedicalSpot.class);
+                            context.startActivity(intent);
+                        }
                         //finish();
                         break;
                     case 6:
-                        intent = new Intent(view.getContext(), Shop.class);
-                        context.startActivity(intent);
+                        if(!(context.getClass().getSimpleName().equals("Shop"))){
+
+                            intent = new Intent(view.getContext(), Shop.class);
+                            context.startActivity(intent);
+                        }
                         //finish();
                         break;
                     case 7:
-                        intent = new Intent(view.getContext(), MedicalSpot.class);
-                        context.startActivity(intent);
+                        if(!(context.getClass().getSimpleName().equals("MedicalSpot"))){
+
+                            intent = new Intent(view.getContext(), MedicalSpot.class);
+                            context.startActivity(intent);
+                        }
                         //finish();
                         break;
 

@@ -27,8 +27,8 @@ public class MyPositionStateListener implements LocationListener
             Log.i("Location1", "location");
         }
 
-        Toast.makeText(context, "Lat:"+myLocation.getLatitude() + "Lon:"+myLocation.getLongitude(),
-                Toast.LENGTH_LONG).show();
+        /*Toast.makeText(context, "Lat:"+myLocation.getLatitude() + "Lon:"+myLocation.getLongitude(),
+                Toast.LENGTH_LONG).show();*/
     }
 
     @Override

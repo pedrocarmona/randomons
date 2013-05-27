@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="380dip"
+            android:fadeScrollbars="false"
+            android:background="@drawable/help_bg">
+
+
+    <org.holoeverywhere.widget.LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="15dip"
+            android:paddingLeft="25dip"
+            android:paddingRight="25dip">
+
+        <org.holoeverywhere.widget.LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
+
+            <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/help"
+                    android:contentDescription="">
+            </ImageView>
+
+            <org.holoeverywhere.widget.TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="25dip"
+                    android:textColor="#66B5EE"
+                    android:textStyle="bold"
+                    android:text="Help"/>
+
+        </org.holoeverywhere.widget.LinearLayout>
+
+
+
+        <org.holoeverywhere.widget.LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+            <org.holoeverywhere.widget.LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/full_slim_rounded_list">
+
+                <org.holoeverywhere.widget.TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dip"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:textSize="18dip"
+                        android:textColor="#66B5EE"
+                        android:textStyle="normal"
+                        android:text="In this area you can see your profile picture along with your name at the left. On the right side, there is a link to the map, where you can see the players and other stuff around you in a pretty cool way!"/>
+
+                <ImageView
+                        android:layout_width="250dp"
+                        android:layout_height="80dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/help_home_user_map"
+                        android:contentDescription="">
+                </ImageView>
+
+            </org.holoeverywhere.widget.LinearLayout>
+
+
+            <org.holoeverywhere.widget.LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/full_slim_rounded_list">
+
+
+                <org.holoeverywhere.widget.TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dip"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:textSize="18dip"
+                        android:textColor="#66B5EE"
+                        android:textStyle="normal"
+                        android:text="In this area you can see the players, randomons, stores and medical stations near your location. You can access them directly by pressing the corresponding image."/>
+
+                <ImageView
+                        android:layout_width="250dp"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/help_home_near"
+                        android:contentDescription="">
+                </ImageView>
+
+
+            </org.holoeverywhere.widget.LinearLayout>
+
+
+            <org.holoeverywhere.widget.LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/full_slim_rounded_list">
+
+
+                <org.holoeverywhere.widget.TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dip"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:textSize="18dip"
+                        android:textColor="#66B5EE"
+                        android:textStyle="normal"
+                        android:text="In this list you can find all the last events related to you, such as battles, trades and bought items."/>
+
+                <ImageView
+                        android:layout_width="200dp"
+                        android:layout_height="150dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/help_home_last_events"
+                        android:contentDescription="">
+                </ImageView>
+
+
+            </org.holoeverywhere.widget.LinearLayout>
+
+
+            <org.holoeverywhere.widget.LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="30dp"
+                    android:background="@drawable/full_slim_rounded_list">
+
+
+                <org.holoeverywhere.widget.TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dip"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:textSize="18dip"
+                        android:textColor="#66B5EE"
+                        android:textStyle="normal"
+                        android:text="And don't forget! You can always access the side menu by clicking the top left button or swiping from left to right on the screen. From there you can go everywhere in the game!"/>
+
+                <ImageView
+                        android:layout_width="200dp"
+                        android:layout_height="100dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="35dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/help_side_menu"
+                        android:contentDescription="">
+                </ImageView>
+
+
+            </org.holoeverywhere.widget.LinearLayout>
+
+
+
+        </org.holoeverywhere.widget.LinearLayout>
+
+
+
+    </org.holoeverywhere.widget.LinearLayout>
+
+
+</ScrollView>

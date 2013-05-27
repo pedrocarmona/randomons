@@ -79,7 +79,7 @@ public class PlayerDetails extends SlidingFragmentActivity {
             @Override
             public void onClick(View v)
             {
-                Toast.makeText(ctx,"No violence",Toast.LENGTH_LONG).show();
+                //Toast.makeText(ctx,"No violence",Toast.LENGTH_LONG).show();
             }
         });
 

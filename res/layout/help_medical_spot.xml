@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="380dip"
+            android:fadeScrollbars="false"
+            android:background="@drawable/help_bg">
+
+
+    <org.holoeverywhere.widget.LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="15dip"
+            android:paddingLeft="25dip"
+            android:paddingRight="25dip">
+
+        <org.holoeverywhere.widget.LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
+
+            <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/help"
+                    android:contentDescription="">
+            </ImageView>
+
+            <org.holoeverywhere.widget.TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="25dip"
+                    android:textColor="#66B5EE"
+                    android:textStyle="bold"
+                    android:text="Help"/>
+
+        </org.holoeverywhere.widget.LinearLayout>
+
+
+
+        <org.holoeverywhere.widget.LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+            <org.holoeverywhere.widget.LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/full_slim_rounded_list">
+
+                <org.holoeverywhere.widget.TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dip"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:textSize="18dip"
+                        android:textColor="#66B5EE"
+                        android:textStyle="normal"
+                        android:text="You can easily switch between the 'Heal Randomons' page and the shop area where you can buy potions to later recover by touching the tabs on the top or swiping left or right!"/>
+
+                <ImageView
+                        android:layout_width="250dp"
+                        android:layout_height="80dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/help_medic_tabs"
+                        android:contentDescription="">
+                </ImageView>
+
+            </org.holoeverywhere.widget.LinearLayout>
+
+
+            <org.holoeverywhere.widget.LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/full_slim_rounded_list">
+
+                <org.holoeverywhere.widget.TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dip"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:textSize="18dip"
+                        android:textColor="#66B5EE"
+                        android:textStyle="normal"
+                        android:text="By pressing the 'Heal' button your randomons will be healed and their HP points will be restored!"/>
+
+                <ImageView
+                        android:layout_width="250dp"
+                        android:layout_height="80dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/help_medic_heal"
+                        android:contentDescription="">
+                </ImageView>
+
+            </org.holoeverywhere.widget.LinearLayout>
+
+
+            <org.holoeverywhere.widget.LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/full_slim_rounded_list">
+
+                <org.holoeverywhere.widget.TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dip"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:textSize="18dip"
+                        android:textColor="#66B5EE"
+                        android:textStyle="normal"
+                        android:text="In the potions list you can select as many potions of each type as you want, by swiping up or down the number picker in front of them."/>
+
+                <ImageView
+                        android:layout_width="250dp"
+                        android:layout_height="80dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/help_medic_potions"
+                        android:contentDescription="">
+                </ImageView>
+
+            </org.holoeverywhere.widget.LinearLayout>
+
+
+            <org.holoeverywhere.widget.LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/full_slim_rounded_list">
+
+                <org.holoeverywhere.widget.TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dip"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:textSize="18dip"
+                        android:textColor="#66B5EE"
+                        android:textStyle="normal"
+                        android:text="In this area you can either confirm the selection and buy the items you chose or clean your selection by pressing the 'Clean' button!"/>
+
+                <ImageView
+                        android:layout_width="250dp"
+                        android:layout_height="80dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/help_medic_clean_buy"
+                        android:contentDescription="">
+                </ImageView>
+
+            </org.holoeverywhere.widget.LinearLayout>
+
+
+            <org.holoeverywhere.widget.LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="30dp"
+                    android:background="@drawable/full_slim_rounded_list">
+
+
+                <org.holoeverywhere.widget.TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dip"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:textSize="18dip"
+                        android:textColor="#66B5EE"
+                        android:textStyle="normal"
+                        android:text="And don't forget! You can always access the side menu by clicking the top left button or swiping from left to right on the screen. From there you can go everywhere in the game!"/>
+
+                <ImageView
+                        android:layout_width="200dp"
+                        android:layout_height="80dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="15dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/help_side_menu"
+                        android:contentDescription="">
+                </ImageView>
+
+
+            </org.holoeverywhere.widget.LinearLayout>
+
+
+
+        </org.holoeverywhere.widget.LinearLayout>
+
+
+
+    </org.holoeverywhere.widget.LinearLayout>
+
+
+</ScrollView>

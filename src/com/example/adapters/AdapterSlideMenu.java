@@ -57,6 +57,7 @@ public class AdapterSlideMenu extends ArrayAdapter<SlideMenuItem> {
         return row;
     }
 
+
     static class SlideMenuHolder
     {
         ImageView slideMenuIcon;
