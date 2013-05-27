@@ -33,7 +33,8 @@
                         android:layout_gravity="center"
                         android:layout_marginRight="3dip"
                         android:layout_weight="1"
-                        android:src="@drawable/green_icon" />
+                        android:src="@drawable/green_icon"
+                        android:contentDescription=""/>
 
                 <org.holoeverywhere.widget.TextView
                         android:id="@+id/user_on"
@@ -55,8 +56,8 @@
                     android:clickable="true"
                     android:src="@drawable/avatar_img"
                     android:background="@drawable/full_rounded_list"
-                    android:padding="5dp" />
-
+                    android:padding="5dp"
+                    android:contentDescription=""/>
 
         </org.holoeverywhere.widget.LinearLayout>
 
@@ -75,14 +76,7 @@
                     android:textColor="#0066CC"
                     />
 
-            <ImageView
-                    android:id="@+id/world_map_small"
-                    android:layout_width="150dip"
-                    android:layout_height="120dip"
-                    android:scaleType="fitXY"
-                    android:background="@drawable/full_rounded_list"
-                    android:padding="5dp"
-                    android:src="@drawable/world_map_small" />
+
 
         </org.holoeverywhere.widget.LinearLayout>
 

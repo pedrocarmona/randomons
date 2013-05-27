@@ -39,26 +39,15 @@ public class MyRandomons extends SlidingActivity
         /*TEMPORARY DATA*/
         ArrayList<Move> moves1 = new ArrayList<Move>();
         moves1.add(new Move("fire",R.drawable.quest_mark, 50));
-        playerRandomons.add(new Randomon("Catzinga", "Psychic", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.catzinga,1,moves1));
-        playerRandomons.add(new Randomon("Tetrauros", "Prehistoric", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.tetrauros,2,moves1));
-        playerRandomons.add(new Randomon("Canibalape", "Canibal", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.canibalape,3,moves1));
-        playerRandomons.add(new Randomon("Chinelong", "Flying", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.chinelong,4,moves1));
-        playerRandomons.add(new Randomon("Ponycorn", "Mythical", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.ponycorn,5,moves1));
-        playerRandomons.add(new Randomon("Cyclosnake", "Poison", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.cyclosnake,6,moves1));
-        playerRandomons.add(new Randomon("Catzinga", "Psychic", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.catzinga,1,moves1));
-        playerRandomons.add(new Randomon("Tetrauros", "Prehistoric", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.tetrauros,2,moves1));
-        playerRandomons.add(new Randomon("Canibalape", "Canibal", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.canibalape,3,moves1));
-        playerRandomons.add(new Randomon("Chinelong", "Flying", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.chinelong,4,moves1));
-        playerRandomons.add(new Randomon("Ponycorn", "Mythical", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.ponycorn,5,moves1));
-        playerRandomons.add(new Randomon("Cyclosnake", "Poison", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.cyclosnake,6,moves1));
-        playerRandomons.add(new Randomon("Catzinga", "Psychic", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.catzinga,1,moves1));
-        playerRandomons.add(new Randomon("Tetrauros", "Prehistoric", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.tetrauros,2,moves1));
-        playerRandomons.add(new Randomon("Canibalape", "Canibal", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.canibalape,3,moves1));
-        playerRandomons.add(new Randomon("Chinelong", "Flying", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.chinelong,4,moves1));
-        playerRandomons.add(new Randomon("Ponycorn", "Mythical", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.ponycorn,5,moves1));
-        playerRandomons.add(new Randomon("Cyclosnake", "Poison", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.cyclosnake,6,moves1));
+        playerRandomons.add(new Randomon("Catzinga", Randomon.PSYCHIC, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.catzinga,1));
+        playerRandomons.add(new Randomon("Tetrauros", Randomon.PREHISTORIC, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.tetrauros,2));
+        playerRandomons.add(new Randomon("Canibalape", Randomon.CANNIBAL, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.canibalape,3));
+        playerRandomons.add(new Randomon("Chinelong", Randomon.FLYING, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.chinelong,4));
+        playerRandomons.add(new Randomon("Ponycorn", Randomon.MYTHICAL, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.ponycorn,5));
+        playerRandomons.add(new Randomon("Cyclosnake", Randomon.POISONOUS, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.cyclosnake,6));
 
         for (Randomon playerRandomon : playerRandomons) {
+            playerRandomon.setMoves(moves1);
             myRandoAdapter.addItem(playerRandomon);
         }
 

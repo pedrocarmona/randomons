@@ -2,6 +2,7 @@ package com.example.menus;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -9,7 +10,6 @@ import com.example.activities.*;
 import com.example.activities.R;
 import com.example.adapters.AdapterSlideMenu;
 import com.example.data.SlideMenuItem;
-import org.holoeverywhere.ArrayAdapter;
 import org.holoeverywhere.app.Activity;
 import org.holoeverywhere.widget.ListView;
 
@@ -99,6 +99,15 @@ public class SlidingMenu extends Activity {
                     case 7:
                         intent = new Intent(view.getContext(), MedicalSpot.class);
                         context.startActivity(intent);
+                        //finish();
+                        break;
+
+                    case 8:
+                        SharedPreferences mPreferences = context.getSharedPreferences("CurrentUser", context.MODE_PRIVATE);
+                        mPreferences.edit().remove("AuthToken").commit();
+                        intent = new Intent(view.getContext(), MainMenu.class);
+                        context.startActivity(intent);
+
                         //finish();
                         break;
                 }
