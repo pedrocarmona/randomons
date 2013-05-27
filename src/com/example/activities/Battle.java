@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.opengl.GLES20;
 import android.util.DisplayMetrics;
+import android.view.KeyEvent;
 import org.andengine.entity.IEntity;
 import org.andengine.entity.modifier.LoopEntityModifier;
 
@@ -121,7 +122,6 @@ public class Battle extends SimpleBaseGameActivity {
 
     int LeftMove;
 
-
     private BitmapTextureAtlas mBitmapTextureAtlas;
     private ITextureRegion mParticleTextureRegion;
 
@@ -132,7 +132,7 @@ public class Battle extends SimpleBaseGameActivity {
     private ITextureRegion mParallaxLayerBack;
     private ITextureRegion mParallaxLayerMid;
     private ITextureRegion mParallaxLayerFront;
-    private boolean isBattleOver;
+    private boolean isBattleOver=false;
 
 
     // ===========================================================
@@ -165,6 +165,7 @@ public class Battle extends SimpleBaseGameActivity {
     final int SPRITE_AFTER_MOVE2=7;
     final int SPRITE_AFTER_DEFENSE2=8;
 
+
     @Override
     public EngineOptions onCreateEngineOptions() {
         final DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -194,13 +195,15 @@ public class Battle extends SimpleBaseGameActivity {
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
 
 
-
+        int r1 = (int)Math.floor(Math.random()*6)+1;
         this.mLeftRandomonTextureAtlas = new BitmapTextureAtlas(this.getTextureManager(), 2048, 2048);
-        this.mLeftRandomonTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(this.mLeftRandomonTextureAtlas, this, "ldpi/randomon2.png", 0, 0, 4, 4);
+        this.mLeftRandomonTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(this.mLeftRandomonTextureAtlas, this, "ldpi/randomon"+r1+".png", 0, 0, 4, 4);
         this.mLeftRandomonTextureAtlas.load();
 
+        int r2 = (int)Math.floor(Math.random()*6)+1;
+
         this.mRightRandomonTextureAtlas = new BitmapTextureAtlas(this.getTextureManager(), 2048, 2048);
-        this.mRightRandomonTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(this.mRightRandomonTextureAtlas, this, "ldpi/randomon2.png", 0, 0, 4, 4);
+        this.mRightRandomonTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(this.mRightRandomonTextureAtlas, this, "ldpi/randomon"+r2+".png", 0, 0, 4, 4);
         this.mRightRandomonTextureAtlas.load();
 
 
@@ -213,10 +216,6 @@ public class Battle extends SimpleBaseGameActivity {
         this.leftRandomon = (new Randomon("Catzinga", Randomon.NORMAL, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.catzinga,1));
         this.rightRandomon = (new Randomon("Canibalape", Randomon.NORMAL, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.canibalape,2));
 
-        this.mBitmapTextureAtlas = new BitmapTextureAtlas(this.getTextureManager(), 32, 32, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
-        this.mParticleTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(this.mBitmapTextureAtlas, this, "particle_fire.png", 0, 0);
-
-        this.mEngine.getTextureManager().loadTexture(this.mBitmapTextureAtlas);
 
         this.mAutoParallaxBackgroundTexture = new BitmapTextureAtlas(this.getTextureManager(), 1024, 1024);
         this.mParallaxLayerFront = BitmapTextureAtlasTextureRegionFactory.createFromAsset(this.mAutoParallaxBackgroundTexture, this, "parallax_background_layer_front.png", 0, 0);
@@ -309,6 +308,14 @@ public class Battle extends SimpleBaseGameActivity {
         s2.setScale(0.5f);
         s3.setScale(0.5f);
         s4.setScale(0.5f);
+        s1.setX(-110);
+        s1.setY(-100);
+        s2.setX(-10);
+        s2.setY(-100);
+        s3.setX(-10);
+        s3.setY(0);
+        s4.setX(-110);
+        s4.setY(0);
 
 
         commandsGroup = new Entity(CAMERA_WIDTH / 2, CAMERA_HEIGHT / 2);
@@ -456,9 +463,10 @@ public class Battle extends SimpleBaseGameActivity {
                 }
                 updateHitPoints();
                 //To change body of implemented methods use File | Settings | File Templates.
-                leftRandomonSprite.animate(new long[]{100, 100}, 0, 1, 3,anime);
-                rightRandomonSprite.animate(new long[]{100, 100}, 0, 1, 3,anime);
-
+                if(!isBattleOver){
+                    leftRandomonSprite.animate(new long[]{100, 100}, 0, 1, 3,anime);
+                    rightRandomonSprite.animate(new long[]{100, 100}, 0, 1, 3,anime);
+                }
                 break;
             case SPRITE_AFTER_PAUSE:
                 if (leftIsFirst){
@@ -497,6 +505,7 @@ public class Battle extends SimpleBaseGameActivity {
         step++;
         if(step==SPRITE_AFTER_DEFENSE2+1){
             step=0;
+
             movimento();
 
         }
@@ -507,20 +516,23 @@ public class Battle extends SimpleBaseGameActivity {
     private void doMove(final AnimatedSprite.IAnimationListener anime) {
         //Path experiments
         int startx ,starty, endx , endy,distancex;
+        final int movenr;
+
         if(leftAtacked){
-            endx =130;
+            endx =90;
             endy= CAMERA_HEIGHT - 72;
             startx =CAMERA_WIDTH - 130;
             starty=CAMERA_HEIGHT - 72;
             distancex = endx-startx;
+            movenr= (int)Math.floor(Math.random()*4);
         }else{
-            startx =130;
+            movenr= this.LeftMove;
+            startx =90;
             starty= CAMERA_HEIGHT - 72;
             endx =CAMERA_WIDTH - 130;
             endy=CAMERA_HEIGHT - 72;
             distancex = endx-startx;
         }
-        final int movenr= this.LeftMove;
 
         Path path = new Path(5).to(startx, starty).to(startx+distancex/4,starty).to(startx+distancex/4*2,starty).to(startx+distancex/4*3,starty).to(endx, endy);
         movesSprite.setVisible(true);
@@ -533,8 +545,27 @@ public class Battle extends SimpleBaseGameActivity {
             }
             @Override
             public void onPathWaypointStarted(PathModifier pPathModifier, IEntity pEntity, int pWaypointIndex) {
-                movesSprite.animate(new long[]{100},new int[]{frameIndex},true);
-                frameIndex++;
+                switch (movenr){
+                    case 0:
+                        movesSprite.animate(new long[]{100},new int[]{frameIndex+0},true);
+                        frameIndex++;
+                        break;
+                    case 1:
+                        movesSprite.animate(new long[]{100},new int[]{frameIndex+4},true);
+                        frameIndex++;
+                        break;
+                    case 2:
+                        movesSprite.animate(new long[]{100},new int[]{frameIndex+8},true);
+                        frameIndex++;
+                        break;
+                    case 3:
+                        movesSprite.animate(new long[]{100},new int[]{frameIndex+12},true);
+                        frameIndex++;
+                        break;
+                }
+
+                //movesSprite.animate(new long[]{100},new int[]{frameIndex},true);
+                //frameIndex++;
                 //To change body of implemented methods use File | Settings | File Templates.
             }
             @Override
@@ -557,6 +588,17 @@ public class Battle extends SimpleBaseGameActivity {
         }
         drawHitpoints();
         updateText();
+
+    }
+
+    public boolean onKeyDown(int keyCode,KeyEvent event){
+
+        if (keyCode == KeyEvent.KEYCODE_BACK){
+            System.out.println("key pressed");
+            return false;
+        }
+        return false;
+
     }
 
     private void drawHitpoints(){
@@ -568,6 +610,7 @@ public class Battle extends SimpleBaseGameActivity {
             leftRandomonHitPoints.setVisible(false);
             youLost();
             this.isBattleOver=true;
+            return;
         }
         if (rightRandomon.getCurrent_hitpoints()>0)
             rightRandomonHitPoints.setWidth(rightRandomon.getCurrent_hitpoints()*150/rightRandomon.getHitpoints());
@@ -575,12 +618,15 @@ public class Battle extends SimpleBaseGameActivity {
             rightRandomonHitPoints.setVisible(false);
             youWin();
             this.isBattleOver=true;
+            return;
         }
 
     }
 
     private void youWin(){
-        rightRandomonSprite.animate(new long[]{100, 100, 100}, 5, 7, false);
+
+        leftRandomonSprite.animate(new long[]{400, 400}, 0, 1, 5,animeEnd);
+        rightRandomonSprite.animate(new long[]{100, 100, 100}, 5, 7, 1);
         commandsGroup.setVisible(false);
         scene.unregisterTouchArea(moveBox1);
         scene.unregisterTouchArea(moveBox2);
@@ -591,10 +637,12 @@ public class Battle extends SimpleBaseGameActivity {
         resultText.setX(CAMERA_WIDTH / 2 - resultText.getWidth() / 2);
         resultText.setY(CAMERA_HEIGHT/2-resultText.getHeight()/2);
         resultText.setVisible(true);
+
     }
 
     private void youLost(){
-        leftRandomonSprite.animate(new long[]{100, 100, 100}, 11, 13, false);
+        rightRandomonSprite.animate(new long[]{400, 400}, 0, 1, 5, animeEnd);
+        leftRandomonSprite.animate(new long[]{100, 100, 100}, 11, 13, 1);
         commandsGroup.setVisible(false);
         scene.unregisterTouchArea(moveBox1);
         scene.unregisterTouchArea(moveBox2);
@@ -605,6 +653,8 @@ public class Battle extends SimpleBaseGameActivity {
         resultText.setX(CAMERA_WIDTH / 2 - resultText.getWidth() / 2);
         resultText.setY(CAMERA_HEIGHT / 2 - resultText.getHeight() / 2);
         resultText.setVisible(true);
+
+
     }
 
 
@@ -617,6 +667,21 @@ public class Battle extends SimpleBaseGameActivity {
     }
 
 
+    final AnimatedSprite.IAnimationListener animeEnd = new AnimatedSprite.IAnimationListener() {
+        @Override
+        public void onAnimationStarted(AnimatedSprite pAnimatedSprite, int pInitialLoopCount) {
+        }
+        @Override
+        public void onAnimationFrameChanged(AnimatedSprite pAnimatedSprite, int pOldFrameIndex, int pNewFrameIndex) {
+        }
+        @Override
+        public void onAnimationLoopFinished(AnimatedSprite pAnimatedSprite, int pRemainingLoopCount, int pInitialLoopCount) {
+        }
+        @Override
+        public void onAnimationFinished(AnimatedSprite pAnimatedSprite) {
+            finish();
+        }
+    };
     // ===========================================================
     // Inner and Anonymous Classes
     // ===========================================================
