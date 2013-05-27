@@ -192,6 +192,7 @@ public class Login extends SherlockFragmentActivity
 
                     }
 
+                    Toast.makeText(context, player.getName(), Toast.LENGTH_LONG).show();
 
                     editor.putString("User","");
 
@@ -203,7 +204,6 @@ public class Login extends SherlockFragmentActivity
                     finish();
 
                 }
-                Toast.makeText(context, json.getString("info"), Toast.LENGTH_LONG).show();
             } catch (Exception e) {
                 // something went wrong: show a Toast
                 // with the exception message

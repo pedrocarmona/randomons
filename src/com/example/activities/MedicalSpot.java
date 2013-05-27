@@ -1,6 +1,7 @@
 package com.example.activities;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -8,15 +9,23 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.view.Window;
 import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.example.menus.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
+import org.holoeverywhere.app.Dialog;
+import org.holoeverywhere.drawable.ColorDrawable;
 
 import java.util.ArrayList;
 
 public class MedicalSpot extends SlidingFragmentActivity
 {
+
+    private Dialog dialog;
+
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -26,6 +35,11 @@ public class MedicalSpot extends SlidingFragmentActivity
         final ActionBar bar = getSupportActionBar();
         bar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         bar.setTitle("Medical Spot");
+
+        dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.help_medical_spot);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         addSlidingMenu();
 
@@ -143,10 +157,24 @@ public class MedicalSpot extends SlidingFragmentActivity
                 toggle();
                 return true;
 
+            case R.id.help_btn:
+
+                showHelpDialog();
+                return true;
+
+
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+
+
+    private void showHelpDialog() {
+
+        dialog.setCancelable(true);
+        dialog.show();
+    }
+
 
     private void addSlidingMenu()
     {
@@ -171,4 +199,13 @@ public class MedicalSpot extends SlidingFragmentActivity
 
         new SlidingMenu(this, getSlidingMenu());
     }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getSupportMenuInflater();
+        inflater.inflate(R.menu.actionbarmenu, menu);
+        return true;
+    }
+
 }

@@ -1,11 +1,15 @@
 package com.example.activities;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.example.adapters.AdapterBagItem;
 import com.example.adapters.AdapterHorizontalList;
@@ -13,6 +17,8 @@ import com.example.data.CaptureItem;
 import com.example.data.Potion;
 import com.example.menus.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
+import org.holoeverywhere.app.Dialog;
+import org.holoeverywhere.drawable.ColorDrawable;
 import org.holoeverywhere.widget.Button;
 import org.holoeverywhere.widget.LinearLayout;
 import org.holoeverywhere.widget.TextView;
@@ -29,6 +35,7 @@ public class Items extends SlidingActivity
     private TextView descText;
     private Button selectButton;
 
+    private Dialog dialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,6 +43,14 @@ public class Items extends SlidingActivity
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.bag);
+
+
+        dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.help_my_items);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+
 
         bottomContainer = (LinearLayout) findViewById(R.id.choose_bottom);
         bottomContent  = (LinearLayout) View.inflate(this, R.layout.choose_randomon_bottom, null);
@@ -45,7 +60,7 @@ public class Items extends SlidingActivity
         selectButton = (Button) findViewById(R.id.choose_bottom_btn);
 
         final ActionBar bar = getSupportActionBar();
-        bar.setTitle("Bag");
+        bar.setTitle("My Items");
 
         addSlidingMenu();
 
@@ -157,9 +172,22 @@ public class Items extends SlidingActivity
                 toggle();
                 return true;
 
+            case R.id.help_btn:
+
+                showHelpDialog();
+                return true;
+
+
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+
+    private void showHelpDialog() {
+
+        dialog.setCancelable(true);
+        dialog.show();
     }
 
     private void addSlidingMenu()
@@ -184,6 +212,14 @@ public class Items extends SlidingActivity
         }
 
         new SlidingMenu(this, getSlidingMenu());
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getSupportMenuInflater();
+        inflater.inflate(R.menu.actionbarmenu, menu);
+        return true;
     }
 }
 

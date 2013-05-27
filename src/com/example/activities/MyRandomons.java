@@ -1,15 +1,22 @@
 package com.example.activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.example.adapters.AdapterMyRandomonImg;
 import com.example.data.Move;
 import com.example.data.Randomon;
 import com.example.menus.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
+import org.holoeverywhere.app.Dialog;
+import org.holoeverywhere.drawable.ColorDrawable;
 import org.holoeverywhere.widget.GridView;
 
 import java.util.ArrayList;
@@ -19,6 +26,8 @@ public class MyRandomons extends SlidingActivity
     private ArrayList<Randomon> playerRandomons = new ArrayList<Randomon>();
     private AdapterMyRandomonImg myRandoAdapter;
 
+    private Dialog dialog;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
@@ -26,8 +35,17 @@ public class MyRandomons extends SlidingActivity
 
         setContentView(R.layout.myrandomon_grid);
 
+        dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.help_my_randomons);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+
         addSlidingMenu();
 
+        final ActionBar bar = getSupportActionBar();
+        bar.setDisplayHomeAsUpEnabled(true);
+        bar.setTitle("My Randomons");
 
         //AntipodalWallLayout layout = (AntipodalWallLayout)findViewById(R.id.antipodal_wall);
 
@@ -73,10 +91,24 @@ public class MyRandomons extends SlidingActivity
                 toggle();
                 return true;
 
+            case R.id.help_btn:
+
+                showHelpDialog();
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+
+
+
+    private void showHelpDialog() {
+
+        dialog.setCancelable(true);
+        dialog.show();
+    }
+
 
     private void addSlidingMenu()
     {
@@ -100,5 +132,13 @@ public class MyRandomons extends SlidingActivity
         }
 
         new SlidingMenu(this, getSlidingMenu());
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getSupportMenuInflater();
+        inflater.inflate(R.menu.actionbarmenu, menu);
+        return true;
     }
 }
