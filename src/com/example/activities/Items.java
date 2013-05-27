@@ -57,17 +57,20 @@ public class Items extends SlidingActivity
         final AdapterBagItem potionsAdapter = new AdapterBagItem(this);
         potionsList.setAdapter(potionsAdapter);
 
-        captureAdapter.addItem(new CaptureItem("cenas cima 1", "fixes"));
-        captureAdapter.addItem(new CaptureItem("cenas cima 2", "fixes"));
-        captureAdapter.addItem(new CaptureItem("cenas cima 3", "fixes"));
-        captureAdapter.addItem(new CaptureItem("cenas cima 4", "fixes"));
-        captureAdapter.addItem(new CaptureItem("cenas cima 5", "fixes"));
+        captureAdapter.addItem(new CaptureItem(R.drawable.cnb, "cenas cima 1", "fixes"));
+        captureAdapter.addItem(new CaptureItem(R.drawable.ph,"cenas cima 2", "fixes"));
+        captureAdapter.addItem(new CaptureItem(R.drawable.mth,"cenas cima 3", "fixes"));
+        captureAdapter.addItem(new CaptureItem(R.drawable.psn,"cenas cima 4", "fixes"));
+        captureAdapter.addItem(new CaptureItem(R.drawable.fl,"cenas cima 5", "fixes"));
+        captureAdapter.addItem(new CaptureItem(R.drawable.psy,"cenas cima 5", "fixes"));
 
-        potionsAdapter.addItem(new Potion("cenas baixo 1", "fixes"));
-        potionsAdapter.addItem(new Potion("cenas baixo 2", "fixes"));
-        potionsAdapter.addItem(new Potion("cenas baixo 3", "fixes"));
-        potionsAdapter.addItem(new Potion("cenas baixo 4", "fixes"));
-        potionsAdapter.addItem(new Potion("cenas baixo 5", "fixes"));
+
+        potionsAdapter.addItem(new Potion(R.drawable.potion_cnb,"cenas baixo 1", "fixes"));
+        potionsAdapter.addItem(new Potion(R.drawable.potion_ph,"cenas baixo 2", "fixes"));
+        potionsAdapter.addItem(new Potion(R.drawable.potion_mth,"cenas baixo 3", "fixes"));
+        potionsAdapter.addItem(new Potion(R.drawable.potion_psn,"cenas baixo 4", "fixes"));
+        potionsAdapter.addItem(new Potion(R.drawable.potion_fl,"cenas baixo 5", "fixes"));
+        potionsAdapter.addItem(new Potion(R.drawable.potion_psy,"cenas baixo 5", "fixes"));
 
 
         potionsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -140,7 +143,7 @@ public class Items extends SlidingActivity
         descLabel.setText("Item description");
         descText.setText("O Item costuma ser encontrado em regiões pantanosas. É um item muito agressivo, porém é fácil de encontrar. " +
                 "\nDescrição do item " + name);
-        itemImg.setImageResource(R.drawable.capture_net);
+        itemImg.setImageResource(R.drawable.psn);
         selectButton.setText("Use");
 
     }
@@ -165,7 +168,7 @@ public class Items extends SlidingActivity
         // check if the content frame contains the menu frame
         if (findViewById(R.id.menu_frame) == null)
         {
-            setBehindContentView(R.layout.menu_frame);
+            setBehindContentView(R.layout.slide_menu);
             sm.setSlidingEnabled(true);
             sm.setTouchModeAbove(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.TOUCHMODE_FULLSCREEN);
             // show home as up so we can toggle

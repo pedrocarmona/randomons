@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">randomons</string>
+    <string name="app_name">Randomons</string>
     <string name="lvl">lvl</string>
     <string name="name">name</string>
     <string name="description">description</string>

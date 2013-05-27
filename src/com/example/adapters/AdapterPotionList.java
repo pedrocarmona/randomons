@@ -75,6 +75,8 @@ public class AdapterPotionList extends BaseAdapter
         holder.name.setText(potionsList.get(position).getName());
 
         holder.description.setText(potionsList.get(position).getDescription());
+        holder.potionImage.setImageResource(potionsList.get(position).getType());
+
 
         holder.numberPicker.setMaxValue(10);
         holder.numberPicker.setMinValue(0);

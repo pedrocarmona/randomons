@@ -3,8 +3,8 @@ package com.example.data;
 public class CaptureItem extends Item
 {
 
-    public CaptureItem(String name, String description) {
+    public CaptureItem(int typeImgId, String name, String description) {
 
-        super(name, description);
+        super(typeImgId, name, description);
     }
 }

@@ -73,7 +73,7 @@ public class AdapterItemList extends BaseAdapter
         }
 
         holder.name.setText(itemList.get(position).getName());
-
+        holder.itemImage.setImageResource(itemList.get(position).getType());
         holder.description.setText(itemList.get(position).getDescription());
 
         holder.numberPicker.setMaxValue(10);
