@@ -76,6 +76,6 @@
         <!-- Têem de alterar o value para a vossa key -->
         <meta-data
                 android:name="com.google.android.maps.v2.API_KEY"
-                android:value="AIzaSyDna5RuuxJZEXfEouVhK3AOhp3PJVlZWJE"/>
+                android:value="AIzaSyA-qqqljS3AUrrXCTqu_RNLgMja1t5ydco"/>
     </application>
 </manifest>
