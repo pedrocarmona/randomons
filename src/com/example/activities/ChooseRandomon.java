@@ -146,9 +146,9 @@ public class ChooseRandomon extends SlidingActivity
                             sortedRandomons[1] = r2;
                             sortedRandomons[2] = r3;
 
-                            randomon1.setImageResource(R.drawable.randomom);
-                            randomon2.setImageResource(R.drawable.randomom);
-                            randomon3.setImageResource(R.drawable.randomom);
+                            randomon1.setImageResource(r1.getPicId());
+                            randomon2.setImageResource(r2.getPicId());
+                            randomon3.setImageResource(r3.getPicId());
 
                             pullLever.setText("Press a Randomon to see the description");
                             LEVER_UP = false;
