@@ -43,8 +43,11 @@ public class MedicalSpotRandomons extends SherlockFragment
         moves1.add(new Move("fire",R.drawable.tetrauros,1,1,1,1.1,"ataque disc", Randomon.FIRE));
 
         //PARA EXEMPLO
-        for(int i = 0; i<10; i++)
-            adapter.addItem(new Randomon("Catzinga", Randomon.NORMAL, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.catzinga,1));
+        adapter.addItem(new Randomon("Catzinga", Randomon.PSYCHIC, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.catzinga,1));
+        adapter.addItem(new Randomon("Tetrauros", Randomon.PREHISTORIC, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.tetrauros,1));
+        adapter.addItem(new Randomon("Ponycorn", Randomon.MYTHICAL, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.ponycorn,1));
+        adapter.addItem(new Randomon("Canibalape", Randomon.CANNIBAL, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.canibalape,1));
+
 
         addClickListeners();
 

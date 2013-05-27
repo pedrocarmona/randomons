@@ -65,13 +65,13 @@ public class MainMenu extends SlidingFragmentActivity
 
         /*TEMPORARY DATA*/
         playerLogged = new Player(30, "Joao Monteiro", 40, R.drawable.avatar_img);
-        closeEvents.add(new CloseEvent(1, "Monteirovsky"));
+        closeEvents.add(new CloseEvent(1, "Patriota"));
         closeEvents.add(new CloseEvent(4, "Shop"));
         closeEvents.add(new CloseEvent(2, "Randobattle"));
         closeEvents.add(new CloseEvent(3, "Medic"));
-        closeEvents.add(new CloseEvent(1, "Monteirovsky"));
+        closeEvents.add(new CloseEvent(1, "Patriota"));
         closeEvents.add(new CloseEvent(4, "Shop"));
-        closeEvents.add(new CloseEvent(2, "Randobattle"));
+        closeEvents.add(new CloseEvent(2, "Patriota"));
         closeEvents.add(new CloseEvent(3, "Medic"));
 
         lastEvents.add(new Event("X minutos atras","Lost a battle against Chefe Marques", R.drawable.avatar_img));
