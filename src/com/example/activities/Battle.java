@@ -4,7 +4,9 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.opengl.GLES20;
 import android.util.DisplayMetrics;
-import android.util.Log;
+import org.andengine.entity.IEntity;
+import org.andengine.entity.modifier.LoopEntityModifier;
+
 import com.example.data.Move;
 import com.example.data.Randomon;
 import org.andengine.engine.Engine;
@@ -13,6 +15,7 @@ import org.andengine.engine.options.EngineOptions;
 import org.andengine.engine.options.ScreenOrientation;
 import org.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
 import org.andengine.entity.Entity;
+import org.andengine.entity.modifier.SequenceEntityModifier;
 import org.andengine.entity.particle.SpriteParticleSystem;
 import org.andengine.entity.particle.emitter.PointParticleEmitter;
 import org.andengine.entity.particle.initializer.*;
@@ -43,6 +46,12 @@ import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.ui.activity.SimpleBaseGameActivity;
 import org.andengine.util.HorizontalAlign;
+import org.andengine.entity.modifier.PathModifier;
+import org.andengine.entity.modifier.PathModifier.IPathModifierListener;
+import org.andengine.entity.modifier.PathModifier.Path;
+import org.andengine.util.debug.Debug;
+import org.andengine.util.modifier.ease.EaseSineInOut;
+
 
 import java.util.ArrayList;
 
@@ -116,7 +125,6 @@ public class Battle extends SimpleBaseGameActivity {
     private ITextureRegion mParallaxLayerMid;
     private ITextureRegion mParallaxLayerFront;
     private boolean isBattleOver;
-
 
 
     // ===========================================================
@@ -238,7 +246,9 @@ public class Battle extends SimpleBaseGameActivity {
         rightRandomonSprite = new AnimatedSprite(CAMERA_WIDTH-160, CAMERA_HEIGHT-128,128,128,  this.mRightRandomonTextureRegion, this.getVertexBufferObjectManager());
         scene.attachChild(rightRandomonSprite);
         movesSprite = new AnimatedSprite(CAMERA_WIDTH/2, CAMERA_HEIGHT/2,64,64,  this.movesTextureRegion, this.getVertexBufferObjectManager());
+        movesSprite.setVisible(false);
         scene.attachChild(movesSprite);
+
         movimentoInicial();
 
         /* Create the rectangles. */
@@ -354,6 +364,7 @@ public class Battle extends SimpleBaseGameActivity {
     public void movimentoInicial(){
         leftRandomonSprite.animate(new long[]{400, 400}, 0, 1, true);
         rightRandomonSprite.animate(new long[]{400, 400}, 0, 1, true);
+
         //movesSprite.setX(leftRandomonSprite.getX());
         //movesSprite.setY(leftRandomonSprite.getY());
         //movesSprite.animate(new long[]{100,100,100,100}, 0, 3, true);
@@ -362,6 +373,7 @@ public class Battle extends SimpleBaseGameActivity {
 
     public void movimento() {
 
+        //remove final if needed
         AnimatedSprite.IAnimationListener anime = new AnimatedSprite.IAnimationListener() {
             @Override
             public void onAnimationStarted(AnimatedSprite pAnimatedSprite, int pInitialLoopCount) {
@@ -410,21 +422,27 @@ public class Battle extends SimpleBaseGameActivity {
                 final Engine.EngineLock engineLock = this.mEngine.getEngineLock();
                 engineLock.lock();
                 if(leftIsFirst){
+
+                    doMove(true,anime);
                     // start move
 
-                    movesSprite.setX(leftRandomonSprite.getX()+leftRandomonSprite.getWidth());
-                    movesSprite.setY(leftRandomonSprite.getY());
 
-                    movesSprite.setVisible(true);
-                    movesSprite.animate(new long[]{100, 100,100,100}, 0, 3,1,anime);
+                    //movesSprite.setX(leftRandomonSprite.getX()+leftRandomonSprite.getWidth());
+                    //movesSprite.setY(leftRandomonSprite.getY());
+
+                    //movesSprite.setVisible(true);
+                    //movesSprite.animate(new long[]{100, 100,100,100}, 0, 3,1,anime);
 
                 }else{
-                    movesSprite.setX(leftRandomonSprite.getX()+leftRandomonSprite.getWidth());
-                    movesSprite.setY(leftRandomonSprite.getY());
-                    movesSprite.setVisible(true);
-                    movesSprite.animate(new long[]{100,100,100,100}, 0, 3,1,anime);
+
+                    //movesSprite.setX(leftRandomonSprite.getX()+leftRandomonSprite.getWidth());
+                    //movesSprite.setY(leftRandomonSprite.getY());
+                    //movesSprite.setVisible(true);
+                    //movesSprite.animate(new long[]{100,100,100,100}, 0, 3,1,anime);
 
                 }
+                //movesSprite.setVisible(false);
+
                 engineLock.unlock();
                 break;
             case SPRITE_AFTER_MOVE1:
@@ -485,14 +503,10 @@ public class Battle extends SimpleBaseGameActivity {
             case SPRITE_AFTER_MOVE2:
 
                 if (leftIsFirst){
-                    // Righs side player atacks
-                    rightRandomonSprite.animate(new long[]{100, 100, 100}, 2, 4, 5, anime);
-                    commandsGroup.setVisible(false);
-                }else{
-                    // Left player atacks
-                    leftRandomonSprite.animate(new long[]{100, 100, 100}, 8, 10, 5, anime);
-                    commandsGroup.setVisible(false);
+                    leftRandomonSprite.animate(new long[]{100, 100}, 11, 12,1, anime);
 
+                }else{
+                    rightRandomonSprite.animate(new long[]{100, 100}, 5, 6, 1,anime);
                 }
 
                 break;
@@ -508,9 +522,52 @@ public class Battle extends SimpleBaseGameActivity {
         }
 
         step++;
-        if(step==SPRITE_AFTER_DEFENSE2+1)
+        if(step==SPRITE_AFTER_DEFENSE2+1){
             step=0;
+            movimento();
 
+        }
+
+
+    }
+
+    private void doMove(boolean side,final AnimatedSprite.IAnimationListener anime) {
+
+
+        //Path experiments
+        Path path = new Path(2).to(130, CAMERA_HEIGHT - 72).to(CAMERA_WIDTH - 130, CAMERA_HEIGHT - 72);
+        movesSprite.setVisible(true);
+
+
+        movesSprite.registerEntityModifier(new SequenceEntityModifier(new PathModifier(5, path, null, new IPathModifierListener() {
+            @Override
+            public void onPathStarted(final PathModifier pPathModifier, final IEntity pEntity) {
+
+
+                movesSprite.animate(new long[]{100, 100,100,100}, 0, 3,1);
+
+            }
+
+            @Override
+            public void onPathWaypointStarted(PathModifier pPathModifier, IEntity pEntity, int pWaypointIndex) {
+
+
+                //To change body of implemented methods use File | Settings | File Templates.
+            }
+
+            @Override
+            public void onPathWaypointFinished(final PathModifier pPathModifier, final IEntity pEntity, final int pWaypointIndex) {
+                movesSprite.animate(anime);
+                movesSprite.stopAnimation();
+                movesSprite.setVisible(false);
+                movesSprite.animate(anime); // ASK why he need a animate for nothing
+
+            }
+
+            @Override
+            public void onPathFinished(final PathModifier pPathModifier, final IEntity pEntity) {
+            }
+        }, EaseSineInOut.getInstance())));
 
 
     }
@@ -579,231 +636,5 @@ public class Battle extends SimpleBaseGameActivity {
     // Inner and Anonymous Classes
     // ===========================================================
 
-    final AnimatedSprite.IAnimationListener animeSecondDefense = new AnimatedSprite.IAnimationListener() {
-        @Override
-        public void onAnimationStarted(AnimatedSprite pAnimatedSprite, int pInitialLoopCount) {
-            //To change body of implemented methods use File | Settings | File Templates.
-        }
 
-        @Override
-        public void onAnimationFrameChanged(AnimatedSprite pAnimatedSprite, int pOldFrameIndex, int pNewFrameIndex) {
-
-        }
-
-        @Override
-        public void onAnimationLoopFinished(AnimatedSprite pAnimatedSprite, int pRemainingLoopCount, int pInitialLoopCount) {
-            //To change body of implemented methods use File | Settings | File Templates.
-
-        }
-
-        @Override
-        public void onAnimationFinished(AnimatedSprite pAnimatedSprite) {
-            if(leftIsFirst){
-                leftAtacked = true;
-            }else{
-                leftAtacked = false;
-            }
-            updateHitPoints();
-
-            //To change body of implemented methods use File | Settings | File Templates.
-
-        }
-    };
-
-
-    final AnimatedSprite.IAnimationListener animeMoveSecond = new AnimatedSprite.IAnimationListener() {
-        @Override
-        public void onAnimationStarted(AnimatedSprite pAnimatedSprite, int pInitialLoopCount) {
-            //To change body of implemented methods use File | Settings | File Templates.
-        }
-
-        @Override
-        public void onAnimationFrameChanged(AnimatedSprite pAnimatedSprite, int pOldFrameIndex, int pNewFrameIndex) {
-
-        }
-
-        @Override
-        public void onAnimationLoopFinished(AnimatedSprite pAnimatedSprite, int pRemainingLoopCount, int pInitialLoopCount) {
-            //To change body of implemented methods use File | Settings | File Templates.
-
-        }
-
-        @Override
-        public void onAnimationFinished(AnimatedSprite pAnimatedSprite) {
-            movesSprite.setVisible(false);
-            if (leftIsFirst){
-                leftRandomonSprite.animate(new long[]{100, 100}, 11, 12,1, animeSecondDefense);
-            }else{
-                rightRandomonSprite.animate(new long[]{100, 100}, 5, 6,1, animeSecondDefense);
-
-            }
-        }
-    };
-    final AnimatedSprite.IAnimationListener secondAttacks = new AnimatedSprite.IAnimationListener() {
-        @Override
-        public void onAnimationStarted(AnimatedSprite pAnimatedSprite, int pInitialLoopCount) {
-            //To change body of implemented methods use File | Settings | File Templates.
-        }
-
-        @Override
-        public void onAnimationFrameChanged(AnimatedSprite pAnimatedSprite, int pOldFrameIndex, int pNewFrameIndex) {
-            if(pNewFrameIndex == 1){
-                if(leftIsFirst){
-                    // start move
-                    movesSprite.setX(leftRandomonSprite.getX()+leftRandomonSprite.getWidth());
-                    movesSprite.setY(leftRandomonSprite.getY());
-                    movesSprite.setVisible(true);
-                    movesSprite.animate(new long[]{100, 100,100,100}, 0 , 3,1, animeMoveSecond);
-                }else{
-                    movesSprite.setX(leftRandomonSprite.getX()+leftRandomonSprite.getWidth());
-                    movesSprite.setY(leftRandomonSprite.getY());
-                    movesSprite.setVisible(true);
-                    movesSprite.animate(new long[]{100, 100, 100, 100}, 0, 3,1, animeMoveSecond);
-                }
-            }
-        }
-
-        @Override
-        public void onAnimationLoopFinished(AnimatedSprite pAnimatedSprite, int pRemainingLoopCount, int pInitialLoopCount) {
-            //To change body of implemented methods use File | Settings | File Templates.
-
-        }
-
-        @Override
-        public void onAnimationFinished(AnimatedSprite pAnimatedSprite) {
-
-
-
-        }
-    };
-
-    final AnimatedSprite.IAnimationListener animePause = new AnimatedSprite.IAnimationListener() {
-        @Override
-        public void onAnimationStarted(AnimatedSprite pAnimatedSprite, int pInitialLoopCount) {
-            //To change body of implemented methods use File | Settings | File Templates.
-        }
-
-        @Override
-        public void onAnimationFrameChanged(AnimatedSprite pAnimatedSprite, int pOldFrameIndex, int pNewFrameIndex) {
-
-        }
-
-        @Override
-        public void onAnimationLoopFinished(AnimatedSprite pAnimatedSprite, int pRemainingLoopCount, int pInitialLoopCount) {
-            //To change body of implemented methods use File | Settings | File Templates.
-
-        }
-
-        @Override
-        public void onAnimationFinished(AnimatedSprite pAnimatedSprite) {
-            //To change body of implemented methods use File | Settings | File Templates.
-            if (leftIsFirst){
-                // Righs side player atacks
-                rightRandomonSprite.animate(new long[]{100, 100, 100}, 2, 4, 5, secondAttacks);
-                commandsGroup.setVisible(false);
-            }else{
-                // Left player atacks
-                leftRandomonSprite.animate(new long[]{100, 100, 100}, 8, 10, 5, secondAttacks);
-                commandsGroup.setVisible(false);
-
-            }
-        }
-    };
-    final AnimatedSprite.IAnimationListener animeFirstDefense = new AnimatedSprite.IAnimationListener() {
-        @Override
-        public void onAnimationStarted(AnimatedSprite pAnimatedSprite, int pInitialLoopCount) {
-            //To change body of implemented methods use File | Settings | File Templates.
-        }
-
-        @Override
-        public void onAnimationFrameChanged(AnimatedSprite pAnimatedSprite, int pOldFrameIndex, int pNewFrameIndex) {
-
-        }
-
-        @Override
-        public void onAnimationLoopFinished(AnimatedSprite pAnimatedSprite, int pRemainingLoopCount, int pInitialLoopCount) {
-            //To change body of implemented methods use File | Settings | File Templates.
-
-        }
-
-        @Override
-        public void onAnimationFinished(AnimatedSprite pAnimatedSprite) {
-            if(leftIsFirst){
-                leftAtacked = true;
-
-            }else{
-                leftAtacked = false;
-            }
-            updateHitPoints();
-            //To change body of implemented methods use File | Settings | File Templates.
-            leftRandomonSprite.animate(new long[]{400, 400}, 0, 1, 3,animePause);
-            rightRandomonSprite.animate(new long[]{400, 400}, 0, 1, 3,animePause);
-
-        }
-    };
-
-
-    final AnimatedSprite.IAnimationListener animeMove = new AnimatedSprite.IAnimationListener() {
-        @Override
-        public void onAnimationStarted(AnimatedSprite pAnimatedSprite, int pInitialLoopCount) {
-            //To change body of implemented methods use File | Settings | File Templates.
-        }
-
-        @Override
-        public void onAnimationFrameChanged(AnimatedSprite pAnimatedSprite, int pOldFrameIndex, int pNewFrameIndex) {
-
-        }
-
-        @Override
-        public void onAnimationLoopFinished(AnimatedSprite pAnimatedSprite, int pRemainingLoopCount, int pInitialLoopCount) {
-            //To change body of implemented methods use File | Settings | File Templates.
-
-        }
-
-        @Override
-        public void onAnimationFinished(AnimatedSprite pAnimatedSprite) {
-            movesSprite.setVisible(false);
-            if (leftIsFirst){
-                rightRandomonSprite.animate(new long[]{100, 100}, 5, 6, 1,animeFirstDefense);
-            }else{
-                leftRandomonSprite.animate(new long[]{100, 100}, 11, 12,1, animeFirstDefense);
-            }
-        }
-    };
-
-    final AnimatedSprite.IAnimationListener animeFirstAtack = new AnimatedSprite.IAnimationListener() {
-        @Override
-        public void onAnimationStarted(AnimatedSprite pAnimatedSprite, int pInitialLoopCount) {
-            //To change body of implemented methods use File | Settings | File Templates.
-        }
-
-        @Override
-        public void onAnimationFrameChanged(AnimatedSprite pAnimatedSprite, int pOldFrameIndex, int pNewFrameIndex) {
-
-        }
-
-        @Override
-        public void onAnimationLoopFinished(AnimatedSprite pAnimatedSprite, int pRemainingLoopCount, int pInitialLoopCount) {
-            //To change body of implemented methods use File | Settings | File Templates.
-
-        }
-
-        @Override
-        public void onAnimationFinished(AnimatedSprite pAnimatedSprite) {
-            //To change body of implemented methods use File | Settings | File Templates.
-
-            if(leftIsFirst){
-                // start move
-                //movesSprite.setX(leftRandomonSprite.getX()+leftRandomonSprite.getWidth());
-                //movesSprite.setY(leftRandomonSprite.getY());
-                movesSprite.setVisible(true);
-                movesSprite.animate(new long[]{100, 100,100,100}, 0 , 3,1);
-            }else{
-                //movesSprite.setX(leftRandomonSprite.getX()+leftRandomonSprite.getWidth());
-                //movesSprite.setY(leftRandomonSprite.getY());
-                movesSprite.setVisible(true);
-                movesSprite.animate(new long[]{100, 100, 100, 100}, 0, 3,1);
-            }
-        }
-    };
 }
