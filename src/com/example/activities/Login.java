@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.example.data.Move;
+import com.example.data.Randomon;
+import com.example.data.User;
 import com.savagelook.android.UrlJsonAsyncTask;
 import org.apache.http.client.HttpResponseException;
 import org.apache.http.client.ResponseHandler;
@@ -16,10 +19,12 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.holoeverywhere.widget.EditText;
 import org.holoeverywhere.widget.Toast;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Created with IntelliJ IDEA.
@@ -126,7 +131,14 @@ public class Login extends SherlockFragmentActivity
 
             return json;
         }
-
+        /*
+        {
+        "id":1,"name":"asdas","hitpoints":100.0,
+        "attack":10.0,"defense":5.0,"speed":1.0,
+        "growth":0.0,"level":1,"current_hitpoints":1.0,
+        "current_experience":0.0,"status":42,"preference":0.0
+        }
+        */
         @Override
         protected void onPostExecute(JSONObject json) {
 
@@ -136,7 +148,53 @@ public class Login extends SherlockFragmentActivity
                     SharedPreferences.Editor editor =  mPreferences.edit();
                     // save the returned auth_token into
                     // the SharedPreferences
-                    editor.putString("AuthToken", json.getJSONObject("data").getString("auth_token"));
+                    editor.putString("AuthToken", json.getJSONObject("user").getString("authentication_token"));
+
+                    User user1 = new User(1,json.getJSONObject("user").getString("name"),1);
+
+                    JSONArray myRandomonsJSON = json.getJSONObject("user").getJSONArray("creatures");
+                    for (int i=0; i< myRandomonsJSON.length();i++){
+                        JSONObject randomonJSON = myRandomonsJSON.getJSONObject(i);
+                        Randomon randomon =new Randomon(
+                                randomonJSON.getString("name"),
+                                randomonJSON.getJSONObject("specie").getJSONArray("specie_types").getInt(0),
+                                randomonJSON.getInt("attack"),
+                                randomonJSON.getInt("defense"),
+                                randomonJSON.getInt("speed"),
+                                randomonJSON.getDouble("growth"),
+                                randomonJSON.getInt("hitpoints"),
+                                randomonJSON.getInt("level"),
+                                randomonJSON.getInt("current_hitpoints"),
+                                randomonJSON.getInt("current_experience"),
+                                randomonJSON.getString("status"),
+                                randomonJSON.getJSONObject("specie").getString("description"),
+                                randomonJSON.getJSONObject("specie").getInt("id"),
+                                randomonJSON.getInt("id")
+                        );
+                        JSONArray randomonMovesJson = randomonJSON.getJSONObject("specie").getJSONArray("moves");
+                        for (int j=0; j< randomonMovesJson.length();j++){
+                            JSONObject moveJSON = randomonMovesJson.getJSONObject(i);
+                            Move move = new Move(moveJSON.getString("name"),
+                                moveJSON.getString("name"),
+                                moveJSON.getInt("attack"),
+                                moveJSON.getInt("accuracy"),
+                                moveJSON.getInt("status"),
+                                moveJSON.getInt("status_probability"),
+                                moveJSON.getString("description") ,
+                                moveJSON.getJSONArray("move_types").getInt(0)
+
+                            );
+                            randomon.getMoves().add(move);
+                        }
+                        user1.getRandomonCollection().add(randomon);
+
+
+
+                    }
+
+
+                    editor.putString("User","");
+
                     editor.commit();
 
                     // launch the HomeActivity and close this one

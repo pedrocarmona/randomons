@@ -155,4 +155,5 @@ public class MainMenu extends SlidingFragmentActivity
 
         new SlidingMenu(this, getSlidingMenu());
     }
+
 }
