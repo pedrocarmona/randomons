@@ -103,7 +103,7 @@ public class MainMenu extends SlidingFragmentActivity
 
         profPic.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Toast.makeText(ctx, "Sou bonito eu sei!", Toast.LENGTH_LONG).show();
+               // Toast.makeText(ctx, "Sou bonito eu sei!", Toast.LENGTH_LONG).show();
             }
         });
 

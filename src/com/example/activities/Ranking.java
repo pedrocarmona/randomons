@@ -69,7 +69,7 @@ public class Ranking extends SlidingActivity
                 if(swiped) {
 
                     String msg =  "Open profile from the user in the place " + (id+1) + ".";
-                    Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
 
                     swiped = false;
 

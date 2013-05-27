@@ -187,7 +187,7 @@ public class ChooseRandomon extends SlidingActivity
 
                 /* REALLY SELECT IT AND GO TO THE MAIN MENU */
 
-                Toast.makeText(getApplicationContext(), "Selected randomon " + (index + 1), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "Selected randomon " + (index + 1), Toast.LENGTH_SHORT).show();
 
                 Intent intent;
                 intent = new Intent(v.getContext(), MainMenu.class);
