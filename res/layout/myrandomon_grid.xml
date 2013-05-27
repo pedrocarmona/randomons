@@ -9,7 +9,7 @@
           android:verticalSpacing="5dp"
           android:padding="5dp"
           android:gravity="center"
-          android:background="@android:color/background_dark"
+          android:background="#b1cbe1"
           android:stretchMode="columnWidth">
 
 </org.holoeverywhere.widget.GridView>
