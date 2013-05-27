@@ -19,14 +19,26 @@ public class Randomon implements Serializable
     private String description;
     private int preference;
     private int picId;
-    private User user;
+    private int creatureId;
+    private Player player;
     private ArrayList<Move> moves;
 
-    public Randomon(String name, String type, int attack, int defense, int speed, double growth, int hitpoints,
+    public static final int NORMAL = 0;
+    public static final int FIRE = 1;
+    public static final int WATER = 2;
+    public static final int GRASS = 3;
+    public static final int FLYING = 4;
+    public static final int PSYCHIC = 5;
+    public static final int POISONOUS = 6;
+    public static final int MYTHICAL = 7;
+    public static final int PREHISTORIC = 8;
+    public static final int CANNIBAL = 9;
+
+    public Randomon(String name, int type, int attack, int defense, int speed, double growth, int hitpoints,
                     int level, int current_hitpoints, int current_experience, String status, String description, int picId
-                    , int creatureId,  ArrayList<Move> moves) {
+                    , int creatureId) {
         this.name = name;
-        this.type = type;
+        setType(type);
         this.attack = attack;
         this.defense = defense;
         this.speed = speed;
@@ -38,8 +50,19 @@ public class Randomon implements Serializable
         this.status = status;
         this.description = description;
         this.picId = picId;
-        this.moves = moves;
+        this.creatureId =creatureId;
+        this.moves = new ArrayList<Move>();
 
+
+
+    }
+
+    public int getCreatureId() {
+        return creatureId;
+    }
+
+    public void setCreatureId(int creatureId) {
+        this.creatureId = creatureId;
     }
 
     public ArrayList<Move> getMoves() {
@@ -62,8 +85,40 @@ public class Randomon implements Serializable
         return type;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setType(int type) {
+        switch(type){
+            case NORMAL:
+                this.type = "Normal";
+                break;
+            case FIRE:
+                this.type = "Fire";
+                break;
+            case WATER:
+                this.type = "Water";
+                break;
+            case GRASS:
+                this.type = "Grass";
+                break;
+            case FLYING:
+                this.type = "Flying";
+                break;
+            case PSYCHIC:
+                this.type = "Psychic";
+                break;
+            case POISONOUS:
+                this.type = "Poisonous";
+                break;
+            case MYTHICAL:
+                this.type = "Mythical";
+                break;
+            case PREHISTORIC:
+                this.type = "Prehistoric";
+                break;
+            case CANNIBAL:
+                this.type = "Cannibal";
+                break;
+        }
+
     }
 
     public int getHitpoints() {
@@ -162,11 +217,11 @@ public class Randomon implements Serializable
         this.preference = preference;
     }
 
-    public User getUser() {
-        return user;
+    public Player getUser() {
+        return player;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(Player user) {
+        this.player = user;
     }
 }

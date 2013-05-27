@@ -81,7 +81,7 @@
         android:padding="2dip" >
 
         <org.holoeverywhere.widget.TextView
-                android:id="@+id/randomon_dex_name"
+                android:id="@+id/txt_dex_evolution"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="10dip"
@@ -113,15 +113,15 @@
                     android:scaleType="fitXY"
                     android:padding="5dip"
                     android:background="@drawable/image_view_border"
-                    android:src="@drawable/randomom"
+                    android:src="@drawable/quest_mark"
                     android:contentDescription="">
             </ImageView>
             <org.holoeverywhere.widget.TextView
-                    android:id="@+id/randomon_dex_name"
+                    android:id="@+id/randomon_dex_evl1_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="10dip"
-                    android:text="Estranhomon"
+                    android:text="TBD"
                     android:textStyle="normal"
                     android:textColor="@color/light_blue"/>
         </org.holoeverywhere.widget.LinearLayout>
@@ -142,15 +142,15 @@
                     android:layout_marginLeft="10dip"
                     android:layout_marginRight="10dip"
                     android:background="@drawable/image_view_border"
-                    android:src="@drawable/randomom"
+                    android:src="@drawable/quest_mark"
                     android:contentDescription="">
             </ImageView>
             <org.holoeverywhere.widget.TextView
-                    android:id="@+id/randomon_dex_name"
+                    android:id="@+id/randomon_dex_evl2_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="10dip"
-                    android:text="Tritomon"
+                    android:text="TBD"
                     android:textStyle="normal"
                     android:textColor="@color/light_blue"/>
         </org.holoeverywhere.widget.LinearLayout>
@@ -170,15 +170,15 @@
                     android:scaleType="fitXY"
                     android:padding="5dip"
                     android:background="@drawable/image_view_border"
-                    android:src="@drawable/randomom"
+                    android:src="@drawable/quest_mark"
                     android:contentDescription="">
             </ImageView>
             <org.holoeverywhere.widget.TextView
-                    android:id="@+id/randomon_dex_name"
+                    android:id="@+id/randomon_dex_evl3_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="10dip"
-                    android:text="Parvomon"
+                    android:text="TBD"
                     android:textStyle="normal"
                     android:textColor="@color/light_blue"/>
         </org.holoeverywhere.widget.LinearLayout>
@@ -227,12 +227,11 @@
                     android:layout_height="match_parent" >
 
                 <org.holoeverywhere.widget.TextView
-                        android:id="@+id/randomon_dex_name"
+                        android:id="@+id/randomon_dex_desc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="12dip"
                         android:padding="2dip"
-                        android:text="Descrição do bicho."
                         android:textStyle="normal"
                         android:textColor="#000"/>
             </org.holoeverywhere.widget.LinearLayout>

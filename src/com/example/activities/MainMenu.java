@@ -18,6 +18,7 @@ import com.example.adapters.AdapterHorizontalList;
 import com.example.adapters.AdapterLastEvents;
 import com.example.data.CloseEvent;
 import com.example.data.Event;
+import com.example.data.Player;
 import com.example.location.LocationReceiver;
 import com.example.menus.SlidingMenu;
 import com.google.android.gms.maps.GoogleMap;
@@ -27,12 +28,19 @@ import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
 import org.holoeverywhere.widget.ListView;
 import org.holoeverywhere.widget.Toast;
 
+import java.util.ArrayList;
+
 public class MainMenu extends SlidingActivity
 {
+
+    final Context ctx = this;
+
     private SharedPreferences mPreferences;
     private AdapterCloseEventsBase proxAdapter;
 
-    final Context ctx = this;
+    private Player playerLogged;
+    private ArrayList<CloseEvent> closeEvents = new ArrayList<CloseEvent>();
+    private ArrayList<Event> lastEvents = new ArrayList<Event>();
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -40,6 +48,21 @@ public class MainMenu extends SlidingActivity
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.main_menu);
+
+        /*TEMPORARY DATA*/
+        playerLogged = new Player(30, "Joao Monteiro", 40, R.drawable.avatar_img);
+        closeEvents.add(new CloseEvent(1, "Monteirovsky"));
+        closeEvents.add(new CloseEvent(4, "Shop"));
+        closeEvents.add(new CloseEvent(2, "Randobattle"));
+        closeEvents.add(new CloseEvent(3, "Medic"));
+        closeEvents.add(new CloseEvent(1, "Monteirovsky"));
+        closeEvents.add(new CloseEvent(4, "Shop"));
+        closeEvents.add(new CloseEvent(2, "Randobattle"));
+        closeEvents.add(new CloseEvent(3, "Medic"));
+
+        lastEvents.add(new Event("X minutos atras","Lost a battle against Chefe Marques", R.drawable.avatar_img));
+        lastEvents.add(new Event("X minutos atras","Wild battle with Tetrauros.", R.drawable.tetrauros));
+        lastEvents.add(new Event("X minutos atras","Bought items on shop.", R.drawable.shop));
 
         addSlidingMenu();
 
@@ -61,14 +84,8 @@ public class MainMenu extends SlidingActivity
         proxAdapter = new AdapterCloseEventsBase(this);
         proxView.setAdapter(proxAdapter);
 
-        proxAdapter.addItem(new CloseEvent(1, "Monteirovsky"));
-        proxAdapter.addItem(new CloseEvent(4, "Shop"));
-        proxAdapter.addItem(new CloseEvent(2, "Randobattle"));
-        proxAdapter.addItem(new CloseEvent(3, "Medic"));
-        proxAdapter.addItem(new CloseEvent(1, "Monteirovsky"));
-        proxAdapter.addItem(new CloseEvent(4, "Shop"));
-        proxAdapter.addItem(new CloseEvent(2, "Randobattle"));
-        proxAdapter.addItem(new CloseEvent(3, "Medic"));
+        for (CloseEvent clEvt : closeEvents)
+            proxAdapter.addItem(clEvt);
 
         profPic.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -80,19 +97,20 @@ public class MainMenu extends SlidingActivity
 
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                if (((CloseEvent) proxAdapter.getItem(position)).getCloseEventType() == 1) {
-                    Intent intent = new Intent(view.getContext(), PlayerDetails.class);
-                    MainMenu.this.startActivity(intent);
-                } else if (((CloseEvent) proxAdapter.getItem(position)).getCloseEventType() == 2) {
-                    Intent intent = new Intent(view.getContext(), Battle.class);
-                    MainMenu.this.startActivity(intent);
-                } else if (((CloseEvent) proxAdapter.getItem(position)).getCloseEventType() == 3) {
-                    Intent intent = new Intent(view.getContext(), MedicalSpot.class);
-                    MainMenu.this.startActivity(intent);
-                } else if (((CloseEvent) proxAdapter.getItem(position)).getCloseEventType() == 4) {
-                    Intent intent = new Intent(view.getContext(), Shop.class);
-                    MainMenu.this.startActivity(intent);
-                }
+            if (((CloseEvent) proxAdapter.getItem(position)).getCloseEventType() == 1) {
+                Intent intent = new Intent(view.getContext(), PlayerDetails.class);
+                MainMenu.this.startActivity(intent);
+            } else if (((CloseEvent) proxAdapter.getItem(position)).getCloseEventType() == 2) {
+                Intent intent = new Intent(view.getContext(), Battle.class);
+                MainMenu.this.startActivity(intent);
+            } else if (((CloseEvent) proxAdapter.getItem(position)).getCloseEventType() == 3) {
+                Intent intent = new Intent(view.getContext(), MedicalSpot.class);
+                MainMenu.this.startActivity(intent);
+            } else if (((CloseEvent) proxAdapter.getItem(position)).getCloseEventType() == 4) {
+                Intent intent = new Intent(view.getContext(), Shop.class);
+                MainMenu.this.startActivity(intent);
+            }
+
             }
         });
 
@@ -102,10 +120,8 @@ public class MainMenu extends SlidingActivity
 
         leventsView.setAdapter(leventsAdapter);
 
-        //PARA EXEMPLO
-        for(int i = 0; i<20; i++)
-
-            leventsAdapter.addEvent(new Event((i+1)+" minutos atras","Perdeu com o utilizador facadas."));
+        for (Event lEvt : lastEvents)
+            leventsAdapter.addEvent(lEvt);
 
         //###################################################
 
@@ -160,7 +176,7 @@ public class MainMenu extends SlidingActivity
     public void onResume() {
         super.onResume();
         Log.v("erros", "no resume");
-        /**/
+/**/
         if (mPreferences.contains("AuthToken")) {
             //loadTasksFromAPI(TASKS_URL);
             Log.v("erros", "Auth="+ mPreferences.getString("AuthToken", ""));

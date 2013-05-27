@@ -23,42 +23,39 @@
 
 
             <org.holoeverywhere.widget.TextView
-                    android:id="@+id/tv_randomon_name"
+                    android:id="@+id/randomon_info_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Randomon_Name"
                     android:layout_gravity="center"
                     android:textColor="#0066CC"
                     />
 
             <ImageView
-                    android:id="@+id/img_randomon_photo"
+                    android:id="@+id/randomon_info_img"
                     android:layout_width="120dip"
                     android:layout_height="120dip"
                     android:scaleType="fitXY"
-                    android:onClick="onClick"
-                    android:clickable="true"
                     android:src="@drawable/randomom"
                     android:contentDescription="randomon_photo_info"
                     android:background="@drawable/full_rounded_list"
                     android:padding="5dp" />
 
             <org.holoeverywhere.widget.TextView
-                    android:id="@+id/tv_randomon_kind"
+                    android:id="@+id/randomon_info_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Kind:"
+                    android:text="Type: "
                     android:layout_gravity="center"
                     android:textColor="#0066CC"
                     />
             <org.holoeverywhere.widget.TextView
-                    android:id="@+id/tv_randomon_kind"
+                    android:id="@+id/randomon_info_lvl"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Level"
+                    android:text="Level "
                     android:layout_gravity="center"
                     android:textColor="#0066CC"
                     />
@@ -88,17 +85,6 @@
 
                     android:contentDescription="randomon_image_pentagono"/>
 
-            <TextView
-                    android:id="@+id/tv_randomon_hp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:text="Randomon_Name"
-                    android:layout_gravity="center"
-                    android:textColor="#0066CC"
-
-                    />
-
         </org.holoeverywhere.widget.LinearLayout>
 
     </org.holoeverywhere.widget.LinearLayout>
@@ -119,7 +105,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="3dip"
-                android:text="Detalhes do Randomon"
+                android:text="Randomon Moves"
                 android:textStyle="bold"
                 android:textColor="#0066cc"/>
 
