@@ -199,7 +199,7 @@ public class ChooseRandomon extends SlidingActivity
         /* set description and image according to the index */
         descRandomon.setText("O Estranhomon costuma ser encontrado em regiões pantanosas. É um randomon muito agressivo, porém é fácil de encontrar. " +
                 "\nDescrição do randomon " + sortedRandomons[index].getName());
-        randomonMini.setImageResource(R.drawable.randomom);
+        randomonMini.setImageResource(sortedRandomons[index].getPicId());
     }
 
     @Override

@@ -79,7 +79,8 @@ public class PlayerDetails extends SlidingFragmentActivity {
             @Override
             public void onClick(View v)
             {
-                //Toast.makeText(ctx,"No violence",Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(v.getContext(), Battle.class);
+                PlayerDetails.this.startActivity(intent);
             }
         });
 

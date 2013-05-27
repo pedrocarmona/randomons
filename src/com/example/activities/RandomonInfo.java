@@ -36,9 +36,9 @@ public class RandomonInfo extends SlidingFragmentActivity {
 
         int cima = 30;
         int esquerda = 10;
-        int direita = 80;
+        int direita = 40;
         int baixo_esquerda=20;
-        int baixo_direita=60;
+        int baixo_direita=40;
 
         ImageView imgPentagono = (ImageView) findViewById(R.id.pentagono);
 
