@@ -36,8 +36,12 @@ public class MedicalSpotPotions extends SherlockFragment
         listView.setAdapter(adapter);
 
         //PARA EXEMPLO
-        for(int i = 0; i<20; i++)
-            adapter.addItem(new Potion("Whisky", "Pain reliever"));
+        adapter.addItem(new Potion(R.drawable.potion_psn, "Poison Type Potion", "Useful for everything and something else."));
+        adapter.addItem(new Potion(R.drawable.potion_psy, "Psychic Type Potion", "Useful for everything and something else."));
+        adapter.addItem(new Potion(R.drawable.potion_mth, "Mythical Type Potion", "Useful for everything and something else."));
+        adapter.addItem(new Potion(R.drawable.potion_cnb, "Canibal Type Potion", "Useful for everything and something else."));
+        adapter.addItem(new Potion(R.drawable.potion_ph, "Prehistoric Type Potion", "Useful for everything and something else."));
+        adapter.addItem(new Potion(R.drawable.potion_fl, "Flying Type Potion", "Useful for everything and something else."));
 
         addClickListeners();
 

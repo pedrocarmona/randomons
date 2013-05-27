@@ -539,6 +539,7 @@ public class Battle extends SimpleBaseGameActivity {
             }
             @Override
             public void onPathWaypointFinished(final PathModifier pPathModifier, final IEntity pEntity, final int pWaypointIndex) {
+
             }
             @Override
             public void onPathFinished(final PathModifier pPathModifier, final IEntity pEntity) {
