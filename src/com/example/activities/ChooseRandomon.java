@@ -138,15 +138,10 @@ public class ChooseRandomon extends SlidingActivity
                             leverImg.setImageResource(R.drawable.lever_down);
 
                            /* SORT STARTER RANDOMONS HERE */
-                            ArrayList<Move> moves1 = new ArrayList<Move>();
-                            moves1.add(new Move("fire",R.drawable.tetrauros,50));
-                            ArrayList<Move> moves2 = new ArrayList<Move>();
-                            moves2.add(new Move("water",R.drawable.tetrauros,30));
-                            ArrayList<Move> moves3 = new ArrayList<Move>();
-                            moves1.add(new Move("fire",R.drawable.tetrauros,20));
-                            Randomon r1 = new Randomon("Randomon 1 ", "Fuego", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal", "fast randomon lives in mountains", R.drawable.tetrauros,1,moves1);
-                            Randomon r2 = new Randomon("Randomon 2 ", "Aqua", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal", "randomon lives near the beach", R.drawable.ponycorn,2,moves2);
-                            Randomon r3 = new Randomon("Randomon 3 ", "Planta", 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal", "Cute randomon present everywhere, strong by nature", R.drawable.cyclosnake,3,moves3);
+                            Randomon r1 = new Randomon("Catzinga", Randomon.NORMAL, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.catzinga,1);
+                            Randomon r2 = new Randomon("Canibalape", Randomon.NORMAL, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.canibalape,2);
+                            Randomon r3 = new Randomon("Cyclosnake", Randomon.NORMAL, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.cyclosnake,3);
+
                             sortedRandomons[0] = r1;
                             sortedRandomons[1] = r2;
                             sortedRandomons[2] = r3;

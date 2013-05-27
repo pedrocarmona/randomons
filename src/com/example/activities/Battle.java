@@ -105,7 +105,7 @@ public class Battle extends SimpleBaseGameActivity {
     private boolean leftIsFirst;
 
 
-
+    Scene scene;
 
     AnimatedSprite rightRandomonSprite;
     AnimatedSprite leftRandomonSprite;
@@ -198,13 +198,8 @@ public class Battle extends SimpleBaseGameActivity {
 
 
 
-        ArrayList<Move> moves1 = new ArrayList<Move>();
-        moves1.add(new Move("fire",R.drawable.tetrauros,50));
-        ArrayList<Move> moves2 = new ArrayList<Move>();
-        moves2.add(new Move("water",R.drawable.tetrauros,40));
-
-        this.leftRandomon = new Randomon("Randomon 1 ","Normal", 40, 30, 60, 1.1, 200, 13,200 ,19, "doente","randomom muito bonito" ,1,1,moves1);
-        this.rightRandomon =  new Randomon("Randomina", "Normal" , 60, 40, 30, 1.1, 200, 13, 200,31,"sedutora","randomomina muito sexy",1,1,moves2);
+        this.leftRandomon = (new Randomon("Catzinga", Randomon.NORMAL, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.catzinga,1));
+        this.rightRandomon = (new Randomon("Canibalape", Randomon.NORMAL, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.canibalape,2));
 
         this.mBitmapTextureAtlas = new BitmapTextureAtlas(this.getTextureManager(), 32, 32, TextureOptions.BILINEAR_PREMULTIPLYALPHA);
         this.mParticleTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(this.mBitmapTextureAtlas, this, "particle_fire.png", 0, 0);
@@ -226,7 +221,7 @@ public class Battle extends SimpleBaseGameActivity {
     @Override
     public Scene onCreateScene() {
         this.mEngine.registerUpdateHandler(new FPSLogger());
-        final Scene scene = new Scene();
+        scene = new Scene();
         scene.setBackground(new Background(0.09804f, 0.6274f, 0.8784f));
 
         final VertexBufferObjectManager vertexBufferObjectManager = this.getVertexBufferObjectManager();
@@ -245,6 +240,7 @@ public class Battle extends SimpleBaseGameActivity {
         scene.attachChild(leftRandomonSprite);
         rightRandomonSprite = new AnimatedSprite(CAMERA_WIDTH-160, CAMERA_HEIGHT-128,128,128,  this.mRightRandomonTextureRegion, this.getVertexBufferObjectManager());
         scene.attachChild(rightRandomonSprite);
+
         movesSprite = new AnimatedSprite(CAMERA_WIDTH/2, CAMERA_HEIGHT/2,64,64,  this.movesTextureRegion, this.getVertexBufferObjectManager());
         movesSprite.setVisible(false);
         scene.attachChild(movesSprite);
@@ -375,6 +371,7 @@ public class Battle extends SimpleBaseGameActivity {
 
         //remove final if needed
         AnimatedSprite.IAnimationListener anime = new AnimatedSprite.IAnimationListener() {
+
             @Override
             public void onAnimationStarted(AnimatedSprite pAnimatedSprite, int pInitialLoopCount) {
                 //To change body of implemented methods use File | Settings | File Templates.
@@ -520,7 +517,6 @@ public class Battle extends SimpleBaseGameActivity {
                 updateHitPoints();
                 break;
         }
-
         step++;
         if(step==SPRITE_AFTER_DEFENSE2+1){
             step=0;
@@ -629,12 +625,11 @@ public class Battle extends SimpleBaseGameActivity {
         String text2 = rightRandomon.getName()+" lvl."+rightRandomon.getLevel()+" "+" ("+rightRandomon.getCurrent_hitpoints()+"/"+rightRandomon.getHitpoints()+")";
         leftRandomonText.setText(text1);
         rightRandomonText.setText(text2);
-
-
     }
+
+
     // ===========================================================
     // Inner and Anonymous Classes
     // ===========================================================
-
 
 }

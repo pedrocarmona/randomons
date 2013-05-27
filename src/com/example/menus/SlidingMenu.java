@@ -2,12 +2,15 @@ package com.example.menus;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import com.example.activities.*;
+import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import org.holoeverywhere.ArrayAdapter;
 import org.holoeverywhere.widget.ListView;
+import android.content.SharedPreferences;
 
 public class SlidingMenu
 {
@@ -17,7 +20,7 @@ public class SlidingMenu
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.menu_frame, null);
         ListView slidingMenuList = (ListView) view.findViewById(R.id.sliding_menu_list);
-        String[] items = new String[]{"Home","My Randomons","My Items","Ranking","R-Guide","Map","Store","Medical Spot"};
+        String[] items = new String[]{"Home","My Randomons","My Items","Ranking","R-Guide","Map","Store","Medical Spot", "Log out"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,android.R.layout.simple_list_item_1, android.R.id.text1, items);
         slidingMenuList.setAdapter(adapter);
 
@@ -67,7 +70,7 @@ public class SlidingMenu
                         //finish();
                         break;
                     case 5:
-                        intent = new Intent(view.getContext(), MedicalSpot.class);
+                        intent = new Intent(view.getContext(), Map.class);
                         context.startActivity(intent);
                         //finish();
                         break;
@@ -81,8 +84,18 @@ public class SlidingMenu
                         context.startActivity(intent);
                         //finish();
                         break;
+                    case 8:
+                        SharedPreferences mPreferences = context.getSharedPreferences("CurrentUser", context.MODE_PRIVATE);
+                        mPreferences.edit().remove("AuthToken").commit();
+                        intent = new Intent(view.getContext(), MainMenu.class);
+                        context.startActivity(intent);
+
+                        //finish();
+                        break;
                 }
             }
         });
     }
+
+
 }
