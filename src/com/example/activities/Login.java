@@ -9,7 +9,7 @@ import android.view.View;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.example.data.Move;
 import com.example.data.Randomon;
-import com.example.data.User;
+import com.example.data.Player;
 import com.savagelook.android.UrlJsonAsyncTask;
 import org.apache.http.client.HttpResponseException;
 import org.apache.http.client.ResponseHandler;
@@ -150,7 +150,7 @@ public class Login extends SherlockFragmentActivity
                     // the SharedPreferences
                     editor.putString("AuthToken", json.getJSONObject("user").getString("authentication_token"));
 
-                    User user1 = new User(1,json.getJSONObject("user").getString("name"),1);
+                    Player player = new Player(1,json.getJSONObject("user").getString("name"),1,R.drawable.avatar_img);
 
                     JSONArray myRandomonsJSON = json.getJSONObject("user").getJSONArray("creatures");
                     for (int i=0; i< myRandomonsJSON.length();i++){
@@ -175,7 +175,7 @@ public class Login extends SherlockFragmentActivity
                         for (int j=0; j< randomonMovesJson.length();j++){
                             JSONObject moveJSON = randomonMovesJson.getJSONObject(i);
                             Move move = new Move(moveJSON.getString("name"),
-                                moveJSON.getString("name"),
+                                    R.drawable.quest_mark,
                                 moveJSON.getInt("attack"),
                                 moveJSON.getInt("accuracy"),
                                 moveJSON.getInt("status"),
@@ -186,7 +186,7 @@ public class Login extends SherlockFragmentActivity
                             );
                             randomon.getMoves().add(move);
                         }
-                        user1.getRandomonCollection().add(randomon);
+                        player.getRandomonCollection().add(randomon);
 
 
 

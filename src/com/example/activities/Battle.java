@@ -58,6 +58,7 @@ public class Battle extends SimpleBaseGameActivity {
     // Constants
     // ===========================================================
 
+
     private static int CAMERA_WIDTH = 480;
     private static int CAMERA_HEIGHT = 320;
 
@@ -115,6 +116,7 @@ public class Battle extends SimpleBaseGameActivity {
     private ITextureRegion mParallaxLayerMid;
     private ITextureRegion mParallaxLayerFront;
     private boolean isBattleOver;
+
 
 
     // ===========================================================
@@ -188,11 +190,6 @@ public class Battle extends SimpleBaseGameActivity {
 
 
 
-        ArrayList<Move> moves1 = new ArrayList<Move>();
-        moves1.add(new Move("fire","fire.png",1,1,1,1.1,"ataque disc", Randomon.FIRE));
-        ArrayList<Move> moves2 = new ArrayList<Move>();
-        moves2.add(new Move("fire","fire.png",1,1,1,1.1,"ataque disc", Randomon.FIRE));
-
         this.leftRandomon = (new Randomon("Catzinga", Randomon.NORMAL, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.catzinga,1));
         this.rightRandomon = (new Randomon("Canibalape", Randomon.NORMAL, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.canibalape,2));
 
@@ -235,6 +232,9 @@ public class Battle extends SimpleBaseGameActivity {
         scene.attachChild(leftRandomonSprite);
         rightRandomonSprite = new AnimatedSprite(CAMERA_WIDTH-160, CAMERA_HEIGHT-128,128,128,  this.mRightRandomonTextureRegion, this.getVertexBufferObjectManager());
         scene.attachChild(rightRandomonSprite);
+
+        movesSprite = new AnimatedSprite(CAMERA_WIDTH/2, CAMERA_HEIGHT/2,64,64,  this.movesTextureRegion, this.getVertexBufferObjectManager());
+        scene.attachChild(movesSprite);
         movimentoInicial();
 
         /* Create the rectangles. */
@@ -350,9 +350,10 @@ public class Battle extends SimpleBaseGameActivity {
     public void movimentoInicial(){
         leftRandomonSprite.animate(new long[]{400, 400}, 0, 1, true);
         rightRandomonSprite.animate(new long[]{400, 400}, 0, 1, true);
-        movesSprite.setX(leftRandomonSprite.getX());
-        movesSprite.setY(leftRandomonSprite.getY());
-        movesSprite.animate(new long[]{100,100,100,100}, 0, 3, true);
+
+        //movesSprite.setX(leftRandomonSprite.getX());
+        //movesSprite.setY(leftRandomonSprite.getY());
+        //movesSprite.animate(new long[]{100,100,100,100}, 0, 3, true);
     }
 
 
@@ -407,33 +408,19 @@ public class Battle extends SimpleBaseGameActivity {
                 engineLock.lock();
                 if(leftIsFirst){
                     // start move
-                    movesSprite = new AnimatedSprite(leftRandomonSprite.getX()+leftRandomonSprite.getWidth(),
-                            leftRandomonSprite.getY(),256,256,  this.movesTextureRegion, this.getVertexBufferObjectManager());
 
-                    this.runOnUpdateThread(new Runnable() {
-                        @Override
-                        public void run() {
 
-                            scene.attachChild(movesSprite);
-                            movesSprite.animate(new long[]{200, 200, 200, 200}, 0, 4, 1, anime);
+                    movesSprite.setX(leftRandomonSprite.getX()+leftRandomonSprite.getWidth());
+                    movesSprite.setY(leftRandomonSprite.getY());
 
-                        }
-                    });
-
+                    movesSprite.setVisible(true);
+                    movesSprite.animate(new long[]{100, 100,100,100}, 0, 3,1,anime);
 
                 }else{
-                    movesSprite = new AnimatedSprite(leftRandomonSprite.getX()+leftRandomonSprite.getWidth(),
-                            leftRandomonSprite.getY(),256,256,  this.movesTextureRegion, this.getVertexBufferObjectManager());
-
-                    this.runOnUpdateThread(new Runnable() {
-                        @Override
-                        public void run() {
-
-                            scene.attachChild(movesSprite);
-                            movesSprite.animate(new long[]{200, 200, 200, 200}, 0, 4, 1, anime);
-
-                        }
-                    });
+                    movesSprite.setX(leftRandomonSprite.getX()+leftRandomonSprite.getWidth());
+                    movesSprite.setY(leftRandomonSprite.getY());
+                    movesSprite.setVisible(true);
+                    movesSprite.animate(new long[]{100,100,100,100}, 0, 3,1,anime);
 
                 }
                 engineLock.unlock();
@@ -458,8 +445,8 @@ public class Battle extends SimpleBaseGameActivity {
                 }
                 updateHitPoints();
                 //To change body of implemented methods use File | Settings | File Templates.
-                leftRandomonSprite.animate(new long[]{400, 400}, 0, 1, 3,anime);
-                rightRandomonSprite.animate(new long[]{400, 400}, 0, 1, 3,anime);
+                leftRandomonSprite.animate(new long[]{100, 100}, 0, 1, 3,anime);
+                rightRandomonSprite.animate(new long[]{100, 100}, 0, 1, 3,anime);
 
                 break;
             case SPRITE_AFTER_PAUSE:
@@ -483,12 +470,12 @@ public class Battle extends SimpleBaseGameActivity {
                     movesSprite.setX(leftRandomonSprite.getX()+leftRandomonSprite.getWidth());
                     movesSprite.setY(leftRandomonSprite.getY());
                     movesSprite.setVisible(true);
-                    movesSprite.animate(new long[]{100, 100,100,100}, 0 , 4,1, anime);
+                    movesSprite.animate(new long[]{100, 100,100,100}, 0 , 3,1, anime);
                 }else{
                     movesSprite.setX(leftRandomonSprite.getX()+leftRandomonSprite.getWidth());
                     movesSprite.setY(leftRandomonSprite.getY());
                     movesSprite.setVisible(true);
-                    movesSprite.animate(new long[]{100, 100, 100, 100}, 0, 4,1, anime);
+                    movesSprite.animate(new long[]{100, 100, 100, 100}, 0, 3,1, anime);
                 }
 
 
@@ -510,9 +497,9 @@ public class Battle extends SimpleBaseGameActivity {
             case SPRITE_AFTER_DEFENSE2:
 
                 if(leftIsFirst){
-                    leftAtacked = true;
-                }else{
                     leftAtacked = false;
+                }else{
+                    leftAtacked = true;
                 }
                 updateHitPoints();
                 break;
@@ -524,10 +511,11 @@ public class Battle extends SimpleBaseGameActivity {
 
     private void updateHitPoints(){
         if(leftAtacked){
-            leftRandomon.setCurrent_hitpoints(leftRandomon.getCurrent_hitpoints()-rightRandomon.getAttack());
-        }else{
             rightRandomon.setCurrent_hitpoints(rightRandomon.getCurrent_hitpoints()-leftRandomon.getAttack());
+        }else{
+            leftRandomon.setCurrent_hitpoints(leftRandomon.getCurrent_hitpoints()-rightRandomon.getAttack());
         }
+
 
         drawHitpoints();
         updateText();
@@ -657,12 +645,12 @@ public class Battle extends SimpleBaseGameActivity {
                     movesSprite.setX(leftRandomonSprite.getX()+leftRandomonSprite.getWidth());
                     movesSprite.setY(leftRandomonSprite.getY());
                     movesSprite.setVisible(true);
-                    movesSprite.animate(new long[]{100, 100,100,100}, 0 , 4,1, animeMoveSecond);
+                    movesSprite.animate(new long[]{100, 100,100,100}, 0 , 3,1, animeMoveSecond);
                 }else{
                     movesSprite.setX(leftRandomonSprite.getX()+leftRandomonSprite.getWidth());
                     movesSprite.setY(leftRandomonSprite.getY());
                     movesSprite.setVisible(true);
-                    movesSprite.animate(new long[]{100, 100, 100, 100}, 0, 4,1, animeMoveSecond);
+                    movesSprite.animate(new long[]{100, 100, 100, 100}, 0, 3,1, animeMoveSecond);
                 }
             }
         }
@@ -797,12 +785,12 @@ public class Battle extends SimpleBaseGameActivity {
                 //movesSprite.setX(leftRandomonSprite.getX()+leftRandomonSprite.getWidth());
                 //movesSprite.setY(leftRandomonSprite.getY());
                 movesSprite.setVisible(true);
-                movesSprite.animate(new long[]{100, 100,100,100}, 0 , 4,1);
+                movesSprite.animate(new long[]{100, 100,100,100}, 0 , 3,1);
             }else{
                 //movesSprite.setX(leftRandomonSprite.getX()+leftRandomonSprite.getWidth());
                 //movesSprite.setY(leftRandomonSprite.getY());
                 movesSprite.setVisible(true);
-                movesSprite.animate(new long[]{100, 100, 100, 100}, 0, 4,1);
+                movesSprite.animate(new long[]{100, 100, 100, 100}, 0, 3,1);
             }
         }
     };

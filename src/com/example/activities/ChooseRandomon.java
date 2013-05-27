@@ -141,6 +141,7 @@ public class ChooseRandomon extends SlidingActivity
                             Randomon r1 = new Randomon("Catzinga", Randomon.NORMAL, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.catzinga,1);
                             Randomon r2 = new Randomon("Canibalape", Randomon.NORMAL, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.canibalape,2);
                             Randomon r3 = new Randomon("Cyclosnake", Randomon.NORMAL, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.cyclosnake,3);
+
                             sortedRandomons[0] = r1;
                             sortedRandomons[1] = r2;
                             sortedRandomons[2] = r3;

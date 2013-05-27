@@ -1,5 +1,7 @@
 package com.example.data;
 
+import java.io.Serializable;
+
 /**
  * Created with IntelliJ IDEA.
  * User: pedrocarmona
@@ -7,10 +9,10 @@ package com.example.data;
  * Time: 16:20
  * To change this template use File | Settings | File Templates.
  */
-public class Move {
+public class Move implements Serializable{
     private String name;
-    private String animationPath;
-
+    private int animationPath;
+    private int damage;
     private int attack;
     private int accuracy;
     private int status;
@@ -26,7 +28,7 @@ public class Move {
         this.animationPath = animationPath;
     } */
 
-    public Move(String name, String animationPath, int attack, int accuracy, int status, double status_probability, String description, int type) {
+    public Move(String name, int animationPath, int attack, int accuracy, int status, double status_probability, String description, int type) {
         this.name = name;
         this.animationPath = animationPath;
         this.attack = attack;
@@ -37,6 +39,12 @@ public class Move {
         this.type = type;
     }
 
+    public Move(String name, int animationPath, int damage) {
+        this.name = name;
+        this.animationPath = animationPath;
+        this.damage = damage;
+    }
+
     public String getName() {
         return name;
     }
@@ -45,11 +53,11 @@ public class Move {
         this.name = name;
     }
 
-    public String getAnimationPath() {
+    public int getAnimationPath() {
         return animationPath;
     }
 
-    public void setAnimationPath(String animationPath) {
+    public void setAnimationPath(int animationPath) {
         this.animationPath = animationPath;
     }
 
@@ -99,6 +107,14 @@ public class Move {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
     }
 }
 

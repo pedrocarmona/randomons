@@ -20,7 +20,7 @@ public class Randomon implements Serializable
     private int preference;
     private int picId;
     private int creatureId;
-    private User user;
+    private Player player;
     private ArrayList<Move> moves;
 
     public static final int NORMAL = 0;
@@ -217,11 +217,11 @@ public class Randomon implements Serializable
         this.preference = preference;
     }
 
-    public User getUser() {
-        return user;
+    public Player getUser() {
+        return player;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(Player user) {
+        this.player = user;
     }
 }

@@ -111,9 +111,6 @@ public class Trade extends SlidingActivity
                 myRandomonsAdapter = new AdapterPlayerRandomonsList(context);
                 randomonsDialog.setAdapter(myRandomonsAdapter);
 
-
-
-
                 for(int i = 0; i<10; i++)
                     myRandomonsAdapter.addItem(new Randomon("Cyclosnake", Randomon.NORMAL, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.cyclosnake,3));
 
