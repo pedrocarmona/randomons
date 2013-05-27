@@ -1,25 +1,33 @@
 package com.example.activities;
 
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.SurfaceView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import com.example.adapters.AdapterHorizontalList;
 import com.actionbarsherlock.view.MenuItem;
 import com.example.adapters.AdapterCloseEventsBase;
+import com.example.adapters.AdapterHorizontalList;
 import com.example.adapters.AdapterLastEvents;
 import com.example.data.CloseEvent;
 import com.example.data.Event;
+import com.example.location.LocationReceiver;
 import com.example.menus.SlidingMenu;
-import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMapOptions;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
 import org.holoeverywhere.widget.ListView;
 import org.holoeverywhere.widget.Toast;
 
-public class MainMenu extends SlidingFragmentActivity
+public class MainMenu extends SlidingActivity
 {
     private SharedPreferences mPreferences;
     private AdapterCloseEventsBase proxAdapter;
@@ -99,13 +107,60 @@ public class MainMenu extends SlidingFragmentActivity
 
             leventsAdapter.addEvent(new Event((i+1)+" minutos atras","Perdeu com o utilizador facadas."));
 
+        //###################################################
+
+        Intent intent = new Intent(this, LocationReceiver.class);
+
+        LocationManager manager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+
+        PendingIntent launchIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
+
+        manager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 10, launchIntent);
+        manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 10, launchIntent);
+
+        //###################################################
+
+        //Corrigir erros do Mapa com o SlidingMenu
+        GoogleMapOptions op = new GoogleMapOptions();
+        op.zOrderOnTop(true);
+        SupportMapFragment supportMapFragment = SupportMapFragment.newInstance(op);
+
+        GoogleMap mMap = supportMapFragment.getMap();
+
+        setMapTransparent((ViewGroup) getWindow().getDecorView().getRootView());
+
+        if(mMap != null)
+        {
+            mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+            mMap.getUiSettings().setZoomControlsEnabled(false);
+            //mMap.getUiSettings().setCompassEnabled(true);
+        }
+
+    }
+
+    private void setMapTransparent(ViewGroup group)
+    {
+        int childCount = group.getChildCount();
+        for (int i = 0; i < childCount; i++)
+        {
+            View child = group.getChildAt(i);
+
+            if (child instanceof ViewGroup)
+            {
+                setMapTransparent((ViewGroup) child);
+            }
+            else if (child instanceof SurfaceView)
+            {
+                child.setBackgroundColor(0x00000000);
+            }
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
         Log.v("erros", "no resume");
-/**/
+        /**/
         if (mPreferences.contains("AuthToken")) {
             //loadTasksFromAPI(TASKS_URL);
             Log.v("erros", "Auth="+ mPreferences.getString("AuthToken", ""));
