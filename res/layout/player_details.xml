@@ -24,7 +24,7 @@
                 android:scaleType="fitXY"
                 android:background="@drawable/full_rounded_list"
                 android:padding="5dp"
-                android:src="@drawable/avatar_img"
+                android:src="@drawable/patriota"
                 android:contentDescription="">
         </ImageView>
 
@@ -38,35 +38,35 @@
                     android:id="@+id/user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Name: John Ramboias"
+                    android:text="Name: O Patriota"
                     android:textColor="#0066cc">
             </org.holoeverywhere.widget.TextView>
             <org.holoeverywhere.widget.TextView
                     android:id="@+id/user_nat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Country: Hawai"
+                    android:text="Country: Portugal"
                     android:textColor="#0066cc">
             </org.holoeverywhere.widget.TextView>
             <org.holoeverywhere.widget.TextView
                     android:id="@+id/user_rank"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Rank: -500"
+                    android:text="Rank: 1º"
                     android:textColor="#0066cc">
             </org.holoeverywhere.widget.TextView>
             <org.holoeverywhere.widget.TextView
                     android:id="@+id/user_victories"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Battles Won: -50"
+                    android:text="Battles Won: 100/100"
                     android:textColor="#0066cc">
             </org.holoeverywhere.widget.TextView>
             <org.holoeverywhere.widget.TextView
                     android:id="@+id/user_randomons"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="# Randomons: Nem um"
+                    android:text="# Randomons: #7"
                     android:textColor="#0066cc">
             </org.holoeverywhere.widget.TextView>
 

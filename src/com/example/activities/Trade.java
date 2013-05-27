@@ -111,8 +111,10 @@ public class Trade extends SlidingActivity
                 myRandomonsAdapter = new AdapterPlayerRandomonsList(context);
                 randomonsDialog.setAdapter(myRandomonsAdapter);
 
-                for(int i = 0; i<10; i++)
-                    myRandomonsAdapter.addItem(new Randomon("Cyclosnake", Randomon.NORMAL, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.cyclosnake,3));
+                myRandomonsAdapter.addItem(new Randomon("Cyclosnake", Randomon.POISONOUS, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.cyclosnake,3));
+                myRandomonsAdapter.addItem(new Randomon("Tetrauros", Randomon.PREHISTORIC, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.tetrauros,3));
+                myRandomonsAdapter.addItem(new Randomon("Canibalape", Randomon.CANNIBAL, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.canibalape,3));
+                myRandomonsAdapter.addItem(new Randomon("Ponycorn", Randomon.MYTHICAL, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.ponycorn,3));
 
                 setRandomon = 1;
                 dialog.setCancelable(true);
@@ -130,8 +132,10 @@ public class Trade extends SlidingActivity
 
 
 
-                for(int i = 0; i<10; i++)
-                    playerRandomonsAdapter.addItem(new Randomon("Cyclosnake", Randomon.NORMAL, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.cyclosnake,3));
+                myRandomonsAdapter.addItem(new Randomon("Catzinga", Randomon.PSYCHIC, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.catzinga,3));
+                myRandomonsAdapter.addItem(new Randomon("Chinelong", Randomon.PREHISTORIC, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.chinelong,3));
+                myRandomonsAdapter.addItem(new Randomon("Cyclosnake", Randomon.POISONOUS, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.cyclosnake,3));
+                myRandomonsAdapter.addItem(new Randomon("Canibalape", Randomon.CANNIBAL, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.canibalape,3));
 
                 setRandomon = 2;
                 dialog.setCancelable(true);

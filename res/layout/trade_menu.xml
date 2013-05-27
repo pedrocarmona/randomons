@@ -155,14 +155,14 @@
                         android:padding="3dip"
                         android:layout_marginRight="5dip"
                         android:background="@drawable/full_rounded_list"
-                        android:src="@drawable/avatar_img"/>
+                        android:src="@drawable/patriota"/>
 
                 <org.holoeverywhere.widget.TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:textStyle="bold"
-                        android:text="Joao Monteiro" />
+                        android:text="O Patriota" />
 
             </org.holoeverywhere.widget.LinearLayout>
         </org.holoeverywhere.widget.LinearLayout>

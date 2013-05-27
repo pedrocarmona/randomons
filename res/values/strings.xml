@@ -7,8 +7,8 @@
     <string name="heal_randomons">Heal Randomons</string>
     <string name="clean">Clean</string>
     <string name="buy">Buy</string>
-    <string name="saldo">Saldo</string>
-    <string name="total">Total</string>
+    <string name="saldo">Saldo: 0</string>
+    <string name="total">Total: 0</string>
     <string name="register">Registar</string>
     <string name="login">Login</string>
     <string name="user_email">Email</string>

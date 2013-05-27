@@ -57,11 +57,11 @@ public class PlayerDetails extends SlidingFragmentActivity {
         textVictories = (TextView) findViewById(R.id.user_victories);
         textRandomons = (TextView) findViewById(R.id.user_randomons);
 
-        textName.setText(Html.fromHtml("<b>Name: </b>" + "John Ramboias"));
-        textNat.setText(Html.fromHtml("<b>Country: </b>" + "Hawai"));
-        textRank.setText(Html.fromHtml("<b>Rank: </b>" + "-5000"));
-        textVictories.setText(Html.fromHtml("<b>Battles Won: </b>" + "-1"));
-        textRandomons.setText(Html.fromHtml("<b># Randomons: </b>" + "Nem um"));
+        textName.setText(Html.fromHtml("<b>Name: </b>" + "O Patriota"));
+        textNat.setText(Html.fromHtml("<b>Country: </b>" + "Portugal"));
+        textRank.setText(Html.fromHtml("<b>Rank: </b>" + "1º"));
+        textVictories.setText(Html.fromHtml("<b>Battles Won: </b>" + "#100"));
+        textRandomons.setText(Html.fromHtml("<b># Randomons: </b>" + "#7"));
 
         playerRandomonList = (ListView) findViewById(R.id.pl_randomons_listview);
 
