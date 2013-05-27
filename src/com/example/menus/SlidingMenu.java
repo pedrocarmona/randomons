@@ -67,7 +67,7 @@ public class SlidingMenu
                         //finish();
                         break;
                     case 5:
-                        intent = new Intent(view.getContext(), MedicalSpot.class);
+                        intent = new Intent(view.getContext(), Map.class);
                         context.startActivity(intent);
                         //finish();
                         break;
