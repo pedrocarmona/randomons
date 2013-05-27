@@ -76,12 +76,6 @@
                     android:textColor="#0066CC"
                     />
 
-               <fragment
-                          android:id="@+id/map"
-                          android:layout_width="150dip"
-                          android:layout_height="120dip"
-                          android:name="com.google.android.gms.maps.MapFragment"/>
-
         </org.holoeverywhere.widget.LinearLayout>
 
     </org.holoeverywhere.widget.LinearLayout>
