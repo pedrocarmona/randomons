@@ -4,17 +4,21 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import com.actionbarsherlock.view.MenuItem;
-import com.example.adapters.AdapterCloseEventsBase;
+import com.actionbarsherlock.view.Menu;
 import com.example.adapters.AdapterHorizontalList;
+import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.MenuInflater;
+import com.example.adapters.AdapterCloseEventsBase;
 import com.example.adapters.AdapterLastEvents;
 import com.example.data.CloseEvent;
 import com.example.data.Event;
@@ -24,13 +28,15 @@ import com.example.menus.SlidingMenu;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
+import org.holoeverywhere.app.Dialog;
+import org.holoeverywhere.drawable.ColorDrawable;
+import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import org.holoeverywhere.widget.ListView;
 import org.holoeverywhere.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MainMenu extends SlidingActivity
+public class MainMenu extends SlidingFragmentActivity
 {
 
     final Context ctx = this;
@@ -42,12 +48,20 @@ public class MainMenu extends SlidingActivity
     private ArrayList<CloseEvent> closeEvents = new ArrayList<CloseEvent>();
     private ArrayList<Event> lastEvents = new ArrayList<Event>();
 
+    private Dialog dialog;
+
+
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.main_menu);
+
+        dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.help_main_menu);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         /*TEMPORARY DATA*/
         playerLogged = new Player(30, "Joao Monteiro", 40, R.drawable.avatar_img);
@@ -198,9 +212,21 @@ public class MainMenu extends SlidingActivity
                 toggle();
                 return true;
 
+            case R.id.help_btn:
+
+                showHelpDialog();
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+
+    private void showHelpDialog() {
+
+        dialog.setCancelable(true);
+        dialog.show();
     }
 
     private void addSlidingMenu()
@@ -209,7 +235,7 @@ public class MainMenu extends SlidingActivity
         // check if the content frame contains the menu frame
         if (findViewById(R.id.menu_frame) == null)
         {
-            setBehindContentView(R.layout.menu_frame);
+            setBehindContentView(R.layout.slide_menu);
             sm.setSlidingEnabled(true);
             sm.setTouchModeAbove(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.TOUCHMODE_FULLSCREEN);
             // show home as up so we can toggle
@@ -226,4 +252,12 @@ public class MainMenu extends SlidingActivity
 
         new SlidingMenu(this, getSlidingMenu());
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getSupportMenuInflater();
+        inflater.inflate(R.menu.actionbarmenu, menu);
+        return true;
+    }
+
 }

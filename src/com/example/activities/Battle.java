@@ -4,7 +4,9 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.opengl.GLES20;
 import android.util.DisplayMetrics;
-import android.util.Log;
+import org.andengine.entity.IEntity;
+import org.andengine.entity.modifier.LoopEntityModifier;
+
 import com.example.data.Move;
 import com.example.data.Randomon;
 import org.andengine.engine.Engine;
@@ -13,6 +15,7 @@ import org.andengine.engine.options.EngineOptions;
 import org.andengine.engine.options.ScreenOrientation;
 import org.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
 import org.andengine.entity.Entity;
+import org.andengine.entity.modifier.SequenceEntityModifier;
 import org.andengine.entity.particle.SpriteParticleSystem;
 import org.andengine.entity.particle.emitter.PointParticleEmitter;
 import org.andengine.entity.particle.initializer.*;
@@ -39,10 +42,18 @@ import org.andengine.opengl.texture.TextureOptions;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
 import org.andengine.opengl.texture.region.ITextureRegion;
+import org.andengine.opengl.texture.region.TextureRegion;
+import org.andengine.opengl.texture.region.TextureRegionFactory;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.ui.activity.SimpleBaseGameActivity;
 import org.andengine.util.HorizontalAlign;
+import org.andengine.entity.modifier.PathModifier;
+import org.andengine.entity.modifier.PathModifier.IPathModifierListener;
+import org.andengine.entity.modifier.PathModifier.Path;
+import org.andengine.util.debug.Debug;
+import org.andengine.util.modifier.ease.EaseSineInOut;
+
 
 import java.util.ArrayList;
 
@@ -103,6 +114,12 @@ public class Battle extends SimpleBaseGameActivity {
     AnimatedSprite movesSprite;
 
     Entity commandsGroup;
+    Rectangle moveBox1;
+    Rectangle moveBox2;
+    Rectangle moveBox3;
+    Rectangle moveBox4;
+
+    int LeftMove;
 
 
     private BitmapTextureAtlas mBitmapTextureAtlas;
@@ -118,7 +135,6 @@ public class Battle extends SimpleBaseGameActivity {
     private boolean isBattleOver;
 
 
-
     // ===========================================================
     // Constructors
     // ===========================================================
@@ -132,6 +148,10 @@ public class Battle extends SimpleBaseGameActivity {
     // ===========================================================
 
 
+    final int MOVE_ONE=0;
+    final int MOVE_TWO=1;
+    final int MOVE_THREE=2;
+    final int MOVE_FOUR=3;
 
 
     int step;
@@ -234,28 +254,82 @@ public class Battle extends SimpleBaseGameActivity {
         scene.attachChild(rightRandomonSprite);
 
         movesSprite = new AnimatedSprite(CAMERA_WIDTH/2, CAMERA_HEIGHT/2,64,64,  this.movesTextureRegion, this.getVertexBufferObjectManager());
+        movesSprite.setVisible(false);
         scene.attachChild(movesSprite);
+
         movimentoInicial();
 
         /* Create the rectangles. */
-        final Rectangle rect1 = this.makeColoredRectangle(-60, -60, 1, 0, 0);
-        final Rectangle rect2 = this.makeColoredRectangle(0, -60, 0, 1, 0);
-        final Rectangle rect3 = this.makeColoredRectangle(0, 0, 0, 0, 1);
-        final Rectangle rect4 = this.makeColoredRectangle(-60, 0, 1, 1, 0);
+        moveBox1 = this.makeColoredRectangle(-90, -90, 0.88f, 0.88f, 0.88f,MOVE_ONE);
+        moveBox2 = this.makeColoredRectangle( 10, -90, 0.88f, 0.88f, 0.88f,MOVE_TWO);
+        moveBox3 = this.makeColoredRectangle(10, 10, 0.88f, 0.88f, 0.88f, MOVE_THREE);
+        moveBox4 = this.makeColoredRectangle(-90, 10, 0.88f, 0.88f, 0.88f,MOVE_FOUR);
+        final Text move1 = new Text(-90, -90, this.mFont, "Wild Wind", new TextOptions(HorizontalAlign.CENTER), vertexBufferObjectManager);
+        final Text move2 = new Text(10, -90, this.mFont, "Fatal Bomb" , new TextOptions(HorizontalAlign.CENTER), vertexBufferObjectManager);
+        final Text move3 = new Text(10, 10, this.mFont,  "Flying Blade", new TextOptions(HorizontalAlign.CENTER), vertexBufferObjectManager);
+        final Text move4 = new Text(-90, 10, this.mFont, "Fire Ball" , new TextOptions(HorizontalAlign.CENTER), vertexBufferObjectManager);
+
+        Sprite s1 = new Sprite(-90, -80,TextureRegionFactory.extractFromTexture(this.movesTextureAtlas,0,0,125,125), vertexBufferObjectManager){
+            @Override
+            public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
+                if(pSceneTouchEvent.isActionDown()) {
+                    atacar(MOVE_ONE);
+                }
+                return true;
+            }
+        };
+        Sprite s2 = new Sprite( 10, -80,TextureRegionFactory.extractFromTexture(this.movesTextureAtlas,0,125,125,125), vertexBufferObjectManager){
+            @Override
+            public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
+                if(pSceneTouchEvent.isActionDown()) {
+                    atacar(MOVE_TWO);
+                }
+                return true;
+            }
+        };
+        Sprite s3 = new Sprite( 10,  20,TextureRegionFactory.extractFromTexture(this.movesTextureAtlas,0,250,125,125), vertexBufferObjectManager){
+            @Override
+            public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
+                if(pSceneTouchEvent.isActionDown()) {
+                    atacar(MOVE_THREE);
+                }
+                return true;
+            }
+        };
+        Sprite s4 = new Sprite(-90,  20,TextureRegionFactory.extractFromTexture(this.movesTextureAtlas,0,375,125,125), vertexBufferObjectManager){
+            @Override
+            public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
+                if(pSceneTouchEvent.isActionDown()) {
+                    atacar(MOVE_FOUR);
+                }
+                return true;
+            }
+        };
+        s1.setScale(0.5f);
+        s2.setScale(0.5f);
+        s3.setScale(0.5f);
+        s4.setScale(0.5f);
+
 
         commandsGroup = new Entity(CAMERA_WIDTH / 2, CAMERA_HEIGHT / 2);
 
-        commandsGroup.attachChild(rect1);
-        commandsGroup.attachChild(rect2);
-        commandsGroup.attachChild(rect3);
-        commandsGroup.attachChild(rect4);
-
+        commandsGroup.attachChild(moveBox1);
+        commandsGroup.attachChild(moveBox2);
+        commandsGroup.attachChild(moveBox3);
+        commandsGroup.attachChild(moveBox4);
+        commandsGroup.attachChild(move1);
+        commandsGroup.attachChild(move2);
+        commandsGroup.attachChild(move3);
+        commandsGroup.attachChild(move4);
+        commandsGroup.attachChild(s1);
+        commandsGroup.attachChild(s2);
+        commandsGroup.attachChild(s3);
+        commandsGroup.attachChild(s4);
         scene.attachChild(commandsGroup);
-
-        scene.registerTouchArea(rect1);
-        scene.registerTouchArea(rect2);
-        scene.registerTouchArea(rect3);
-        scene.registerTouchArea(rect4);
+        scene.registerTouchArea(moveBox1);
+        scene.registerTouchArea(moveBox2);
+        scene.registerTouchArea(moveBox3);
+        scene.registerTouchArea(moveBox4);
 
 
         Rectangle redLife1 = this.makeLifeRectangle(-200, 20,150, 1, 0, 0);
@@ -280,63 +354,30 @@ public class Battle extends SimpleBaseGameActivity {
         lifeGroup.attachChild(rightRandomonText);
 
         scene.attachChild(lifeGroup);
-
-
-
         scene.setTouchAreaBindingOnActionDownEnabled(true);
-
-
-
-     /*
-        ButtonSprite button = new  ButtonSprite(new ButtonSprite(25, 310, multiplayerTextureRegion, mEngine.getVertexBufferObjectManager()) {
-            @Override
-            public boolean onAreaTouched(TouchEvent pTouchEvent, float pTouchAreaLocalX, float pTouchAreaLocalY) {
-                if(pTouchEvent.isActionDown()) {
-                    mainScene.detachChild(menu);
-                    mainScene.detachChild(multiplayerbutton);
-                }
-                return super.onAreaTouched(pTouchEvent, pTouchAreaLocalX, pTouchAreaLocalY);
-            }
-        };
-               */
-
-        final SpriteParticleSystem particleSystem = new SpriteParticleSystem(new PointParticleEmitter(0, CAMERA_HEIGHT), 6, 10, 200, this.mParticleTextureRegion, this.getVertexBufferObjectManager());
-        particleSystem.addParticleInitializer(new BlendFunctionParticleInitializer<Sprite>(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE));
-        particleSystem.addParticleInitializer(new VelocityParticleInitializer<Sprite>(15, 22, 1, 1));
-        particleSystem.addParticleInitializer(new AccelerationParticleInitializer<Sprite>(5, 1));
-        //particleSystem.addParticleInitializer(new RotationParticleInitializer<Sprite>(0.0f, 360.0f));
-        particleSystem.addParticleInitializer(new ColorParticleInitializer<Sprite>(1.0f, 0.0f, 0.0f));
-        particleSystem.addParticleInitializer(new ExpireParticleInitializer<Sprite>(11.5f));
-
-        //particleSystem.addParticleModifier(new ScaleParticleModifier<Sprite>(0, 5, 0.5f, 2.0f));
-        //particleSystem.addParticleModifier(new AlphaParticleModifier<Sprite>(2.5f, 3.5f, 1.0f, 0.0f));
-        //particleSystem.addParticleModifier(new AlphaParticleModifier<Sprite>(3.5f, 4.5f, 0.0f, 1.0f));
-        particleSystem.addParticleModifier(new ColorParticleModifier<Sprite>(0.0f, 11.5f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f));
-        //particleSystem.addParticleModifier(new AlphaParticleModifier<Sprite>(4.5f, 11.5f, 1.0f, 1.0f));
-
-        scene.attachChild(particleSystem);
-
         return scene;
     }
 
 
+    private void atacar(int move){
+        this.LeftMove = move;
+        movimento();
+    }
     // ===========================================================
     // Methods
     // ===========================================================
 
-    private Rectangle makeColoredRectangle(final float pX, final float pY, final float pRed, final float pGreen, final float pBlue) {
+    private Rectangle makeColoredRectangle( final float pX, final float pY, final float pRed, final float pGreen, final float pBlue, final int move) {
 
-        final Rectangle coloredRect = new Rectangle(pX, pY, 60, 60, this.getVertexBufferObjectManager()) {
+        final Rectangle coloredRect = new Rectangle(pX, pY, 80, 80, this.getVertexBufferObjectManager()) {
             @Override
             public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
                 if(pSceneTouchEvent.isActionDown()) {
-                    movimento();
-
+                    atacar(move);
                 }
                 return true;
             }
         };
-
         coloredRect.setColor(pRed, pGreen, pBlue);
         return coloredRect;
     }
@@ -359,34 +400,23 @@ public class Battle extends SimpleBaseGameActivity {
 
     public void movimento() {
 
+        //remove final if needed
         final AnimatedSprite.IAnimationListener anime = new AnimatedSprite.IAnimationListener() {
-            @Override
+             @Override
             public void onAnimationStarted(AnimatedSprite pAnimatedSprite, int pInitialLoopCount) {
-                //To change body of implemented methods use File | Settings | File Templates.
             }
-
             @Override
             public void onAnimationFrameChanged(AnimatedSprite pAnimatedSprite, int pOldFrameIndex, int pNewFrameIndex) {
-
             }
-
             @Override
             public void onAnimationLoopFinished(AnimatedSprite pAnimatedSprite, int pRemainingLoopCount, int pInitialLoopCount) {
-                //To change body of implemented methods use File | Settings | File Templates.
-
             }
-
             @Override
             public void onAnimationFinished(AnimatedSprite pAnimatedSprite) {
-                //To change body of implemented methods use File | Settings | File Templates.
                 movimento();
-
             }
         };
-
         leftIsFirst=true;
-
-
         switch (step){
             case SPRITE_INICIO:
                 commandsGroup.setVisible(true);
@@ -395,39 +425,20 @@ public class Battle extends SimpleBaseGameActivity {
             case SPRITE_AFTER_INICIO:
                 if (leftIsFirst){
                     // Left player atacks
-                    leftRandomonSprite.animate(new long[]{100, 100, 100}, 8, 10, 5, anime);
+                    leftRandomonSprite.animate(new long[]{100, 100, 100}, 8, 10, 1, anime);
                     commandsGroup.setVisible(false);
                 }else{
                     // Righs side player atacks
-                    rightRandomonSprite.animate(new long[]{100, 100, 100}, 2, 4, 5, anime);
+                    rightRandomonSprite.animate(new long[]{100, 100, 100}, 2, 4, 1, anime);
                     commandsGroup.setVisible(false);
                 }
                 break;
             case SPRITE_AFTER_ATTACK1:
-                final Engine.EngineLock engineLock = this.mEngine.getEngineLock();
-                engineLock.lock();
-                if(leftIsFirst){
-                    // start move
-
-
-                    movesSprite.setX(leftRandomonSprite.getX()+leftRandomonSprite.getWidth());
-                    movesSprite.setY(leftRandomonSprite.getY());
-
-                    movesSprite.setVisible(true);
-                    movesSprite.animate(new long[]{100, 100,100,100}, 0, 3,1,anime);
-
-                }else{
-                    movesSprite.setX(leftRandomonSprite.getX()+leftRandomonSprite.getWidth());
-                    movesSprite.setY(leftRandomonSprite.getY());
-                    movesSprite.setVisible(true);
-                    movesSprite.animate(new long[]{100,100,100,100}, 0, 3,1,anime);
-
-                }
-                engineLock.unlock();
+                doMove(anime);
                 break;
             case SPRITE_AFTER_MOVE1:
 
-                //movesSprite.setVisible(false);
+                movesSprite.setVisible(false);
                 if (leftIsFirst){
                     rightRandomonSprite.animate(new long[]{100, 100}, 5, 6, 1,anime);
                 }else{
@@ -450,47 +461,26 @@ public class Battle extends SimpleBaseGameActivity {
 
                 break;
             case SPRITE_AFTER_PAUSE:
-
                 if (leftIsFirst){
                     // Righs side player atacks
-                    rightRandomonSprite.animate(new long[]{100, 100, 100}, 2, 4, 5, anime);
+                    rightRandomonSprite.animate(new long[]{100, 100, 100}, 2, 4, 2, anime);
                     commandsGroup.setVisible(false);
                 }else{
                     // Left player atacks
-                    leftRandomonSprite.animate(new long[]{100, 100, 100}, 8, 10, 5, anime);
+                    leftRandomonSprite.animate(new long[]{100, 100, 100}, 8, 10, 2, anime);
                     commandsGroup.setVisible(false);
-
                 }
-
                 break;
             case SPRITE_AFTER_ATTACK2:
-
-                if(leftIsFirst){
-                    // start move
-                    movesSprite.setX(leftRandomonSprite.getX()+leftRandomonSprite.getWidth());
-                    movesSprite.setY(leftRandomonSprite.getY());
-                    movesSprite.setVisible(true);
-                    movesSprite.animate(new long[]{100, 100,100,100}, 0 , 3,1, anime);
-                }else{
-                    movesSprite.setX(leftRandomonSprite.getX()+leftRandomonSprite.getWidth());
-                    movesSprite.setY(leftRandomonSprite.getY());
-                    movesSprite.setVisible(true);
-                    movesSprite.animate(new long[]{100, 100, 100, 100}, 0, 3,1, anime);
-                }
-
-
+                doMove(anime);
                 break;
             case SPRITE_AFTER_MOVE2:
-
+                movesSprite.setVisible(false);
                 if (leftIsFirst){
-                    // Righs side player atacks
-                    rightRandomonSprite.animate(new long[]{100, 100, 100}, 2, 4, 5, anime);
-                    commandsGroup.setVisible(false);
-                }else{
-                    // Left player atacks
-                    leftRandomonSprite.animate(new long[]{100, 100, 100}, 8, 10, 5, anime);
-                    commandsGroup.setVisible(false);
+                    leftRandomonSprite.animate(new long[]{100, 100}, 11, 12,1, anime);
 
+                }else{
+                    rightRandomonSprite.animate(new long[]{100, 100}, 5, 6, 1,anime);
                 }
 
                 break;
@@ -505,8 +495,58 @@ public class Battle extends SimpleBaseGameActivity {
                 break;
         }
         step++;
-        if(step==SPRITE_AFTER_DEFENSE2+1)
+        if(step==SPRITE_AFTER_DEFENSE2+1){
             step=0;
+            movimento();
+
+        }
+
+
+    }
+
+    private void doMove(final AnimatedSprite.IAnimationListener anime) {
+        //Path experiments
+        int startx ,starty, endx , endy,distancex;
+        if(leftAtacked){
+            endx =130;
+            endy= CAMERA_HEIGHT - 72;
+            startx =CAMERA_WIDTH - 130;
+            starty=CAMERA_HEIGHT - 72;
+            distancex = endx-startx;
+        }else{
+            startx =130;
+            starty= CAMERA_HEIGHT - 72;
+            endx =CAMERA_WIDTH - 130;
+            endy=CAMERA_HEIGHT - 72;
+            distancex = endx-startx;
+        }
+        final int movenr= this.LeftMove;
+
+        Path path = new Path(5).to(startx, starty).to(startx+distancex/4,starty).to(startx+distancex/4*2,starty).to(startx+distancex/4*3,starty).to(endx, endy);
+        movesSprite.setVisible(true);
+        movesSprite.registerEntityModifier(new SequenceEntityModifier(new PathModifier(0.2f, path, null, new IPathModifierListener() {
+            int frameIndex= movenr*4;
+            @Override
+            public void onPathStarted(final PathModifier pPathModifier, final IEntity pEntity) {
+                frameIndex=0;
+                movesSprite.animate(new long[]{100},new int[]{frameIndex},true);
+            }
+            @Override
+            public void onPathWaypointStarted(PathModifier pPathModifier, IEntity pEntity, int pWaypointIndex) {
+                movesSprite.animate(new long[]{100},new int[]{frameIndex},true);
+                frameIndex++;
+                //To change body of implemented methods use File | Settings | File Templates.
+            }
+            @Override
+            public void onPathWaypointFinished(final PathModifier pPathModifier, final IEntity pEntity, final int pWaypointIndex) {
+
+            }
+            @Override
+            public void onPathFinished(final PathModifier pPathModifier, final IEntity pEntity) {
+                movesSprite.animate(new long[]{100},new int[]{frameIndex},1,anime);
+            }
+        }, EaseSineInOut.getInstance())));
+
     }
 
     private void updateHitPoints(){
@@ -515,8 +555,6 @@ public class Battle extends SimpleBaseGameActivity {
         }else{
             leftRandomon.setCurrent_hitpoints(leftRandomon.getCurrent_hitpoints()-rightRandomon.getAttack());
         }
-
-
         drawHitpoints();
         updateText();
     }
@@ -544,6 +582,11 @@ public class Battle extends SimpleBaseGameActivity {
     private void youWin(){
         rightRandomonSprite.animate(new long[]{100, 100, 100}, 5, 7, false);
         commandsGroup.setVisible(false);
+        scene.unregisterTouchArea(moveBox1);
+        scene.unregisterTouchArea(moveBox2);
+        scene.unregisterTouchArea(moveBox3);
+        scene.unregisterTouchArea(moveBox4);
+
         resultText.setText("You Win!!!");
         resultText.setX(CAMERA_WIDTH / 2 - resultText.getWidth() / 2);
         resultText.setY(CAMERA_HEIGHT/2-resultText.getHeight()/2);
@@ -553,6 +596,11 @@ public class Battle extends SimpleBaseGameActivity {
     private void youLost(){
         leftRandomonSprite.animate(new long[]{100, 100, 100}, 11, 13, false);
         commandsGroup.setVisible(false);
+        scene.unregisterTouchArea(moveBox1);
+        scene.unregisterTouchArea(moveBox2);
+        scene.unregisterTouchArea(moveBox3);
+        scene.unregisterTouchArea(moveBox4);
+
         resultText.setText("You Lose!!!");
         resultText.setX(CAMERA_WIDTH / 2 - resultText.getWidth() / 2);
         resultText.setY(CAMERA_HEIGHT / 2 - resultText.getHeight() / 2);
@@ -573,225 +621,4 @@ public class Battle extends SimpleBaseGameActivity {
     // Inner and Anonymous Classes
     // ===========================================================
 
-    final AnimatedSprite.IAnimationListener animeSecondDefense = new AnimatedSprite.IAnimationListener() {
-        @Override
-        public void onAnimationStarted(AnimatedSprite pAnimatedSprite, int pInitialLoopCount) {
-            //To change body of implemented methods use File | Settings | File Templates.
-        }
-
-        @Override
-        public void onAnimationFrameChanged(AnimatedSprite pAnimatedSprite, int pOldFrameIndex, int pNewFrameIndex) {
-
-        }
-
-        @Override
-        public void onAnimationLoopFinished(AnimatedSprite pAnimatedSprite, int pRemainingLoopCount, int pInitialLoopCount) {
-            //To change body of implemented methods use File | Settings | File Templates.
-
-        }
-
-        @Override
-        public void onAnimationFinished(AnimatedSprite pAnimatedSprite) {
-            if(leftIsFirst){
-                leftAtacked = true;
-            }else{
-                leftAtacked = false;
-            }
-            updateHitPoints();
-
-            //To change body of implemented methods use File | Settings | File Templates.
-
-        }
-    };
-    final AnimatedSprite.IAnimationListener animeMoveSecond = new AnimatedSprite.IAnimationListener() {
-        @Override
-        public void onAnimationStarted(AnimatedSprite pAnimatedSprite, int pInitialLoopCount) {
-            //To change body of implemented methods use File | Settings | File Templates.
-        }
-
-        @Override
-        public void onAnimationFrameChanged(AnimatedSprite pAnimatedSprite, int pOldFrameIndex, int pNewFrameIndex) {
-
-        }
-
-        @Override
-        public void onAnimationLoopFinished(AnimatedSprite pAnimatedSprite, int pRemainingLoopCount, int pInitialLoopCount) {
-            //To change body of implemented methods use File | Settings | File Templates.
-
-        }
-
-        @Override
-        public void onAnimationFinished(AnimatedSprite pAnimatedSprite) {
-            movesSprite.setVisible(false);
-            if (leftIsFirst){
-                leftRandomonSprite.animate(new long[]{100, 100}, 11, 12,1, animeSecondDefense);
-            }else{
-                rightRandomonSprite.animate(new long[]{100, 100}, 5, 6,1, animeSecondDefense);
-
-            }
-        }
-    };
-    final AnimatedSprite.IAnimationListener secondAttacks = new AnimatedSprite.IAnimationListener() {
-        @Override
-        public void onAnimationStarted(AnimatedSprite pAnimatedSprite, int pInitialLoopCount) {
-            //To change body of implemented methods use File | Settings | File Templates.
-        }
-
-        @Override
-        public void onAnimationFrameChanged(AnimatedSprite pAnimatedSprite, int pOldFrameIndex, int pNewFrameIndex) {
-            if(pNewFrameIndex == 1){
-                if(leftIsFirst){
-                    // start move
-                    movesSprite.setX(leftRandomonSprite.getX()+leftRandomonSprite.getWidth());
-                    movesSprite.setY(leftRandomonSprite.getY());
-                    movesSprite.setVisible(true);
-                    movesSprite.animate(new long[]{100, 100,100,100}, 0 , 3,1, animeMoveSecond);
-                }else{
-                    movesSprite.setX(leftRandomonSprite.getX()+leftRandomonSprite.getWidth());
-                    movesSprite.setY(leftRandomonSprite.getY());
-                    movesSprite.setVisible(true);
-                    movesSprite.animate(new long[]{100, 100, 100, 100}, 0, 3,1, animeMoveSecond);
-                }
-            }
-        }
-
-        @Override
-        public void onAnimationLoopFinished(AnimatedSprite pAnimatedSprite, int pRemainingLoopCount, int pInitialLoopCount) {
-            //To change body of implemented methods use File | Settings | File Templates.
-
-        }
-
-        @Override
-        public void onAnimationFinished(AnimatedSprite pAnimatedSprite) {
-
-
-
-        }
-    };
-    final AnimatedSprite.IAnimationListener animePause = new AnimatedSprite.IAnimationListener() {
-        @Override
-        public void onAnimationStarted(AnimatedSprite pAnimatedSprite, int pInitialLoopCount) {
-            //To change body of implemented methods use File | Settings | File Templates.
-        }
-
-        @Override
-        public void onAnimationFrameChanged(AnimatedSprite pAnimatedSprite, int pOldFrameIndex, int pNewFrameIndex) {
-
-        }
-
-        @Override
-        public void onAnimationLoopFinished(AnimatedSprite pAnimatedSprite, int pRemainingLoopCount, int pInitialLoopCount) {
-            //To change body of implemented methods use File | Settings | File Templates.
-
-        }
-
-        @Override
-        public void onAnimationFinished(AnimatedSprite pAnimatedSprite) {
-            //To change body of implemented methods use File | Settings | File Templates.
-            if (leftIsFirst){
-                // Righs side player atacks
-                rightRandomonSprite.animate(new long[]{100, 100, 100}, 2, 4, 5, secondAttacks);
-                commandsGroup.setVisible(false);
-            }else{
-                // Left player atacks
-                leftRandomonSprite.animate(new long[]{100, 100, 100}, 8, 10, 5, secondAttacks);
-                commandsGroup.setVisible(false);
-
-            }
-        }
-    };
-    final AnimatedSprite.IAnimationListener animeFirstDefense = new AnimatedSprite.IAnimationListener() {
-        @Override
-        public void onAnimationStarted(AnimatedSprite pAnimatedSprite, int pInitialLoopCount) {
-            //To change body of implemented methods use File | Settings | File Templates.
-        }
-
-        @Override
-        public void onAnimationFrameChanged(AnimatedSprite pAnimatedSprite, int pOldFrameIndex, int pNewFrameIndex) {
-
-        }
-
-        @Override
-        public void onAnimationLoopFinished(AnimatedSprite pAnimatedSprite, int pRemainingLoopCount, int pInitialLoopCount) {
-            //To change body of implemented methods use File | Settings | File Templates.
-
-        }
-
-        @Override
-        public void onAnimationFinished(AnimatedSprite pAnimatedSprite) {
-            if(leftIsFirst){
-                leftAtacked = true;
-
-            }else{
-                leftAtacked = false;
-            }
-            updateHitPoints();
-            //To change body of implemented methods use File | Settings | File Templates.
-            leftRandomonSprite.animate(new long[]{400, 400}, 0, 1, 3,animePause);
-            rightRandomonSprite.animate(new long[]{400, 400}, 0, 1, 3,animePause);
-
-        }
-    };
-    final AnimatedSprite.IAnimationListener animeMove = new AnimatedSprite.IAnimationListener() {
-        @Override
-        public void onAnimationStarted(AnimatedSprite pAnimatedSprite, int pInitialLoopCount) {
-            //To change body of implemented methods use File | Settings | File Templates.
-        }
-
-        @Override
-        public void onAnimationFrameChanged(AnimatedSprite pAnimatedSprite, int pOldFrameIndex, int pNewFrameIndex) {
-
-        }
-
-        @Override
-        public void onAnimationLoopFinished(AnimatedSprite pAnimatedSprite, int pRemainingLoopCount, int pInitialLoopCount) {
-            //To change body of implemented methods use File | Settings | File Templates.
-
-        }
-
-        @Override
-        public void onAnimationFinished(AnimatedSprite pAnimatedSprite) {
-            movesSprite.setVisible(false);
-            if (leftIsFirst){
-                rightRandomonSprite.animate(new long[]{100, 100}, 5, 6, 1,animeFirstDefense);
-            }else{
-                leftRandomonSprite.animate(new long[]{100, 100}, 11, 12,1, animeFirstDefense);
-            }
-        }
-    };
-    final AnimatedSprite.IAnimationListener animeFirstAtack = new AnimatedSprite.IAnimationListener() {
-        @Override
-        public void onAnimationStarted(AnimatedSprite pAnimatedSprite, int pInitialLoopCount) {
-            //To change body of implemented methods use File | Settings | File Templates.
-        }
-
-        @Override
-        public void onAnimationFrameChanged(AnimatedSprite pAnimatedSprite, int pOldFrameIndex, int pNewFrameIndex) {
-
-        }
-
-        @Override
-        public void onAnimationLoopFinished(AnimatedSprite pAnimatedSprite, int pRemainingLoopCount, int pInitialLoopCount) {
-            //To change body of implemented methods use File | Settings | File Templates.
-
-        }
-
-        @Override
-        public void onAnimationFinished(AnimatedSprite pAnimatedSprite) {
-            //To change body of implemented methods use File | Settings | File Templates.
-
-            if(leftIsFirst){
-                // start move
-                //movesSprite.setX(leftRandomonSprite.getX()+leftRandomonSprite.getWidth());
-                //movesSprite.setY(leftRandomonSprite.getY());
-                movesSprite.setVisible(true);
-                movesSprite.animate(new long[]{100, 100,100,100}, 0 , 3,1);
-            }else{
-                //movesSprite.setX(leftRandomonSprite.getX()+leftRandomonSprite.getWidth());
-                //movesSprite.setY(leftRandomonSprite.getY());
-                movesSprite.setVisible(true);
-                movesSprite.animate(new long[]{100, 100, 100, 100}, 0, 3,1);
-            }
-        }
-    };
 }

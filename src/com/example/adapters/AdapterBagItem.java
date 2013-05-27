@@ -66,14 +66,16 @@ public class AdapterBagItem extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        if(items.get(position).getClass().getSimpleName().equals("Potion")) {
+        holder.itemImg.setImageResource(items.get(position).getType());
 
-            holder.itemImg.setImageResource(R.drawable.potion);
+       /* if(items.get(position).getClass().getSimpleName().equals("Potion")) {
+
+            holder.itemImg.setImageResource(items.get(position).getType());
         }
         else {
 
             holder.itemImg.setImageResource(R.drawable.capture_net);
-        }
+        }*/
 
         return convertView;
     }
