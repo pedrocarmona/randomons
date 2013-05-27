@@ -13,7 +13,6 @@
             android:id="@+id/potion_image"
             android:layout_width="50dip"
             android:layout_height="50dip"
-            android:src="@drawable/potion"
             android:contentDescription="">
     </ImageView>
 

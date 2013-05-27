@@ -4,6 +4,7 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="380dip"
+            android:fadeScrollbars="false"
             android:background="@drawable/help_bg">
 
 

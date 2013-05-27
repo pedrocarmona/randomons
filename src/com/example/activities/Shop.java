@@ -1,7 +1,6 @@
 package com.example.activities;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import com.actionbarsherlock.app.ActionBar;
@@ -41,8 +40,13 @@ public class Shop extends SlidingActivity
         listView.setAdapter(adapter);
 
         //PARA EXEMPLO
-        for(int i = 0; i<20; i++)
-            adapter.addItem(new CaptureItem("Swiss Army Knife", "Useful for everything and something else."));
+        adapter.addItem(new CaptureItem(R.drawable.psn, "Poison Capture Item", "Useful for everything and something else."));
+        adapter.addItem(new CaptureItem(R.drawable.psy, "Psychic Capture Item", "Useful for everything and something else."));
+        adapter.addItem(new CaptureItem(R.drawable.mth, "Mythical Capture Item", "Useful for everything and something else."));
+        adapter.addItem(new CaptureItem(R.drawable.cnb, "Canibal Capture Item", "Useful for everything and something else."));
+        adapter.addItem(new CaptureItem(R.drawable.ph, "Prehistoric Capture Item", "Useful for everything and something else."));
+        adapter.addItem(new CaptureItem(R.drawable.fl, "Flying Capture Item", "Useful for everything and something else."));
+
 
         addClickListeners();
     }
@@ -90,7 +94,7 @@ public class Shop extends SlidingActivity
         // check if the content frame contains the menu frame
         if (findViewById(R.id.menu_frame) == null)
         {
-            setBehindContentView(R.layout.menu_frame);
+            setBehindContentView(R.layout.slide_menu);
             sm.setSlidingEnabled(true);
             sm.setTouchModeAbove(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.TOUCHMODE_FULLSCREEN);
             // show home as up so we can toggle

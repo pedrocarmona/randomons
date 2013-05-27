@@ -2,27 +2,44 @@ package com.example.menus;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import com.example.activities.*;
-import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
-import org.holoeverywhere.ArrayAdapter;
+import com.example.activities.R;
+import com.example.adapters.AdapterSlideMenu;
+import com.example.data.SlideMenuItem;
+import org.holoeverywhere.app.Activity;
 import org.holoeverywhere.widget.ListView;
-import android.content.SharedPreferences;
 
-public class SlidingMenu
-{
-    public SlidingMenu(final Context context, com.jeremyfeinstein.slidingmenu.lib.SlidingMenu sm)
-    {
+import java.util.ArrayList;
+
+public class SlidingMenu extends Activity {
+
+    private LayoutInflater inflater;
+    private View view;
+    private ListView slidingMenuList;
+    private ArrayList<SlideMenuItem> sMenuItems;
+    private AdapterSlideMenu adapterSMenu;
+
+    public SlidingMenu(final Context context, com.jeremyfeinstein.slidingmenu.lib.SlidingMenu sm) {
         //Adicionar items ao slidingmenu
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.menu_frame, null);
-        ListView slidingMenuList = (ListView) view.findViewById(R.id.sliding_menu_list);
-        String[] items = new String[]{"Home","My Randomons","My Items","Ranking","R-Guide","Map","Store","Medical Spot", "Log out"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,android.R.layout.simple_list_item_1, android.R.id.text1, items);
-        slidingMenuList.setAdapter(adapter);
+        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        view = inflater.inflate(R.layout.slide_menu, null);
+        slidingMenuList = (ListView) view.findViewById(R.id.sliding_menu_list);
+        sMenuItems = new ArrayList<SlideMenuItem>();
+        sMenuItems.add(new SlideMenuItem(R.drawable.home_smenu, "Home"));
+        sMenuItems.add(new SlideMenuItem(R.drawable.my_randomons_smenu, "My Randomons"));
+        sMenuItems.add(new SlideMenuItem(R.drawable.itens_smenu, "My Items"));
+        sMenuItems.add(new SlideMenuItem(R.drawable.ranking_smenu, "Ranking"));
+        sMenuItems.add(new SlideMenuItem(R.drawable.r_guide_smenu, "R-Guide"));
+        sMenuItems.add(new SlideMenuItem(R.drawable.map_smenu, "Map"));
+        sMenuItems.add(new SlideMenuItem(R.drawable.shop_smenu, "Shop"));
+        sMenuItems.add(new SlideMenuItem(R.drawable.medics_smenu, "Medical Spot"));
+
+        adapterSMenu = new AdapterSlideMenu(context,R.layout.slide_menu_item,sMenuItems);
+        slidingMenuList.setAdapter(adapterSMenu);
 
         // customize the SlidingMenu
         sm.setTouchModeAbove(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.TOUCHMODE_MARGIN);
@@ -70,7 +87,7 @@ public class SlidingMenu
                         //finish();
                         break;
                     case 5:
-                        intent = new Intent(view.getContext(), Map.class);
+                        intent = new Intent(view.getContext(), MedicalSpot.class);
                         context.startActivity(intent);
                         //finish();
                         break;
@@ -84,6 +101,7 @@ public class SlidingMenu
                         context.startActivity(intent);
                         //finish();
                         break;
+
                     case 8:
                         SharedPreferences mPreferences = context.getSharedPreferences("CurrentUser", context.MODE_PRIVATE);
                         mPreferences.edit().remove("AuthToken").commit();
@@ -96,6 +114,5 @@ public class SlidingMenu
             }
         });
     }
-
 
 }

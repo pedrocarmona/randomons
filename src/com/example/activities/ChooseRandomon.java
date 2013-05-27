@@ -222,7 +222,7 @@ public class ChooseRandomon extends SlidingActivity
         // check if the content frame contains the menu frame
         if (findViewById(R.id.menu_frame) == null)
         {
-            setBehindContentView(R.layout.menu_frame);
+            setBehindContentView(R.layout.slide_menu);
             sm.setSlidingEnabled(true);
             sm.setTouchModeAbove(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.TOUCHMODE_FULLSCREEN);
             // show home as up so we can toggle

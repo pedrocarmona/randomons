@@ -81,6 +81,7 @@
                     android:scaleType="fitXY"
                     android:layout_gravity="center"
 
+                    android:src="@drawable/pentagon"
                     android:padding="5dp"
 
                     android:contentDescription="randomon_image_pentagono"/>

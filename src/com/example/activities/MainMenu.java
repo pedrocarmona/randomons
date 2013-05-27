@@ -15,10 +15,10 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import com.actionbarsherlock.view.Menu;
+import com.example.adapters.AdapterHorizontalList;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.MenuInflater;
 import com.example.adapters.AdapterCloseEventsBase;
-import com.example.adapters.AdapterHorizontalList;
 import com.example.adapters.AdapterLastEvents;
 import com.example.data.CloseEvent;
 import com.example.data.Event;
@@ -28,15 +28,15 @@ import com.example.menus.SlidingMenu;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
 import org.holoeverywhere.app.Dialog;
 import org.holoeverywhere.drawable.ColorDrawable;
+import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import org.holoeverywhere.widget.ListView;
 import org.holoeverywhere.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MainMenu extends SlidingActivity
+public class MainMenu extends SlidingFragmentActivity
 {
 
     final Context ctx = this;
@@ -235,7 +235,7 @@ public class MainMenu extends SlidingActivity
         // check if the content frame contains the menu frame
         if (findViewById(R.id.menu_frame) == null)
         {
-            setBehindContentView(R.layout.menu_frame);
+            setBehindContentView(R.layout.slide_menu);
             sm.setSlidingEnabled(true);
             sm.setTouchModeAbove(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.TOUCHMODE_FULLSCREEN);
             // show home as up so we can toggle
