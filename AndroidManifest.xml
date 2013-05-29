@@ -55,6 +55,7 @@
         <activity android:screenOrientation="portrait" android:name=".Ranking"/>
         /* bruno - Escreve a seguir a este paragrafo*/
         <activity android:screenOrientation="portrait" android:name=".RandomonDexInfo"/>
+        <activity android:screenOrientation="portrait" android:name=".Map"/>
         /* Carmona - Escreve a seguir a este paragrafo*/
         <activity android:screenOrientation="landscape" android:name=".Battle"/>
         /* Antonio- Escreve a seguir a este paragrafo*/
