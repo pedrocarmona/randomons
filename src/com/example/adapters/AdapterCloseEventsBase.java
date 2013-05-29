@@ -63,7 +63,7 @@ public class AdapterCloseEventsBase extends BaseAdapter {
         }
 
         if(closeEvents.get(position).getCloseEventType() == 1)
-            holder.CloseEventImg.setImageResource(R.drawable.avatar_img);
+            holder.CloseEventImg.setImageResource(R.drawable.patriota);
         else if(closeEvents.get(position).getCloseEventType() == 2)
             holder.CloseEventImg.setImageResource(R.drawable.randomom);
         else if(closeEvents.get(position).getCloseEventType() == 3)

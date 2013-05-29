@@ -55,7 +55,7 @@ public class MedicalSpotPotions extends SherlockFragment
             @Override
             public void onClick(View v)
             {
-                Toast.makeText(getSherlockActivity(), "Tudo curado", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getSherlockActivity(), "Tudo curado", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -64,7 +64,7 @@ public class MedicalSpotPotions extends SherlockFragment
             @Override
             public void onClick(View v)
             {
-                Toast.makeText(getSherlockActivity(), "Tudo comprado", Toast.LENGTH_LONG).show();
+               // Toast.makeText(getSherlockActivity(), "Tudo comprado", Toast.LENGTH_LONG).show();
             }
         });
     }

@@ -146,9 +146,9 @@ public class ChooseRandomon extends SlidingActivity
                             sortedRandomons[1] = r2;
                             sortedRandomons[2] = r3;
 
-                            randomon1.setImageResource(R.drawable.randomom);
-                            randomon2.setImageResource(R.drawable.randomom);
-                            randomon3.setImageResource(R.drawable.randomom);
+                            randomon1.setImageResource(r1.getPicId());
+                            randomon2.setImageResource(r2.getPicId());
+                            randomon3.setImageResource(r3.getPicId());
 
                             pullLever.setText("Press a Randomon to see the description");
                             LEVER_UP = false;
@@ -187,7 +187,7 @@ public class ChooseRandomon extends SlidingActivity
 
                 /* REALLY SELECT IT AND GO TO THE MAIN MENU */
 
-                Toast.makeText(getApplicationContext(), "Selected randomon " + (index + 1), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "Selected randomon " + (index + 1), Toast.LENGTH_SHORT).show();
 
                 Intent intent;
                 intent = new Intent(v.getContext(), MainMenu.class);
@@ -199,7 +199,7 @@ public class ChooseRandomon extends SlidingActivity
         /* set description and image according to the index */
         descRandomon.setText("O Estranhomon costuma ser encontrado em regiões pantanosas. É um randomon muito agressivo, porém é fácil de encontrar. " +
                 "\nDescrição do randomon " + sortedRandomons[index].getName());
-        randomonMini.setImageResource(R.drawable.randomom);
+        randomonMini.setImageResource(sortedRandomons[index].getPicId());
     }
 
     @Override

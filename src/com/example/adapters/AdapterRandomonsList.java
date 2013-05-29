@@ -73,6 +73,8 @@ public class AdapterRandomonsList extends BaseAdapter
 
         holder.lvl.setText("lvl. "+randomonsList.get(position).getLevel());
 
+        holder.randomonImage.setImageResource(randomonsList.get(position).getPicId());
+
         holder.name.setText(randomonsList.get(position).getName());
 
         return convertView;

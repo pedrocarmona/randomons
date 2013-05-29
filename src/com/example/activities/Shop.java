@@ -72,7 +72,7 @@ public class Shop extends SlidingActivity
             @Override
             public void onClick(View v)
             {
-                Toast.makeText(ctx,"Tudo Limpo",Toast.LENGTH_LONG).show();
+                //Toast.makeText(ctx,"Tudo Limpo",Toast.LENGTH_LONG).show();
 
             }
         });
@@ -82,7 +82,7 @@ public class Shop extends SlidingActivity
             @Override
             public void onClick(View v)
             {
-                Toast.makeText(ctx,"Tudo comprado",Toast.LENGTH_LONG).show();
+                //Toast.makeText(ctx,"Tudo comprado",Toast.LENGTH_LONG).show();
 
             }
         });

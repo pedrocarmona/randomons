@@ -6,15 +6,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.view.Display;
-import com.actionbarsherlock.app.SherlockActivity;
 import com.example.adapters.AdapterMoves;
-import com.example.data.Event;
 import com.example.data.Move;
 import com.example.data.Randomon;
+import com.example.menus.SlidingMenu;
+import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import org.holoeverywhere.widget.ListView;
 import org.holoeverywhere.widget.TextView;
 
-public class RandomonInfo extends SherlockActivity {
+public class RandomonInfo extends SlidingFragmentActivity {
 
     private Randomon randomonSelected;
     private ImageView randomonInfoImg;
@@ -36,9 +36,9 @@ public class RandomonInfo extends SherlockActivity {
 
         int cima = 30;
         int esquerda = 10;
-        int direita = 80;
+        int direita = 40;
         int baixo_esquerda=20;
-        int baixo_direita=60;
+        int baixo_direita=40;
 
         ImageView imgPentagono = (ImageView) findViewById(R.id.pentagono);
 
@@ -96,6 +96,7 @@ public class RandomonInfo extends SherlockActivity {
             randomonMoves.addItem(mv);
         }
 
+        addSlidingMenu();
 
     }
 
@@ -120,5 +121,29 @@ public class RandomonInfo extends SherlockActivity {
 
         return array;
 
+    }
+
+    private void addSlidingMenu()
+    {
+        com.jeremyfeinstein.slidingmenu.lib.SlidingMenu sm = getSlidingMenu();
+        // check if the content frame contains the menu frame
+        if (findViewById(R.id.menu_frame) == null)
+        {
+            setBehindContentView(R.layout.slide_menu);
+            sm.setSlidingEnabled(true);
+            sm.setTouchModeAbove(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.TOUCHMODE_FULLSCREEN);
+            // show home as up so we can toggle
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+        else
+        {
+            // add a dummy view
+            View v = new View(this);
+            setBehindContentView(v);
+            sm.setSlidingEnabled(false);
+            sm.setTouchModeAbove(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.TOUCHMODE_NONE);
+        }
+
+        new SlidingMenu(this, getSlidingMenu());
     }
 }

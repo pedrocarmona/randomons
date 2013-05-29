@@ -151,7 +151,7 @@ public class Items extends SlidingActivity
 
                 /* REALLY SELECT IT AND GO BACK TO THE BATTLE */
 
-                Toast.makeText(getApplicationContext(), "Selected item " + name, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "Selected item " + name, Toast.LENGTH_SHORT).show();
             }
         });
 
