@@ -1,14 +1,15 @@
 package com.example.location;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
-import android.util.Log;
-import org.holoeverywhere.widget.Toast;
+import com.example.connection.getNearbyEventsTask;
 
 public class MyPositionStateListener implements LocationListener
 {
+    private static final String EVENTS_URL = "http://randomons.herokuapp.com/api/v1/events";
     private static final int TWO_MINUTES = 1000 * 60 * 2;
     private Context context;
     private Location myLocation;
@@ -24,7 +25,12 @@ public class MyPositionStateListener implements LocationListener
         if(isBetterLocation(location, myLocation))
         {
             myLocation = location;
-            Log.i("Location1", "location");
+
+            SharedPreferences mPreferences = context.getSharedPreferences("CurrentUser", Context.MODE_PRIVATE);
+
+            if (mPreferences.contains("AuthToken"))
+                new getNearbyEventsTask(context).execute(EVENTS_URL, String.valueOf(myLocation.getLatitude()),
+                        String.valueOf(myLocation.getLongitude()), mPreferences.getString("AuthToken",""));
         }
 
         /*Toast.makeText(context, "Lat:"+myLocation.getLatitude() + "Lon:"+myLocation.getLongitude(),
