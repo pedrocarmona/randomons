@@ -280,7 +280,7 @@ public class Battle extends SimpleBaseGameActivity {
                loadedFire = true;
            }
        });
-       soundIDFire = soundPoolFire.load(this, R.raw.fire_ball, 1);
+       soundIDFire = soundPoolFire.load(this, R.raw.fatal_bomb2, 1);
 
 
        soundPoolFlying = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
@@ -302,7 +302,7 @@ public class Battle extends SimpleBaseGameActivity {
                loadedWild = true;
            }
        });
-       soundIDWild = soundPoolWild.load(this, R.raw.wild_wind, 1);
+       soundIDWild = soundPoolWild.load(this, R.raw.wild_wind2, 1);
 
        soundPoolBattle = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
        soundPoolBattle.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
