@@ -18,7 +18,7 @@
                 android:layout_width="140dip"
                 android:layout_height="140dip"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/randomon_icon"
+                android:src="@drawable/icon_app"
                 android:contentDescription="">
         </ImageView>
 

@@ -3,11 +3,17 @@ package com.example.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.util.Log;
+
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,25 +26,23 @@ import com.actionbarsherlock.view.MenuItem;
 import com.example.adapters.AdapterCloseEventsBase;
 import com.example.adapters.AdapterHorizontalList;
 import com.example.adapters.AdapterLastEvents;
-import com.example.data.CloseEvent;
-import com.example.data.Event;
-import com.example.data.Player;
+import com.example.data.*;
 import com.example.location.MyPositionStateListener;
 import com.example.menus.SlidingMenu;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.example.data.SharedData;
 import com.example.others.Constants;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
 import org.holoeverywhere.app.Dialog;
 import org.holoeverywhere.drawable.ColorDrawable;
 import org.holoeverywhere.widget.ListView;
+import org.holoeverywhere.widget.TextView;
 
 import java.util.ArrayList;
-
-import org.holoeverywhere.widget.TextView;
 
 public class MainMenu extends SlidingActivity implements Constants
 {
@@ -56,6 +60,14 @@ public class MainMenu extends SlidingActivity implements Constants
     private ArrayList<Event> lastEvents = new ArrayList<Event>();
     private SharedData shared;
     private Dialog dialog;
+    int soundID;
+
+    boolean loaded = false;
+    SoundPool soundPool;
+    int priority = 1;
+    int no_loop = 0;
+    float normal_playback_rate = 1f;
+
 
     private GoogleMap mMap = null;
 
@@ -67,6 +79,18 @@ public class MainMenu extends SlidingActivity implements Constants
 
         setContentView(R.layout.main_menu);
         shared = SharedData.getInstance();
+
+        soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+        soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+            @Override
+            public void onLoadComplete(SoundPool soundPool, int sampleId,
+                                       int status) {
+                loaded = true;
+            }
+        });
+        soundID = soundPool.load(this, R.raw.click, 1);
+
+        AudioManager audioManager = (AudioManager)getSystemService(AUDIO_SERVICE);
 
         dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -138,7 +162,15 @@ public class MainMenu extends SlidingActivity implements Constants
 
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-            if (((CloseEvent) proxAdapter.getItem(position)).getCloseEventType() == 1) {
+
+
+                if (loaded==true){
+
+                    soundPool.play(soundID, 0.99f, 0.99f, priority, 0, normal_playback_rate);
+
+                }
+
+                if (((CloseEvent) proxAdapter.getItem(position)).getCloseEventType() == 1) {
                 Intent intent = new Intent(view.getContext(), PlayerDetails.class);
                 MainMenu.this.startActivity(intent);
             } else if (((CloseEvent) proxAdapter.getItem(position)).getCloseEventType() == 2) {
@@ -156,7 +188,10 @@ public class MainMenu extends SlidingActivity implements Constants
             }
 
             }
+
+
         });
+
 
         ListView leventsView = (ListView) findViewById(R.id.levents_listview);
 
@@ -190,6 +225,20 @@ public class MainMenu extends SlidingActivity implements Constants
             mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
             mMap.getUiSettings().setZoomControlsEnabled(false);
             mMap.setMyLocationEnabled(true);
+
+            mMap.addMarker(new MarkerOptions()
+                    .position(Globals.hospital)
+                    .title("Hospital")
+                    .snippet("Come here to heal your Randomons for free!")
+                    .icon(BitmapDescriptorFactory.fromBitmap(
+                            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.medics),10,10,false))));
+
+            mMap.addMarker(new MarkerOptions()
+                    .position(Globals.shop)
+                    .title("Shop")
+                    .snippet("Come here to by your items!")
+                    .icon(BitmapDescriptorFactory.fromBitmap(
+                            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.shop),10,10,false))));
 
             Location location = mMap.getMyLocation();
 

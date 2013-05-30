@@ -2,12 +2,13 @@ package com.example.activities;
 
 
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.example.data.Randomon;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
@@ -15,8 +16,26 @@ import org.holoeverywhere.widget.Button;
 import org.holoeverywhere.widget.LinearLayout;
 import org.holoeverywhere.widget.TextView;
 
-public class ChooseRandomon extends SherlockActivity
+public class ChooseRandomon extends SlidingActivity
 {
+
+    //add
+    int soundIDClick;
+    boolean loadedClick= false;
+    SoundPool soundPoolClick;
+
+    int soundIDSlot;
+    boolean loadedSlot= false;
+    SoundPool soundPoolSlot;
+
+
+
+    int priority = 1;
+    int no_loop = 0;
+    float normal_playback_rate = 1f;
+
+    //end add
+
     private boolean LEVER_UP;
     private ImageView leverImg;
     private ImageView randomon1;
@@ -38,6 +57,33 @@ public class ChooseRandomon extends SherlockActivity
 
         setContentView(R.layout.choose_randomon);
 
+
+        /*add*/
+
+        soundPoolClick= new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+        soundPoolClick.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+            @Override
+            public void onLoadComplete(SoundPool soundPool, int sampleId,
+                                       int status) {
+                loadedClick = true;
+            }
+        });
+        soundIDClick = soundPoolClick.load(this, R.raw.click, 1);
+
+        soundPoolSlot= new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+        soundPoolSlot.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+            @Override
+            public void onLoadComplete(SoundPool soundPool, int sampleId,
+                                       int status) {
+                loadedSlot = true;
+            }
+        });
+        soundIDSlot = soundPoolSlot.load(this, R.raw.slotsound, 1);
+
+
+        /*end add*/
+
+
         final ActionBar bar = getSupportActionBar();
         bar.setTitle("Starter Randomon");
         bar.setLogo(R.drawable.icon_app);
@@ -56,6 +102,11 @@ public class ChooseRandomon extends SherlockActivity
             @Override
             public void onClick(View view) {
 
+                if (loadedClick==true){
+
+                    soundPoolClick.play(soundIDClick, 0.99f, 0.99f, priority, 0, normal_playback_rate);
+
+                }
                 if(!LEVER_UP) {
                     int pad_px = paddingDipToPx(5);
 
@@ -79,6 +130,12 @@ public class ChooseRandomon extends SherlockActivity
             @Override
             public void onClick(View view) {
 
+                if (loadedClick==true){
+
+                    soundPoolClick.play(soundIDClick, 0.99f, 0.99f, priority, 0, normal_playback_rate);
+
+                }
+
                 if(!LEVER_UP) {
                     int pad_px = paddingDipToPx(5);
 
@@ -101,6 +158,12 @@ public class ChooseRandomon extends SherlockActivity
         randomon3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if (loadedClick==true){
+
+                    soundPoolClick.play(soundIDClick, 0.99f, 0.99f, priority, 0, normal_playback_rate);
+
+                }
 
                 if(!LEVER_UP) {
                     int pad_px = paddingDipToPx(5);
@@ -137,6 +200,12 @@ public class ChooseRandomon extends SherlockActivity
                         if (motionEvent.getY() - historicY > DELTA && LEVER_UP) {
 
                             leverImg.setImageResource(R.drawable.lever_down);
+
+                            if (loadedSlot==true){
+
+                                soundPoolSlot.play(soundIDSlot, 0.99f, 0.99f, priority, 0, normal_playback_rate);
+
+                            }
 
                             int randomStarter;
                             Randomon []initials = new Randomon[3];

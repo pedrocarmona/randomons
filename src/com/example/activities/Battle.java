@@ -2,6 +2,8 @@ package com.example.activities;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.opengl.GLES20;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
@@ -72,6 +74,34 @@ public class Battle extends SimpleBaseGameActivity {
     // ===========================================================
 
 
+                 /*add in final Code*/
+    int soundIDFatal;
+    boolean loadedFatal = false;
+    SoundPool soundPoolFatal;
+    int priority = 1;
+    int no_loop = 0;
+    float normal_playback_rate = 1f;
+
+    int soundIDFire;
+    boolean loadedFire = false;
+    SoundPool soundPoolFire;
+
+    int soundIDFlying;
+    boolean loadedFlying = false;
+    SoundPool soundPoolFlying;
+
+    int soundIDWild;
+    boolean loadedWild = false;
+    SoundPool soundPoolWild;
+
+    int soundIDBattle;
+    int otherBattleSound;
+    boolean loadedBattle = false;
+    SoundPool soundPoolBattle;
+
+    /*stop add*/
+
+
     private static int CAMERA_WIDTH = 480;
     private static int CAMERA_HEIGHT = 320;
 
@@ -91,7 +121,6 @@ public class Battle extends SimpleBaseGameActivity {
 
     private BitmapTextureAtlas captTextureAtlas;
     private TiledTextureRegion captTextureRegion;
-
 
     Rectangle leftRandomonHitPoints;
     Rectangle rightRandomonHitPoints;
@@ -191,6 +220,10 @@ public class Battle extends SimpleBaseGameActivity {
         randomonsCollection = (ArrayList<Randomon>) getIntent().getSerializableExtra("randomons_list");
         this.step=0;
 
+        doSound();
+
+
+
 
         FontFactory.setAssetBasePath("font/");
 
@@ -239,8 +272,65 @@ public class Battle extends SimpleBaseGameActivity {
 
     }
 
+/*add Sound*/
+   public void doSound(){
+
+       soundPoolFatal = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+       soundPoolFatal.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+           @Override
+           public void onLoadComplete(SoundPool soundPool, int sampleId,
+                                      int status) {
+               loadedFatal = true;
+           }
+       });
+       soundIDFatal = soundPoolFatal.load(this, R.raw.fatal_bomb, 1);
 
 
+       soundPoolFire = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+       soundPoolFire.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+           @Override
+           public void onLoadComplete(SoundPool soundPool, int sampleId,
+                                      int status) {
+               loadedFire = true;
+           }
+       });
+       soundIDFire = soundPoolFire.load(this, R.raw.fatal_bomb2, 1);
+
+
+       soundPoolFlying = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+       soundPoolFlying.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+           @Override
+           public void onLoadComplete(SoundPool soundPool, int sampleId,
+                                      int status) {
+               loadedFlying = true;
+           }
+       });
+       soundIDFlying = soundPoolFlying.load(this, R.raw.flying_blade, 1);
+
+
+       soundPoolWild = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+       soundPoolWild.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+           @Override
+           public void onLoadComplete(SoundPool soundPool, int sampleId,
+                                      int status) {
+               loadedWild = true;
+           }
+       });
+       soundIDWild = soundPoolWild.load(this, R.raw.wild_wind2, 1);
+
+       soundPoolBattle = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+       soundPoolBattle.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+           @Override
+           public void onLoadComplete(SoundPool soundPool, int sampleId,
+                                      int status) {
+               loadedBattle = true;
+           }
+       });
+       soundIDBattle = soundPoolBattle.load(this, R.raw.battlesound, 0);
+
+
+   }
+    /*add Sound*/
 
     @Override
     public Scene onCreateScene() {
@@ -272,6 +362,12 @@ public class Battle extends SimpleBaseGameActivity {
         captSprite = new AnimatedSprite(CAMERA_WIDTH/2, CAMERA_HEIGHT/2,64,64,  this.captTextureRegion, this.getVertexBufferObjectManager());
         captSprite.setVisible(false);
         scene.attachChild(captSprite);
+
+        if (loadedBattle==true){
+
+            otherBattleSound = soundPoolBattle.play(soundIDBattle, 0.99f, 0.99f, priority, -1, normal_playback_rate);
+
+        }
 
         movimentoInicial();
 
@@ -664,18 +760,43 @@ public class Battle extends SimpleBaseGameActivity {
             public void onPathWaypointStarted(PathModifier pPathModifier, IEntity pEntity, int pWaypointIndex) {
                 switch (movenr){
                     case 0:
+
+                        if (loadedWild==true){
+
+                            soundPoolWild.play(soundIDWild, 0.99f, 0.99f, priority, 0, normal_playback_rate);
+
+                        }
                         movesSprite.animate(new long[]{100},new int[]{frameIndex+0},true);
                         frameIndex++;
                         break;
                     case 1:
+                        if (loadedFire==true){
+
+                            soundPoolFire.play(soundIDFire, 0.99f, 0.99f, priority, 0, normal_playback_rate);
+
+                        }
+
                         movesSprite.animate(new long[]{100},new int[]{frameIndex+4},true);
                         frameIndex++;
                         break;
                     case 2:
+                        if (loadedFlying==true){
+
+                            soundPoolFlying.play(soundIDFlying, 0.99f, 0.99f, priority, 0, normal_playback_rate);
+
+                        }
+
                         movesSprite.animate(new long[]{100},new int[]{frameIndex+8},true);
                         frameIndex++;
                         break;
                     case 3:
+
+                        if (loadedFatal==true){
+
+                            soundPoolFatal.play(soundIDFatal, 0.99f, 0.99f, priority, 0, normal_playback_rate);
+
+                        }
+
                         movesSprite.animate(new long[]{100},new int[]{frameIndex+12},true);
                         frameIndex++;
                         break;
@@ -727,6 +848,8 @@ public class Battle extends SimpleBaseGameActivity {
             leftRandomonHitPoints.setVisible(false);
             youLost();
             this.isBattleOver=true;
+
+
             return;
         }
         if (rightRandomon.getCurrent_hitpoints()>0)
@@ -809,6 +932,11 @@ public class Battle extends SimpleBaseGameActivity {
         }
         @Override
         public void onAnimationFinished(AnimatedSprite pAnimatedSprite) {
+
+            soundPoolBattle.stop(otherBattleSound);
+            soundPoolBattle.release();
+
+
             finish();
         }
     };
