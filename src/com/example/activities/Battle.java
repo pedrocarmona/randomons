@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import android.opengl.GLES20;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
+import com.example.others.RoundedPath;
 import org.andengine.entity.IEntity;
 import org.andengine.entity.modifier.LoopEntityModifier;
 
@@ -88,6 +89,8 @@ public class Battle extends SimpleBaseGameActivity {
     private BitmapTextureAtlas movesTextureAtlas;
     private TiledTextureRegion movesTextureRegion;
 
+    private BitmapTextureAtlas captTextureAtlas;
+    private TiledTextureRegion captTextureRegion;
 
 
     Rectangle leftRandomonHitPoints;
@@ -107,18 +110,22 @@ public class Battle extends SimpleBaseGameActivity {
 
     private boolean leftIsFirst;
 
+    private ArrayList<Randomon> randomonsCollection = new ArrayList<Randomon>();
 
     Scene scene;
 
     AnimatedSprite rightRandomonSprite;
     AnimatedSprite leftRandomonSprite;
     AnimatedSprite movesSprite;
+    AnimatedSprite captSprite;
+
 
     Entity commandsGroup;
     Rectangle moveBox1;
     Rectangle moveBox2;
     Rectangle moveBox3;
     Rectangle moveBox4;
+    Rectangle captureBox;
 
     int LeftMove;
 
@@ -152,6 +159,7 @@ public class Battle extends SimpleBaseGameActivity {
     final int MOVE_TWO=1;
     final int MOVE_THREE=2;
     final int MOVE_FOUR=3;
+    final int CAPTURE = 4;
 
 
     int step;
@@ -164,7 +172,7 @@ public class Battle extends SimpleBaseGameActivity {
     final int SPRITE_AFTER_ATTACK2=6;
     final int SPRITE_AFTER_MOVE2=7;
     final int SPRITE_AFTER_DEFENSE2=8;
-
+    final int SPRITE_CAPTURE = 9;
 
     @Override
     public EngineOptions onCreateEngineOptions() {
@@ -179,6 +187,8 @@ public class Battle extends SimpleBaseGameActivity {
     @Override
     public void onCreateResources() {
 
+
+        randomonsCollection = (ArrayList<Randomon>) getIntent().getSerializableExtra("randomons_list");
         this.step=0;
 
 
@@ -211,6 +221,9 @@ public class Battle extends SimpleBaseGameActivity {
         this.movesTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(this.movesTextureAtlas, this, "packattack.png", 0, 0, 4, 4);
         this.movesTextureAtlas.load();
 
+        this.captTextureAtlas = new BitmapTextureAtlas(this.getTextureManager(), 1024, 1024);
+        this.captTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(this.captTextureAtlas, this, "fl.png", 0, 0, 1, 1);
+        this.captTextureAtlas.load();
 
 
         this.leftRandomon = (new Randomon("Catzinga", Randomon.NORMAL, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.catzinga,1));
@@ -256,18 +269,34 @@ public class Battle extends SimpleBaseGameActivity {
         movesSprite.setVisible(false);
         scene.attachChild(movesSprite);
 
+        captSprite = new AnimatedSprite(CAMERA_WIDTH/2, CAMERA_HEIGHT/2,64,64,  this.captTextureRegion, this.getVertexBufferObjectManager());
+        captSprite.setVisible(false);
+        scene.attachChild(captSprite);
+
         movimentoInicial();
 
         /* Create the rectangles. */
-        moveBox1 = this.makeColoredRectangle(-90, -90, 0.88f, 0.88f, 0.88f,MOVE_ONE);
-        moveBox2 = this.makeColoredRectangle( 10, -90, 0.88f, 0.88f, 0.88f,MOVE_TWO);
-        moveBox3 = this.makeColoredRectangle(10, 10, 0.88f, 0.88f, 0.88f, MOVE_THREE);
-        moveBox4 = this.makeColoredRectangle(-90, 10, 0.88f, 0.88f, 0.88f,MOVE_FOUR);
+        captureBox = this.makeColoredRectangle(-200, -90, 45, 45, 0.88f, 0.88f, 0.88f,CAPTURE);
+        moveBox1 = this.makeColoredRectangle(-90, -90, 80, 80, 0.88f, 0.88f, 0.88f,MOVE_ONE);
+        moveBox2 = this.makeColoredRectangle( 10, -90, 80, 80, 0.88f, 0.88f, 0.88f,MOVE_TWO);
+        moveBox3 = this.makeColoredRectangle(10, 10, 80, 80, 0.88f, 0.88f, 0.88f, MOVE_THREE);
+        moveBox4 = this.makeColoredRectangle(-90, 10, 80, 80, 0.88f, 0.88f, 0.88f,MOVE_FOUR);
+        final Text captureTxt = new Text(-200, -90, this.mFont, "Capture", new TextOptions(HorizontalAlign.CENTER), vertexBufferObjectManager);
+        captureTxt.setSize(45, 45);
         final Text move1 = new Text(-90, -90, this.mFont, "Wild Wind", new TextOptions(HorizontalAlign.CENTER), vertexBufferObjectManager);
         final Text move2 = new Text(10, -90, this.mFont, "Fatal Bomb" , new TextOptions(HorizontalAlign.CENTER), vertexBufferObjectManager);
         final Text move3 = new Text(10, 10, this.mFont,  "Flying Blade", new TextOptions(HorizontalAlign.CENTER), vertexBufferObjectManager);
         final Text move4 = new Text(-90, 10, this.mFont, "Fire Ball" , new TextOptions(HorizontalAlign.CENTER), vertexBufferObjectManager);
 
+        Sprite captureSprite = new Sprite(-200, -100,TextureRegionFactory.extractFromTexture(this.captTextureAtlas,0,0,125,125), vertexBufferObjectManager){
+            @Override
+            public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
+                if(pSceneTouchEvent.isActionDown()) {
+                    atacar(CAPTURE);
+                }
+                return true;
+            }
+        };
         Sprite s1 = new Sprite(-90, -80,TextureRegionFactory.extractFromTexture(this.movesTextureAtlas,0,0,125,125), vertexBufferObjectManager){
             @Override
             public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
@@ -304,6 +333,9 @@ public class Battle extends SimpleBaseGameActivity {
                 return true;
             }
         };
+
+        captureSprite.setScale(0.5f);
+        captureSprite.setVisible(false);
         s1.setScale(0.5f);
         s2.setScale(0.5f);
         s3.setScale(0.5f);
@@ -320,6 +352,9 @@ public class Battle extends SimpleBaseGameActivity {
 
         commandsGroup = new Entity(CAMERA_WIDTH / 2, CAMERA_HEIGHT / 2);
 
+        commandsGroup.attachChild(captureBox);
+        commandsGroup.attachChild(captureTxt);
+        commandsGroup.attachChild(captureSprite);
         commandsGroup.attachChild(moveBox1);
         commandsGroup.attachChild(moveBox2);
         commandsGroup.attachChild(moveBox3);
@@ -333,6 +368,7 @@ public class Battle extends SimpleBaseGameActivity {
         commandsGroup.attachChild(s3);
         commandsGroup.attachChild(s4);
         scene.attachChild(commandsGroup);
+        scene.registerTouchArea(captureBox);
         scene.registerTouchArea(moveBox1);
         scene.registerTouchArea(moveBox2);
         scene.registerTouchArea(moveBox3);
@@ -362,6 +398,8 @@ public class Battle extends SimpleBaseGameActivity {
 
         scene.attachChild(lifeGroup);
         scene.setTouchAreaBindingOnActionDownEnabled(true);
+
+
         return scene;
     }
 
@@ -374,9 +412,9 @@ public class Battle extends SimpleBaseGameActivity {
     // Methods
     // ===========================================================
 
-    private Rectangle makeColoredRectangle( final float pX, final float pY, final float pRed, final float pGreen, final float pBlue, final int move) {
+    private Rectangle makeColoredRectangle( final float pX, final float pY, final float pWidth, final float pHeight, final float pRed, final float pGreen, final float pBlue, final int move) {
 
-        final Rectangle coloredRect = new Rectangle(pX, pY, 80, 80, this.getVertexBufferObjectManager()) {
+        final Rectangle coloredRect = new Rectangle(pX, pY, pWidth, pHeight, this.getVertexBufferObjectManager()) {
             @Override
             public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
                 if(pSceneTouchEvent.isActionDown()) {
@@ -408,8 +446,8 @@ public class Battle extends SimpleBaseGameActivity {
     public void movimento() {
 
         //remove final if needed
-        final AnimatedSprite.IAnimationListener anime = new AnimatedSprite.IAnimationListener() {
-             @Override
+        final AnimatedSprite.IAnimationListener captureAnime = new AnimatedSprite.IAnimationListener() {
+            @Override
             public void onAnimationStarted(AnimatedSprite pAnimatedSprite, int pInitialLoopCount) {
             }
             @Override
@@ -423,93 +461,172 @@ public class Battle extends SimpleBaseGameActivity {
                 movimento();
             }
         };
-        leftIsFirst=true;
-        switch (step){
-            case SPRITE_INICIO:
-                commandsGroup.setVisible(true);
-                movimentoInicial();
-                break;
-            case SPRITE_AFTER_INICIO:
-                if (leftIsFirst){
-                    // Left player atacks
-                    leftRandomonSprite.animate(new long[]{100, 100, 100}, 8, 10, 1, anime);
-                    commandsGroup.setVisible(false);
-                }else{
-                    // Righs side player atacks
-                    rightRandomonSprite.animate(new long[]{100, 100, 100}, 2, 4, 1, anime);
-                    commandsGroup.setVisible(false);
-                }
-                break;
-            case SPRITE_AFTER_ATTACK1:
-                doMove(anime);
-                break;
-            case SPRITE_AFTER_MOVE1:
+        final AnimatedSprite.IAnimationListener anime = new AnimatedSprite.IAnimationListener() {
+            @Override
+            public void onAnimationStarted(AnimatedSprite pAnimatedSprite, int pInitialLoopCount) {
+            }
+            @Override
+            public void onAnimationFrameChanged(AnimatedSprite pAnimatedSprite, int pOldFrameIndex, int pNewFrameIndex) {
+            }
+            @Override
+            public void onAnimationLoopFinished(AnimatedSprite pAnimatedSprite, int pRemainingLoopCount, int pInitialLoopCount) {
+            }
+            @Override
+            public void onAnimationFinished(AnimatedSprite pAnimatedSprite) {
+                movimento();
+            }
+        };
+        if(LeftMove == 4){
+            doCapture(captureAnime);
 
-                movesSprite.setVisible(false);
-                if (leftIsFirst){
-                    rightRandomonSprite.animate(new long[]{100, 100}, 5, 6, 1,anime);
-                }else{
-                    leftRandomonSprite.animate(new long[]{100, 100}, 11, 12,1, anime);
-                }
+        }else{
+            leftIsFirst=true;
+            switch (step){
+                case SPRITE_INICIO:
+                    commandsGroup.setVisible(true);
+                    movimentoInicial();
+                    break;
+                case SPRITE_AFTER_INICIO:
+                    if (leftIsFirst){
+                        // Left player atacks
+                        leftRandomonSprite.animate(new long[]{100, 100, 100}, 8, 10, 1, anime);
+                        commandsGroup.setVisible(false);
+                    }else{
+                        // Righs side player atacks
+                        rightRandomonSprite.animate(new long[]{100, 100, 100}, 2, 4, 1, anime);
+                        commandsGroup.setVisible(false);
+                    }
+                    break;
+                case SPRITE_AFTER_ATTACK1:
 
-                break;
-            case SPRITE_AFTER_DEFENSE1:
+                    doMove(anime);
+                    break;
+                case SPRITE_AFTER_MOVE1:
 
-                if(leftIsFirst){
-                    leftAtacked = true;
+                    movesSprite.setVisible(false);
+                    if (leftIsFirst){
+                        rightRandomonSprite.animate(new long[]{100, 100}, 5, 6, 1,anime);
+                    }else{
+                        leftRandomonSprite.animate(new long[]{100, 100}, 11, 12,1, anime);
+                    }
 
-                }else{
-                    leftAtacked = false;
-                }
-                updateHitPoints();
+                    break;
+                case SPRITE_AFTER_DEFENSE1:
+
+                    if(leftIsFirst){
+                        leftAtacked = true;
+
+                    }else{
+                        leftAtacked = false;
+                    }
+                    updateHitPoints();
+                    //To change body of implemented methods use File | Settings | File Templates.
+                    if(!isBattleOver){
+                        leftRandomonSprite.animate(new long[]{100, 100}, 0, 1, 3,anime);
+                        rightRandomonSprite.animate(new long[]{100, 100}, 0, 1, 3,anime);
+                    }
+                    break;
+                case SPRITE_AFTER_PAUSE:
+                    if (leftIsFirst){
+                        // Righs side player atacks
+                        rightRandomonSprite.animate(new long[]{100, 100, 100}, 2, 4, 2, anime);
+                        commandsGroup.setVisible(false);
+                    }else{
+                        // Left player atacks
+                        leftRandomonSprite.animate(new long[]{100, 100, 100}, 8, 10, 2, anime);
+                        commandsGroup.setVisible(false);
+                    }
+                    break;
+                case SPRITE_AFTER_ATTACK2:
+                    doMove(anime);
+                    break;
+                case SPRITE_AFTER_MOVE2:
+                    movesSprite.setVisible(false);
+                    if (leftIsFirst){
+                        leftRandomonSprite.animate(new long[]{100, 100}, 11, 12,1, anime);
+
+                    }else{
+                        rightRandomonSprite.animate(new long[]{100, 100}, 5, 6, 1,anime);
+                    }
+
+                    break;
+                case SPRITE_AFTER_DEFENSE2:
+
+                    if(leftIsFirst){
+                        leftAtacked = false;
+                    }else{
+                        leftAtacked = true;
+                    }
+                    updateHitPoints();
+                    break;
+            }
+            step++;
+            if(step==SPRITE_AFTER_DEFENSE2+1){
+                step=0;
+
+                movimento();
+
+            }
+        }
+
+    }
+
+    private void doCapture(final AnimatedSprite.IAnimationListener captureAnime){
+        //Path experiments
+        int startx ,starty, endx , endy,distancex, distancey;
+
+        startx =0;
+        starty= CAMERA_HEIGHT - 150;
+        endx =CAMERA_WIDTH - 130;
+        endy=CAMERA_HEIGHT - 72;
+        distancex = endx-startx;
+        distancey = endy-starty;
+        //Path path = new Path(5).to(startx, starty).to(startx+distancex/4,starty).to(startx+distancex/4*2,starty).to(startx+distancex/4*3,starty).to(endx, endy);
+        RoundedPath pathC = new RoundedPath();
+
+        Path path = pathC.path(startx, starty-30, startx+distancex/4,starty-80, endx-15, starty-80, endx+5, endy+5);
+        rightRandomonSprite.setVisible(false);
+
+        final int catched;
+        catched = (int)Math.floor(Math.random()*5);
+
+        /*Path path = new Path(9).to(startx, starty).to(startx+distancex/8,starty-15).to(startx+distancex/8*2,starty-30).to(startx+distancex/8*3,starty+45)
+                .to(startx+distancex/8*4,starty+60).to(startx+distancex/8*5,starty+75).to(startx+distancex/8*6,starty+90).to(startx+distancex/8*7,starty+105).to(endx, endy);
+*/
+
+        captSprite.setVisible(true);
+        captSprite.registerEntityModifier(new SequenceEntityModifier(new PathModifier(0.4f, path, null, new IPathModifierListener() {
+            @Override
+            public void onPathStarted(final PathModifier pPathModifier, final IEntity pEntity) {
+                commandsGroup.setVisible(false);
+                captSprite.animate(new long[]{100},new int[]{0},true);
+            }
+            @Override
+            public void onPathWaypointStarted(PathModifier pPathModifier, IEntity pEntity, int pWaypointIndex) {
+
+                //movesSprite.animate(new long[]{100},new int[]{frameIndex},true);
+                //frameIndex++;
                 //To change body of implemented methods use File | Settings | File Templates.
-                if(!isBattleOver){
-                    leftRandomonSprite.animate(new long[]{100, 100}, 0, 1, 3,anime);
-                    rightRandomonSprite.animate(new long[]{100, 100}, 0, 1, 3,anime);
-                }
-                break;
-            case SPRITE_AFTER_PAUSE:
-                if (leftIsFirst){
-                    // Righs side player atacks
-                    rightRandomonSprite.animate(new long[]{100, 100, 100}, 2, 4, 2, anime);
-                    commandsGroup.setVisible(false);
+            }
+            @Override
+            public void onPathWaypointFinished(final PathModifier pPathModifier, final IEntity pEntity, final int pWaypointIndex) {
+
+            }
+            @Override
+            public void onPathFinished(final PathModifier pPathModifier, final IEntity pEntity) {
+                if (catched <= 2){
+                    //FAILED CAPTURE
+                    rightRandomonSprite.setVisible(true);
+                    captSprite.setVisible(false);
+                    commandsGroup.setVisible(true);
                 }else{
-                    // Left player atacks
-                    leftRandomonSprite.animate(new long[]{100, 100, 100}, 8, 10, 2, anime);
-                    commandsGroup.setVisible(false);
-                }
-                break;
-            case SPRITE_AFTER_ATTACK2:
-                doMove(anime);
-                break;
-            case SPRITE_AFTER_MOVE2:
-                movesSprite.setVisible(false);
-                if (leftIsFirst){
-                    leftRandomonSprite.animate(new long[]{100, 100}, 11, 12,1, anime);
-
-                }else{
-                    rightRandomonSprite.animate(new long[]{100, 100}, 5, 6, 1,anime);
+                    catchSuccess();
+                    randomonsCollection.add(rightRandomon);
                 }
 
-                break;
-            case SPRITE_AFTER_DEFENSE2:
 
-                if(leftIsFirst){
-                    leftAtacked = false;
-                }else{
-                    leftAtacked = true;
-                }
-                updateHitPoints();
-                break;
-        }
-        step++;
-        if(step==SPRITE_AFTER_DEFENSE2+1){
-            step=0;
-
-            movimento();
-
-        }
-
+            }
+        }, EaseSineInOut.getInstance())));
 
     }
 
@@ -657,7 +774,20 @@ public class Battle extends SimpleBaseGameActivity {
 
     }
 
+    private void catchSuccess(){
+        leftRandomonSprite.animate(new long[]{400, 400}, 0, 1, 5,animeEnd);
+        rightRandomonSprite.animate(new long[]{100, 100, 100}, 5, 7, 1);
+        commandsGroup.setVisible(false);
+        scene.unregisterTouchArea(moveBox1);
+        scene.unregisterTouchArea(moveBox2);
+        scene.unregisterTouchArea(moveBox3);
+        scene.unregisterTouchArea(moveBox4);
 
+        resultText.setText("Nice Catch!");
+        resultText.setX(CAMERA_WIDTH / 2 - resultText.getWidth() / 2);
+        resultText.setY(CAMERA_HEIGHT/2-resultText.getHeight()/2);
+        resultText.setVisible(true);
+    }
 
     private void updateText(){
         String text1 = leftRandomon.getName()+" lvl."+leftRandomon.getLevel()+" "+" ("+leftRandomon.getCurrent_hitpoints()+"/"+leftRandomon.getHitpoints()+")";

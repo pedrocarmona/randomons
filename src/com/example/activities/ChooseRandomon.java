@@ -8,14 +8,12 @@ import android.view.View;
 import android.widget.ImageView;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.MenuItem;
-import com.example.data.Move;
 import com.example.data.Randomon;
 import com.example.menus.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
 import org.holoeverywhere.widget.Button;
 import org.holoeverywhere.widget.LinearLayout;
 import org.holoeverywhere.widget.TextView;
-import org.holoeverywhere.widget.Toast;
 
 import java.util.ArrayList;
 

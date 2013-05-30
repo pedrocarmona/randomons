@@ -23,6 +23,7 @@ import com.example.adapters.AdapterLastEvents;
 import com.example.data.CloseEvent;
 import com.example.data.Event;
 import com.example.data.Player;
+import com.example.data.Randomon;
 import com.example.location.LocationReceiver;
 import com.example.menus.SlidingMenu;
 import com.google.android.gms.maps.GoogleMap;
@@ -115,7 +116,10 @@ public class MainMenu extends SlidingFragmentActivity
                 Intent intent = new Intent(view.getContext(), PlayerDetails.class);
                 MainMenu.this.startActivity(intent);
             } else if (((CloseEvent) proxAdapter.getItem(position)).getCloseEventType() == 2) {
+                Bundle bnd = new Bundle();
+                bnd.putSerializable("randomons_list", playerLogged.getRandomonCollection());
                 Intent intent = new Intent(view.getContext(), Battle.class);
+                intent.putExtras(bnd);
                 MainMenu.this.startActivity(intent);
             } else if (((CloseEvent) proxAdapter.getItem(position)).getCloseEventType() == 3) {
                 Intent intent = new Intent(view.getContext(), MedicalSpot.class);
