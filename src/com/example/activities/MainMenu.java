@@ -1,6 +1,5 @@
 package com.example.activities;
 
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -24,7 +23,7 @@ import com.example.adapters.AdapterLastEvents;
 import com.example.data.CloseEvent;
 import com.example.data.Event;
 import com.example.data.Player;
-import com.example.location.LocationReceiver;
+import com.example.location.MyPositionStateListener;
 import com.example.menus.SlidingMenu;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -142,14 +141,13 @@ public class MainMenu extends SlidingActivity
 
         //###################################################
 
-        Intent intent = new Intent(this, LocationReceiver.class);
+        // Acquire a reference to the system Location Manager
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-        LocationManager manager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        MyPositionStateListener myPositionStateListener = new MyPositionStateListener(this);
 
-        PendingIntent launchIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
-
-        manager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 10, launchIntent);
-        manager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 10, launchIntent);
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 10, myPositionStateListener);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 10, myPositionStateListener);
 
         //###################################################
 

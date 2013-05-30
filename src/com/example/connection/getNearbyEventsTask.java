@@ -1,7 +1,9 @@
 package com.example.connection;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
+import com.example.alerts.ProximityAlert;
 import com.savagelook.android.UrlJsonAsyncTask;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -10,7 +12,7 @@ public class getNearbyEventsTask extends UrlJsonAsyncTask
 {
     public getNearbyEventsTask(Context context)
     {
-        super(context.getApplicationContext());
+        super(context);
     }
 
     @Override
@@ -18,17 +20,25 @@ public class getNearbyEventsTask extends UrlJsonAsyncTask
     {
         try
         {
-            Log.i("GET", "ENTROU");
             JSONArray jsonPopulations = json.getJSONArray("populations");
+
             int length = jsonPopulations.length();
 
-            Log.i("GET", String.valueOf(length));
-
-            int randomChoice = (int) (Math.random() * length);
-
-            for (int i = 0; i < length; i++)
+            if(length > 0)
             {
-                Log.i("GET", "type: "+jsonPopulations.getJSONObject(i).getJSONObject("population").getString("specie"));
+                int randomChoice = (int) (Math.random() * length);
+
+                Intent intent = new Intent(context, ProximityAlert.class);
+
+                Log.i("GET", "type: "+jsonPopulations.getJSONObject(randomChoice).getJSONObject("population").getString("latitude"));
+                Log.i("GET", "type: "+jsonPopulations.getJSONObject(randomChoice).getJSONObject("population").getString("longitude"));
+
+                intent.putExtra("name", jsonPopulations.getJSONObject(randomChoice).
+                        getJSONObject("population").getJSONObject("specie").getString("name"));
+
+                context.startActivity(intent);
+
+                Log.i("GET", "AQUI");
             }
 
         }
