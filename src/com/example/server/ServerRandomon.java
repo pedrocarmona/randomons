@@ -1,16 +1,12 @@
 package com.example.server;
 
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.util.Log;
-import android.view.View;
-import com.example.activities.MainMenu;
 import com.example.activities.R;
 import com.example.adapters.AdapterCloseEventsBase;
 import com.example.data.Move;
-import com.example.data.Player;
 import com.example.data.Randomon;
+import com.example.data.SharedData;
 import com.savagelook.android.UrlJsonAsyncTask;
 import org.apache.http.client.HttpResponseException;
 import org.apache.http.client.ResponseHandler;
@@ -26,11 +22,11 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 public class ServerRandomon {
-    AdapterCloseEventsBase proxAdapter;
-    Context context;
 
-    ServerRandomon(Context context ){
-        this.context=context;
+
+    ServerRandomon(Context context,Randomon randomon){
+
+        RandomonCreate loginTask = new RandomonCreate(context, randomon);
 
     }
 
@@ -128,7 +124,8 @@ public class ServerRandomon {
                         );
                         randomon.getMoves().add(move);
                     }
-                    //player.getRandomonCollection().add(randomon);
+                    SharedData shared = SharedData.getInstance();
+                    shared.getPlayer().getRandomonCollection().add(randomon);
                 }
             } catch (Exception e) {
                 // something went wrong: show a Toast
