@@ -16,6 +16,7 @@ import com.example.adapters.AdapterHorizontalList;
 import com.example.data.CaptureItem;
 import com.example.data.Potion;
 import com.example.menus.SlidingMenu;
+import com.example.others.Constants;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
 import org.holoeverywhere.app.Dialog;
 import org.holoeverywhere.drawable.ColorDrawable;
@@ -25,7 +26,7 @@ import org.holoeverywhere.widget.TextView;
 import org.holoeverywhere.widget.Toast;
 
 
-public class Items extends SlidingActivity
+public class Items extends SlidingActivity implements Constants
 {
     private View selectedView = null;
     private LinearLayout bottomContainer;
@@ -211,7 +212,7 @@ public class Items extends SlidingActivity
             sm.setTouchModeAbove(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.TOUCHMODE_NONE);
         }
 
-        new SlidingMenu(this, getSlidingMenu());
+        new SlidingMenu(this, getSlidingMenu(), MY_ITEMS);
     }
 
 

@@ -15,13 +15,14 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.example.menus.SlidingMenu;
+import com.example.others.Constants;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import org.holoeverywhere.app.Dialog;
 import org.holoeverywhere.drawable.ColorDrawable;
 
 import java.util.ArrayList;
 
-public class MedicalSpot extends SlidingFragmentActivity
+public class MedicalSpot extends SlidingFragmentActivity implements Constants
 {
 
     private Dialog dialog;
@@ -197,7 +198,7 @@ public class MedicalSpot extends SlidingFragmentActivity
             sm.setTouchModeAbove(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.TOUCHMODE_NONE);
         }
 
-        new SlidingMenu(this, getSlidingMenu());
+        new SlidingMenu(this, getSlidingMenu(), MEDICAL_SPOT);
     }
 
 
