@@ -94,7 +94,7 @@ public class AdapterMoves extends BaseAdapter
         }
 
         holder.mvName.setText("Ataque: "+ movesList.get(position).getName());
-        holder.mvDamage.setText("Danos: "+ movesList.get(position).getDamage());
+        holder.mvDamage.setText("Danos: "+ movesList.get(position).getAttack());
         holder.mvImg.setImageResource(movesList.get(position).getAnimationPath());
 
         return convertView;

@@ -26,6 +26,8 @@ import com.example.data.Player;
 import com.example.location.MyPositionStateListener;
 import com.example.menus.SlidingMenu;
 import com.google.android.gms.maps.CameraUpdateFactory;
+import com.example.data.SharedData;
+import com.example.others.Constants;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -36,18 +38,23 @@ import org.holoeverywhere.widget.ListView;
 
 import java.util.ArrayList;
 
-public class MainMenu extends SlidingActivity
+import org.holoeverywhere.widget.TextView;
+
+public class MainMenu extends SlidingActivity implements Constants
 {
 
     final Context ctx = this;
 
     private SharedPreferences mPreferences;
     private AdapterCloseEventsBase proxAdapter;
+    private TextView usernameTV;
+    private ImageView profPic;
+
 
     private Player playerLogged;
     private ArrayList<CloseEvent> closeEvents = new ArrayList<CloseEvent>();
     private ArrayList<Event> lastEvents = new ArrayList<Event>();
-
+    private SharedData shared;
     private Dialog dialog;
 
     private GoogleMap mMap = null;
@@ -59,14 +66,18 @@ public class MainMenu extends SlidingActivity
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.main_menu);
+        shared = SharedData.getInstance();
 
         dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.help_main_menu);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
+        usernameTV = (TextView) findViewById(R.id.user_on);
+        profPic = (ImageView) findViewById(R.id.avatar_img);
+
+
         /*TEMPORARY DATA*/
-        playerLogged = new Player(30, "Joao Monteiro", 40, R.drawable.avatar_img);
         closeEvents.add(new CloseEvent(1, "Patriota"));
         closeEvents.add(new CloseEvent(4, "Shop"));
         closeEvents.add(new CloseEvent(2, "Randobattle"));
@@ -84,6 +95,20 @@ public class MainMenu extends SlidingActivity
 
         mPreferences = getSharedPreferences("CurrentUser", MODE_PRIVATE);
 
+
+        if(shared.getPlayer() != null) {
+
+            usernameTV.setText(shared.getPlayer().getName());
+//            shared.getPlayer().getPlayerImg();
+            profPic.setImageResource(R.drawable.user_image);
+
+        }
+        else {
+            Intent intent = new Intent(MainMenu.this,Login.class);
+            startActivityForResult(intent, 0);
+        }
+
+
         if (mPreferences.contains("AuthToken")) {
             //loadTasksFromAPI(TASKS_URL);
             Log.v("erros", "Auth="+ mPreferences.getString("AuthToken", ""));
@@ -94,7 +119,7 @@ public class MainMenu extends SlidingActivity
             startActivityForResult(intent, 0);
         }
 
-        ImageView profPic = (ImageView) findViewById(R.id.avatar_img);
+        profPic = (ImageView) findViewById(R.id.avatar_img);
 
         AdapterHorizontalList proxView = (AdapterHorizontalList) findViewById(R.id.prox_listview);
         proxAdapter = new AdapterCloseEventsBase(this);
@@ -268,7 +293,7 @@ public class MainMenu extends SlidingActivity
             sm.setTouchModeAbove(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.TOUCHMODE_NONE);
         }
 
-        new SlidingMenu(this, getSlidingMenu());
+        new SlidingMenu(this, getSlidingMenu(), MAIN_MENU);
     }
 
     @Override

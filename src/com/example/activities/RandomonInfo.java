@@ -10,15 +10,19 @@ import com.example.adapters.AdapterMoves;
 import com.example.data.Move;
 import com.example.data.Randomon;
 import com.example.menus.SlidingMenu;
+import com.example.others.Constants;
+import com.example.others.Tools;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import org.holoeverywhere.widget.ListView;
 import org.holoeverywhere.widget.TextView;
 
-public class RandomonInfo extends SlidingFragmentActivity {
+public class RandomonInfo extends SlidingFragmentActivity implements Constants
+{
 
     private Randomon randomonSelected;
     private ImageView randomonInfoImg;
     private TextView randomonInfoName, randomonInfoType, randomonInfoLvl;
+    private Tools tools = Tools.getInstance();
 
     public void onCreate(Bundle savedInstanceState)
 
@@ -34,11 +38,11 @@ public class RandomonInfo extends SlidingFragmentActivity {
 
         View layout = findViewById(R.id.layout_pentagono);
 
-        int cima = 30;
-        int esquerda = 10;
-        int direita = 40;
-        int baixo_esquerda=20;
-        int baixo_direita=40;
+        int cima = randomonSelected.getHitpoints();
+        int esquerda = randomonSelected.getAttack();
+        int direita = randomonSelected.getDefense();
+        int baixo_esquerda= 50;
+        int baixo_direita= randomonSelected.getSpeed();
 
         ImageView imgPentagono = (ImageView) findViewById(R.id.pentagono);
 
@@ -87,7 +91,7 @@ public class RandomonInfo extends SlidingFragmentActivity {
         //PARA EXEMPLO
 
 
-        randomonInfoImg.setImageResource(randomonSelected.getPicId());
+        randomonInfoImg.setImageResource(tools.getPicId(randomonSelected.getPicId()));
         randomonInfoLvl.setText("Level " + randomonSelected.getLevel());
         randomonInfoName.setText(randomonSelected.getName());
         randomonInfoType.setText("Type: " + randomonSelected.getType());
@@ -144,6 +148,6 @@ public class RandomonInfo extends SlidingFragmentActivity {
             sm.setTouchModeAbove(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.TOUCHMODE_NONE);
         }
 
-        new SlidingMenu(this, getSlidingMenu());
+        new SlidingMenu(this, getSlidingMenu(), MY_RANDOMONS);
     }
 }

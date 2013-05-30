@@ -7,19 +7,15 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.MenuItem;
-import com.example.data.Move;
 import com.example.data.Randomon;
-import com.example.menus.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
 import org.holoeverywhere.widget.Button;
 import org.holoeverywhere.widget.LinearLayout;
 import org.holoeverywhere.widget.TextView;
-import org.holoeverywhere.widget.Toast;
 
-import java.util.ArrayList;
-
-public class ChooseRandomon extends SlidingActivity
+public class ChooseRandomon extends SherlockActivity
 {
     private boolean LEVER_UP;
     private ImageView leverImg;
@@ -44,8 +40,7 @@ public class ChooseRandomon extends SlidingActivity
 
         final ActionBar bar = getSupportActionBar();
         bar.setTitle("Starter Randomon");
-
-        addSlidingMenu();
+        bar.setLogo(R.drawable.icon_app);
 
         LEVER_UP = true;
         leverImg = (ImageView) findViewById(R.id.lever);
@@ -61,20 +56,22 @@ public class ChooseRandomon extends SlidingActivity
             @Override
             public void onClick(View view) {
 
-                int pad_px = paddingDipToPx(5);
+                if(!LEVER_UP) {
+                    int pad_px = paddingDipToPx(5);
 
-                randomon1.setBackgroundResource(R.drawable.image_view_border_selected);
-                randomon1.setPadding(pad_px, pad_px, pad_px, pad_px);
-                randomon1.setScaleType(ImageView.ScaleType.FIT_XY);
-                /* reset other images state */
-                randomon2.setBackgroundResource(R.drawable.image_view_border);
-                randomon2.setPadding(pad_px, pad_px, pad_px, pad_px);
-                randomon2.setScaleType(ImageView.ScaleType.FIT_XY);
-                randomon3.setBackgroundResource(R.drawable.image_view_border);
-                randomon3.setPadding(pad_px, pad_px, pad_px, pad_px);
-                randomon3.setScaleType(ImageView.ScaleType.FIT_XY);
+                    randomon1.setBackgroundResource(R.drawable.image_view_border_selected);
+                    randomon1.setPadding(pad_px, pad_px, pad_px, pad_px);
+                    randomon1.setScaleType(ImageView.ScaleType.FIT_XY);
+                    /* reset other images state */
+                    randomon2.setBackgroundResource(R.drawable.image_view_border);
+                    randomon2.setPadding(pad_px, pad_px, pad_px, pad_px);
+                    randomon2.setScaleType(ImageView.ScaleType.FIT_XY);
+                    randomon3.setBackgroundResource(R.drawable.image_view_border);
+                    randomon3.setPadding(pad_px, pad_px, pad_px, pad_px);
+                    randomon3.setScaleType(ImageView.ScaleType.FIT_XY);
 
-                updateBottom(0);
+                    updateBottom(0);
+                }
             }
         });
 
@@ -82,20 +79,22 @@ public class ChooseRandomon extends SlidingActivity
             @Override
             public void onClick(View view) {
 
-                int pad_px = paddingDipToPx(5);
+                if(!LEVER_UP) {
+                    int pad_px = paddingDipToPx(5);
 
-                randomon2.setBackgroundResource(R.drawable.image_view_border_selected);
-                randomon2.setPadding(pad_px, pad_px, pad_px, pad_px);
-                randomon2.setScaleType(ImageView.ScaleType.FIT_XY);
-                /* reset other images state */
-                randomon1.setBackgroundResource(R.drawable.image_view_border);
-                randomon1.setPadding(pad_px, pad_px, pad_px, pad_px);
-                randomon1.setScaleType(ImageView.ScaleType.FIT_XY);
-                randomon3.setBackgroundResource(R.drawable.image_view_border);
-                randomon3.setPadding(pad_px, pad_px, pad_px, pad_px);
-                randomon3.setScaleType(ImageView.ScaleType.FIT_XY);
+                    randomon2.setBackgroundResource(R.drawable.image_view_border_selected);
+                    randomon2.setPadding(pad_px, pad_px, pad_px, pad_px);
+                    randomon2.setScaleType(ImageView.ScaleType.FIT_XY);
+                    /* reset other images state */
+                    randomon1.setBackgroundResource(R.drawable.image_view_border);
+                    randomon1.setPadding(pad_px, pad_px, pad_px, pad_px);
+                    randomon1.setScaleType(ImageView.ScaleType.FIT_XY);
+                    randomon3.setBackgroundResource(R.drawable.image_view_border);
+                    randomon3.setPadding(pad_px, pad_px, pad_px, pad_px);
+                    randomon3.setScaleType(ImageView.ScaleType.FIT_XY);
 
-                updateBottom(1);
+                    updateBottom(1);
+                }
             }
         });
 
@@ -103,20 +102,22 @@ public class ChooseRandomon extends SlidingActivity
             @Override
             public void onClick(View view) {
 
-                int pad_px = paddingDipToPx(5);
+                if(!LEVER_UP) {
+                    int pad_px = paddingDipToPx(5);
 
-                randomon3.setBackgroundResource(R.drawable.image_view_border_selected);
-                randomon3.setPadding(pad_px, pad_px, pad_px, pad_px);
-                randomon3.setScaleType(ImageView.ScaleType.FIT_XY);
-                /* reset other images state */
-                randomon1.setBackgroundResource(R.drawable.image_view_border);
-                randomon1.setPadding(pad_px, pad_px, pad_px, pad_px);
-                randomon1.setScaleType(ImageView.ScaleType.FIT_XY);
-                randomon2.setBackgroundResource(R.drawable.image_view_border);
-                randomon2.setPadding(pad_px, pad_px, pad_px, pad_px);
-                randomon2.setScaleType(ImageView.ScaleType.FIT_XY);
+                    randomon3.setBackgroundResource(R.drawable.image_view_border_selected);
+                    randomon3.setPadding(pad_px, pad_px, pad_px, pad_px);
+                    randomon3.setScaleType(ImageView.ScaleType.FIT_XY);
+                    /* reset other images state */
+                    randomon1.setBackgroundResource(R.drawable.image_view_border);
+                    randomon1.setPadding(pad_px, pad_px, pad_px, pad_px);
+                    randomon1.setScaleType(ImageView.ScaleType.FIT_XY);
+                    randomon2.setBackgroundResource(R.drawable.image_view_border);
+                    randomon2.setPadding(pad_px, pad_px, pad_px, pad_px);
+                    randomon2.setScaleType(ImageView.ScaleType.FIT_XY);
 
-                updateBottom(2);
+                    updateBottom(2);
+                }
             }
         });
 
@@ -208,7 +209,6 @@ public class ChooseRandomon extends SlidingActivity
         switch (item.getItemId())
         {
             case android.R.id.home:
-                toggle();
                 return true;
 
             default:
@@ -216,27 +216,4 @@ public class ChooseRandomon extends SlidingActivity
         }
     }
 
-    private void addSlidingMenu()
-    {
-        com.jeremyfeinstein.slidingmenu.lib.SlidingMenu sm = getSlidingMenu();
-        // check if the content frame contains the menu frame
-        if (findViewById(R.id.menu_frame) == null)
-        {
-            setBehindContentView(R.layout.slide_menu);
-            sm.setSlidingEnabled(true);
-            sm.setTouchModeAbove(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.TOUCHMODE_FULLSCREEN);
-            // show home as up so we can toggle
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
-        else
-        {
-            // add a dummy view
-            View v = new View(this);
-            setBehindContentView(v);
-            sm.setSlidingEnabled(false);
-            sm.setTouchModeAbove(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.TOUCHMODE_NONE);
-        }
-
-        new SlidingMenu(this, getSlidingMenu());
-    }
 }

@@ -12,6 +12,7 @@ import com.example.adapters.AdapterPlayerRandomonsList;
 import com.example.data.Move;
 import com.example.data.Randomon;
 import com.example.menus.SlidingMenu;
+import com.example.others.Constants;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
 import org.holoeverywhere.app.Dialog;
 import org.holoeverywhere.drawable.ColorDrawable;
@@ -21,7 +22,7 @@ import org.holoeverywhere.widget.TextView;
 
 import java.util.ArrayList;
 
-public class Trade extends SlidingActivity
+public class Trade extends SlidingActivity implements Constants
 {
     private int setRandomon = 1;
     private Context context = this;
@@ -86,7 +87,7 @@ public class Trade extends SlidingActivity
             sm.setTouchModeAbove(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.TOUCHMODE_NONE);
         }
 
-        new SlidingMenu(this, getSlidingMenu());
+        new SlidingMenu(this, getSlidingMenu(), RANKING);
     }
 
     private void findViews(){

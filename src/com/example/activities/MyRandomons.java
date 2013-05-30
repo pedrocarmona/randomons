@@ -13,7 +13,10 @@ import com.actionbarsherlock.view.MenuItem;
 import com.example.adapters.AdapterMyRandomonImg;
 import com.example.data.Move;
 import com.example.data.Randomon;
+import com.example.data.SharedData;
 import com.example.menus.SlidingMenu;
+import com.example.others.Constants;
+import com.example.others.Tools;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
 import org.holoeverywhere.app.Dialog;
 import org.holoeverywhere.drawable.ColorDrawable;
@@ -21,11 +24,12 @@ import org.holoeverywhere.widget.GridView;
 
 import java.util.ArrayList;
 
-public class MyRandomons extends SlidingActivity
+public class MyRandomons extends SlidingActivity implements Constants
 {
     private ArrayList<Randomon> playerRandomons = new ArrayList<Randomon>();
     private AdapterMyRandomonImg myRandoAdapter;
 
+    private SharedData shared;
     private Dialog dialog;
 
     @Override
@@ -34,6 +38,7 @@ public class MyRandomons extends SlidingActivity
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.myrandomon_grid);
+        shared = SharedData.getInstance();
 
         dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -47,8 +52,6 @@ public class MyRandomons extends SlidingActivity
         bar.setDisplayHomeAsUpEnabled(true);
         bar.setTitle("My Randomons");
 
-        //AntipodalWallLayout layout = (AntipodalWallLayout)findViewById(R.id.antipodal_wall);
-
         GridView randoGrid = (GridView) findViewById(R.id.grid_randomons);
 
         myRandoAdapter = new AdapterMyRandomonImg(this);
@@ -57,16 +60,18 @@ public class MyRandomons extends SlidingActivity
         /*TEMPORARY DATA*/
         ArrayList<Move> moves1 = new ArrayList<Move>();
         moves1.add(new Move("fire",R.drawable.quest_mark, 50));
-        playerRandomons.add(new Randomon("Catzinga", Randomon.PSYCHIC, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.catzinga,1));
-        playerRandomons.add(new Randomon("Tetrauros", Randomon.PREHISTORIC, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.tetrauros,2));
-        playerRandomons.add(new Randomon("Canibalape", Randomon.CANNIBAL, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.canibalape,3));
-        playerRandomons.add(new Randomon("Chinelong", Randomon.FLYING, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.chinelong,4));
-        playerRandomons.add(new Randomon("Ponycorn", Randomon.MYTHICAL, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.ponycorn,5));
-        playerRandomons.add(new Randomon("Cyclosnake", Randomon.POISONOUS, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.cyclosnake,6));
 
-        for (Randomon playerRandomon : playerRandomons) {
-            playerRandomon.setMoves(moves1);
-            myRandoAdapter.addItem(playerRandomon);
+
+        ArrayList<Randomon> randomons = shared.getPlayer().getRandomonCollection();
+
+        System.out.println(randomons);
+        if(randomons != null && randomons.size() > 0) {
+
+            for (Randomon playerRandomon : randomons) {
+
+                myRandoAdapter.addItem(playerRandomon);
+
+            }
         }
 
         randoGrid.setOnItemClickListener(new GridView.OnItemClickListener(){
@@ -131,7 +136,7 @@ public class MyRandomons extends SlidingActivity
             sm.setTouchModeAbove(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.TOUCHMODE_NONE);
         }
 
-        new SlidingMenu(this, getSlidingMenu());
+        new SlidingMenu(this, getSlidingMenu(), MY_RANDOMONS);
     }
 
 

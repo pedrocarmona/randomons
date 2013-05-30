@@ -9,12 +9,13 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.MenuItem;
 import com.example.menus.SlidingMenu;
 import com.google.android.gms.maps.CameraUpdateFactory;
+import com.example.others.Constants;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
 
-public class Map extends SlidingActivity
+public class Map extends SlidingActivity implements Constants
 {
 
     @Override
@@ -107,6 +108,6 @@ public class Map extends SlidingActivity
             sm.setTouchModeAbove(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.TOUCHMODE_NONE);
         }
 
-        new SlidingMenu(this, getSlidingMenu());
+        new SlidingMenu(this, getSlidingMenu(), MAP);
     }
 }

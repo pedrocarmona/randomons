@@ -12,18 +12,18 @@ import com.actionbarsherlock.view.MenuItem;
 import com.example.adapters.AdapterItemList;
 import com.example.data.CaptureItem;
 import com.example.menus.SlidingMenu;
+import com.example.others.Constants;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
 import org.holoeverywhere.app.Dialog;
 import org.holoeverywhere.drawable.ColorDrawable;
-import org.holoeverywhere.widget.Button;
-import org.holoeverywhere.widget.ListView;
-import org.holoeverywhere.widget.Toast;
+import org.holoeverywhere.widget.*;
 
-public class Shop extends SlidingActivity
+public class Shop extends SlidingActivity implements Constants
 {
     private Context ctx = this;
     private Button clean, buy;
-
+    private AdapterItemList adapter;
+    private ListView listView;
     private Dialog dialog;
 
     public void onCreate(Bundle savedInstanceState)
@@ -43,13 +43,13 @@ public class Shop extends SlidingActivity
 
         addSlidingMenu();
 
-        ListView listView = (ListView) findViewById(R.id.items_list);
+        listView = (ListView) findViewById(R.id.items_list);
 
         clean = (Button) findViewById(R.id.shop_clean_button);
         buy = (Button) findViewById(R.id.shop_buy_button);
 
 
-        AdapterItemList adapter = new AdapterItemList(this);
+        adapter = new AdapterItemList(this);
 
         listView.setAdapter(adapter);
 
@@ -72,8 +72,8 @@ public class Shop extends SlidingActivity
             @Override
             public void onClick(View v)
             {
+                adapter.resetValues();
                 //Toast.makeText(ctx,"Tudo Limpo",Toast.LENGTH_LONG).show();
-
             }
         });
 
@@ -82,7 +82,15 @@ public class Shop extends SlidingActivity
             @Override
             public void onClick(View v)
             {
-                //Toast.makeText(ctx,"Tudo comprado",Toast.LENGTH_LONG).show();
+                int total = 0;
+                for (int i = 0; i < listView.getChildCount(); i++) {
+
+                    LinearLayout layout = (LinearLayout)listView.getChildAt(i);
+                    NumberPicker np = (NumberPicker)layout.getChildAt(2);
+                    total += np.getValue();
+
+                }
+                Toast.makeText(ctx,"Tudo comprado: " + total,Toast.LENGTH_LONG).show();
 
             }
         });
@@ -138,7 +146,7 @@ public class Shop extends SlidingActivity
             sm.setTouchModeAbove(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.TOUCHMODE_NONE);
         }
 
-        new SlidingMenu(this, getSlidingMenu());
+        new SlidingMenu(this, getSlidingMenu(), SHOP);
     }
 
 

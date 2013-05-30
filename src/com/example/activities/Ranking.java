@@ -15,13 +15,14 @@ import com.actionbarsherlock.view.MenuItem;
 import com.example.adapters.AdapterPlayerList;
 import com.example.data.Player;
 import com.example.menus.SlidingMenu;
+import com.example.others.Constants;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
 import org.holoeverywhere.app.Dialog;
 import org.holoeverywhere.drawable.ColorDrawable;
 import org.holoeverywhere.widget.ListView;
 import org.holoeverywhere.widget.Toast;
 
-public class Ranking extends SlidingActivity
+public class Ranking extends SlidingActivity implements Constants
 {
     float historicX = Float.NaN;
     static final int DELTA = 50;
@@ -156,7 +157,7 @@ public class Ranking extends SlidingActivity
             sm.setTouchModeAbove(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.TOUCHMODE_NONE);
         }
 
-        new SlidingMenu(this, getSlidingMenu());
+        new SlidingMenu(this, getSlidingMenu(), RANKING);
     }
 
 
