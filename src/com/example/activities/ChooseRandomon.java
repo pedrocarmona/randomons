@@ -139,21 +139,32 @@ public class ChooseRandomon extends SherlockActivity
                             leverImg.setImageResource(R.drawable.lever_down);
 
                             int randomStarter;
+                            Randomon []initials = new Randomon[3];
 
-                            randomStarter = (int)Math.floor(Math.random()*100);
+                            for (int i = 0; i < 3; i++) {
+                                randomStarter = (int)Math.floor(Math.random()*100);
+                                if (randomStarter >= 95){
+                                    initials[i] = new Randomon("Ponycorn", Randomon.MYTHICAL, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.ponycorn,1);
+                                }else if(randomStarter >= 80 && randomStarter < 95){
+                                    initials[i] = new Randomon("Tetrauros", Randomon.PREHISTORIC, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.tetrauros,1);
+                                }else if(randomStarter >= 60 && randomStarter <80){
+                                    initials[i] = new Randomon("Canibalape", Randomon.CANNIBAL, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.canibalape,1);
+                                }else if(randomStarter >= 40 && randomStarter <60){
+                                    initials[i] = new Randomon("Chinelong", Randomon.FLYING, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.chinelong,1);
+                                }else if(randomStarter >= 20 && randomStarter <40){
+                                    initials[i] = new Randomon("Catzinga", Randomon.PSYCHIC, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.catzinga,1);
+                                }else if(randomStarter >= 0 && randomStarter <20){
+                                    initials[i] = new Randomon("Cyclosnake", Randomon.POISONOUS, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.cyclosnake,1);
+                                }
+                            }
 
-                           /* SORT STARTER RANDOMONS HERE */
-                            Randomon r1 = new Randomon("Catzinga", Randomon.NORMAL, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.catzinga,1);
-                            Randomon r2 = new Randomon("Canibalape", Randomon.NORMAL, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.canibalape,2);
-                            Randomon r3 = new Randomon("Cyclosnake", Randomon.NORMAL, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.cyclosnake,3);
+                            sortedRandomons[0] = initials[0];
+                            sortedRandomons[1] = initials[1];
+                            sortedRandomons[2] = initials[2];
 
-                            sortedRandomons[0] = r1;
-                            sortedRandomons[1] = r2;
-                            sortedRandomons[2] = r3;
-
-                            randomon1.setImageResource(r1.getPicId());
-                            randomon2.setImageResource(r2.getPicId());
-                            randomon3.setImageResource(r3.getPicId());
+                            randomon1.setImageResource(initials[0].getPicId());
+                            randomon2.setImageResource(initials[1].getPicId());
+                            randomon3.setImageResource(initials[2].getPicId());
 
                             pullLever.setText("Press a Randomon to see the description");
                             LEVER_UP = false;
