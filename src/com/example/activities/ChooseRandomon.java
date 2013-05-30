@@ -2,6 +2,9 @@ package com.example.activities;
 
 
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,6 +20,7 @@ import org.holoeverywhere.widget.LinearLayout;
 import org.holoeverywhere.widget.TextView;
 import org.holoeverywhere.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ChooseRandomon extends SlidingActivity
@@ -41,6 +45,8 @@ public class ChooseRandomon extends SlidingActivity
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.choose_randomon);
+
+
 
         final ActionBar bar = getSupportActionBar();
         bar.setTitle("Starter Randomon");

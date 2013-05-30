@@ -6,8 +6,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.location.LocationManager;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.util.Log;
+
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,6 +53,14 @@ public class MainMenu extends SlidingFragmentActivity
     private ArrayList<Event> lastEvents = new ArrayList<Event>();
 
     private Dialog dialog;
+    int soundID;
+
+    boolean loaded = false;
+    SoundPool soundPool;
+    int priority = 1;
+    int no_loop = 0;
+    float normal_playback_rate = 1f;
+
 
 
     @Override
@@ -57,6 +69,18 @@ public class MainMenu extends SlidingFragmentActivity
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.main_menu);
+
+        soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+        soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+            @Override
+            public void onLoadComplete(SoundPool soundPool, int sampleId,
+                                       int status) {
+                loaded = true;
+            }
+        });
+        soundID = soundPool.load(this, R.raw.click, 1);
+
+        AudioManager audioManager = (AudioManager)getSystemService(AUDIO_SERVICE);
 
         dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -111,7 +135,15 @@ public class MainMenu extends SlidingFragmentActivity
 
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-            if (((CloseEvent) proxAdapter.getItem(position)).getCloseEventType() == 1) {
+
+
+                if (loaded==true){
+
+                    soundPool.play(soundID, 0.99f, 0.99f, priority, 0, normal_playback_rate);
+
+                }
+
+                if (((CloseEvent) proxAdapter.getItem(position)).getCloseEventType() == 1) {
                 Intent intent = new Intent(view.getContext(), PlayerDetails.class);
                 MainMenu.this.startActivity(intent);
             } else if (((CloseEvent) proxAdapter.getItem(position)).getCloseEventType() == 2) {
@@ -126,7 +158,10 @@ public class MainMenu extends SlidingFragmentActivity
             }
 
             }
+
+
         });
+
 
         ListView leventsView = (ListView) findViewById(R.id.levents_listview);
 
