@@ -26,4 +26,5 @@
     <color name="white">#ffffffff</color>
     <color name="black">#000000</color>
     <color name="light_blue">#00a7e5</color>
+    <color name="transparent_black">#35000000</color>
 </resources>
