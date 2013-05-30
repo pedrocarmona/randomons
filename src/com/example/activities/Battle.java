@@ -93,6 +93,11 @@ public class Battle extends SimpleBaseGameActivity {
     boolean loadedWild = false;
     SoundPool soundPoolWild;
 
+    int soundIDBattle;
+    int otherBattleSound;
+    boolean loadedBattle = false;
+    SoundPool soundPoolBattle;
+
     /*stop add*/
 
 
@@ -206,6 +211,9 @@ public class Battle extends SimpleBaseGameActivity {
 
         doSound();
 
+
+
+
         FontFactory.setAssetBasePath("font/");
 
         final ITexture plokFontTexture = new BitmapTextureAtlas(this.getTextureManager(), 256, 256, TextureOptions.BILINEAR);
@@ -296,9 +304,19 @@ public class Battle extends SimpleBaseGameActivity {
        });
        soundIDWild = soundPoolWild.load(this, R.raw.wild_wind, 1);
 
+       soundPoolBattle = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+       soundPoolBattle.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+           @Override
+           public void onLoadComplete(SoundPool soundPool, int sampleId,
+                                      int status) {
+               loadedBattle = true;
+           }
+       });
+       soundIDBattle = soundPoolBattle.load(this, R.raw.battlesound, 0);
+
+
    }
     /*add Sound*/
-
 
     @Override
     public Scene onCreateScene() {
@@ -326,6 +344,12 @@ public class Battle extends SimpleBaseGameActivity {
         movesSprite = new AnimatedSprite(CAMERA_WIDTH/2, CAMERA_HEIGHT/2,64,64,  this.movesTextureRegion, this.getVertexBufferObjectManager());
         movesSprite.setVisible(false);
         scene.attachChild(movesSprite);
+
+        if (loadedBattle==true){
+
+            otherBattleSound = soundPoolBattle.play(soundIDBattle, 0.99f, 0.99f, priority, -1, normal_playback_rate);
+
+        }
 
         movimentoInicial();
 
@@ -706,6 +730,8 @@ public class Battle extends SimpleBaseGameActivity {
             leftRandomonHitPoints.setVisible(false);
             youLost();
             this.isBattleOver=true;
+
+
             return;
         }
         if (rightRandomon.getCurrent_hitpoints()>0)
@@ -775,6 +801,11 @@ public class Battle extends SimpleBaseGameActivity {
         }
         @Override
         public void onAnimationFinished(AnimatedSprite pAnimatedSprite) {
+
+            soundPoolBattle.stop(otherBattleSound);
+            soundPoolBattle.release();
+
+
             finish();
         }
     };
