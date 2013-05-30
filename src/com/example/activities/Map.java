@@ -1,5 +1,6 @@
 package com.example.activities;
 
+import android.location.Location;
 import android.os.Bundle;
 import android.view.SurfaceView;
 import android.view.View;
@@ -7,18 +8,16 @@ import android.view.ViewGroup;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.MenuItem;
 import com.example.menus.SlidingMenu;
-e<<<<<<< HEAD
-
-=======
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.example.others.Constants;
->>>>>>> b34bb16b8e5be9e68c72cf997545dd65c40b0034
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMapOptions;
-import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.LatLng;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
 
 public class Map extends SlidingActivity implements Constants
 {
+
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -31,16 +30,29 @@ public class Map extends SlidingActivity implements Constants
         addSlidingMenu();
 
         //Corrigir erros do Mapa com o SlidingMenu
-        GoogleMapOptions op = new GoogleMapOptions();
-        op.zOrderOnTop(true);
-        SupportMapFragment supportMapFragment = SupportMapFragment.newInstance(op);
-
-        GoogleMap mMap = supportMapFragment.getMap();
+        GoogleMap mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
+                .getMap();
 
         setMapTransparent((ViewGroup) getWindow().getDecorView().getRootView());
 
         if(mMap != null)
+        {
             mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+            mMap.setMyLocationEnabled(true);
+
+            Location location = mMap.getMyLocation();
+
+            if(location != null)
+            {
+                LatLng myLocation = new LatLng(location.getLatitude(), location.getLongitude());
+
+                // Move the camera instantly to user location with a zoom of 15.
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 15));
+
+                // Zoom in, animating the camera.
+                mMap.animateCamera(CameraUpdateFactory.zoomIn());
+            }
+        }
     }
 
     private void setMapTransparent(ViewGroup group)

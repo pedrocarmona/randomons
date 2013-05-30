@@ -29,12 +29,13 @@ public class MyPositionStateListener implements LocationListener
             SharedPreferences mPreferences = context.getSharedPreferences("CurrentUser", Context.MODE_PRIVATE);
 
             if (mPreferences.contains("AuthToken"))
-                new getNearbyEventsTask(context).execute(EVENTS_URL, String.valueOf(myLocation.getLatitude()),
-                        String.valueOf(myLocation.getLongitude()), mPreferences.getString("AuthToken",""));
-        }
+            {
+                String url = EVENTS_URL+"?lat="+myLocation.getLatitude()+"&lng="+
+                        myLocation.getLongitude()+"&auth_token="+mPreferences.getString("AuthToken","");
 
-        /*Toast.makeText(context, "Lat:"+myLocation.getLatitude() + "Lon:"+myLocation.getLongitude(),
-                Toast.LENGTH_LONG).show();*/
+                new getNearbyEventsTask(context).execute(url);
+            }
+        }
     }
 
     @Override

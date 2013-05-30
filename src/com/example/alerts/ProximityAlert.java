@@ -1,12 +1,13 @@
 package com.example.alerts;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import com.actionbarsherlock.app.SherlockActivity;
+import com.example.activities.Battle;
 import com.example.activities.R;
 import org.holoeverywhere.widget.TextView;
-import org.holoeverywhere.widget.Toast;
 
 public class ProximityAlert extends SherlockActivity
 {
@@ -25,6 +26,23 @@ public class ProximityAlert extends SherlockActivity
 //        alertClose = (ImageView) findViewById(R.id.close);
 //        alertImage = (ImageView) findViewById(R.id.alert_image);
 //        alertText = (TextView) findViewById(R.id.alert_text);
+
+        String name = getIntent().getExtras().getString("name");
+
+        alertText.setText("A wild "+name+" appears!");
+
+        if(name.equals("Canibalape"))
+            alertImage.setBackgroundResource(R.drawable.canibalape);
+        else if(name.equals("Tetrauros"))
+            alertImage.setBackgroundResource(R.drawable.tetrauros);
+        else if(name.equals("Chinelong"))
+            alertImage.setBackgroundResource(R.drawable.chinelong);
+        else if(name.equals("Catzinga"))
+            alertImage.setBackgroundResource(R.drawable.catzinga);
+        else if(name.equals("Ponycorn"))
+            alertImage.setBackgroundResource(R.drawable.ponycorn);
+        else if(name.equals("Cyclosnake"))
+            alertImage.setBackgroundResource(R.drawable.cyclosnake);
 
         addClickListeners();
     }
@@ -45,7 +63,11 @@ public class ProximityAlert extends SherlockActivity
             @Override
             public void onClick(View v)
             {
-                Toast.makeText(v.getContext(), "Ir para o sítio correspondente!", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(v.getContext(), Battle.class);
+
+                startActivity(intent);
+
+                finish();
             }
         });
     }

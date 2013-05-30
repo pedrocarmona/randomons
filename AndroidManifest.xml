@@ -70,12 +70,6 @@
         <activity android:screenOrientation="portrait" android:name=".MyRandomons"/>
         <activity android:screenOrientation="portrait" android:name=".RandomonInfo"/>
         /* Guilherme- Escreve a seguir a este paragrafo*/
-
-        <receiver
-                android:name="com.example.location.LocationReceiver" >
-        </receiver>
-        <activity android:screenOrientation="portrait" android:name=".Map"/>
-
         <!-- Têem de alterar o value para a vossa key -->
         <meta-data
                 android:name="com.google.android.maps.v2.API_KEY"
