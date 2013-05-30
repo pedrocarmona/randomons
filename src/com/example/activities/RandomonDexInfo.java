@@ -7,10 +7,11 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.MenuItem;
 import com.example.data.Randomon;
 import com.example.menus.SlidingMenu;
+import com.example.others.Constants;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
 import org.holoeverywhere.widget.TextView;
 
-public class RandomonDexInfo extends SlidingActivity
+public class RandomonDexInfo extends SlidingActivity implements Constants
 {
 
     private Randomon randomonSelected;
@@ -75,6 +76,6 @@ public class RandomonDexInfo extends SlidingActivity
             sm.setTouchModeAbove(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.TOUCHMODE_NONE);
         }
 
-        new SlidingMenu(this, getSlidingMenu());
+        new SlidingMenu(this, getSlidingMenu(), R_GUIDE);
     }
 }

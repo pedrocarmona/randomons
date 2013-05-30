@@ -34,7 +34,7 @@ public class ClientActivity extends Activity {
 
         //setContentView(R.layout.client);
 
-        /*
+
         connectPhones.setOnClickListener(connectListener);
     }
 
@@ -51,8 +51,6 @@ public class ClientActivity extends Activity {
             }
         }
     };
-
-    */
 
     public class ClientThread implements Runnable {
  

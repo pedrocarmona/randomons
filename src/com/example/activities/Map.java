@@ -7,13 +7,13 @@ import android.view.ViewGroup;
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.MenuItem;
 import com.example.menus.SlidingMenu;
-
+import com.example.others.Constants;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
 
-public class Map extends SlidingActivity
+public class Map extends SlidingActivity implements Constants
 {
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -92,6 +92,6 @@ public class Map extends SlidingActivity
             sm.setTouchModeAbove(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.TOUCHMODE_NONE);
         }
 
-        new SlidingMenu(this, getSlidingMenu());
+        new SlidingMenu(this, getSlidingMenu(), MAP);
     }
 }
