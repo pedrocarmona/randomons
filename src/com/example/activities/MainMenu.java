@@ -46,7 +46,8 @@ public class MainMenu extends SlidingFragmentActivity implements Constants
     private SharedPreferences mPreferences;
     private AdapterCloseEventsBase proxAdapter;
     private TextView usernameTV;
-    private ImageView avatar;
+    private ImageView profPic;
+
 
     private Player playerLogged;
     private ArrayList<CloseEvent> closeEvents = new ArrayList<CloseEvent>();
@@ -69,7 +70,7 @@ public class MainMenu extends SlidingFragmentActivity implements Constants
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         usernameTV = (TextView) findViewById(R.id.user_on);
-        avatar = (ImageView) findViewById(R.id.avatar_img);
+        profPic = (ImageView) findViewById(R.id.avatar_img);
 
 
         /*TEMPORARY DATA*/
@@ -95,7 +96,7 @@ public class MainMenu extends SlidingFragmentActivity implements Constants
 
             usernameTV.setText(shared.getPlayer().getName());
 //            shared.getPlayer().getPlayerImg();
-            avatar.setImageResource(R.id.avatar_img);
+            profPic.setImageResource(R.drawable.user_image);
 
         }
         else {
@@ -114,7 +115,7 @@ public class MainMenu extends SlidingFragmentActivity implements Constants
             startActivityForResult(intent, 0);
         }
 
-        ImageView profPic = (ImageView) findViewById(R.id.avatar_img);
+        profPic = (ImageView) findViewById(R.id.avatar_img);
 
         AdapterHorizontalList proxView = (AdapterHorizontalList) findViewById(R.id.prox_listview);
         proxAdapter = new AdapterCloseEventsBase(this);

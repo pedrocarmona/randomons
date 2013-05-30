@@ -13,4 +13,13 @@ public interface Constants {
     public static final int SHOP = 6;
     public static final int MEDICAL_SPOT = 7;
 
+    /* RANDOMON STATS */
+    public static final int MAX_HP = 500;
+    public static final int MAX_DEFENSE = 100;
+    public static final int MAX_SPEED = 100;
+
+    /* MOVE STATS */
+    public static final int MAX_ACCURACY = 100;
+    public static final int MAX_ATTACK = 100;
+
 }

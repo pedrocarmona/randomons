@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.example.data.Move;
 import com.example.data.Randomon;
@@ -38,6 +39,10 @@ public class Login extends SherlockFragmentActivity
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+
+        final ActionBar bar = getSupportActionBar();
+        bar.setTitle("Randomons");
+        bar.setLogo(R.drawable.icon_app);
 
         findViewById(R.id.registerButton).setOnClickListener(
                 new View.OnClickListener() {
@@ -168,7 +173,7 @@ public class Login extends SherlockFragmentActivity
                         );
                         JSONArray randomonMovesJson = randomonJSON.getJSONObject("specie").getJSONArray("moves");
                         for (int j=0; j< randomonMovesJson.length();j++){
-                            JSONObject moveJSON = randomonMovesJson.getJSONObject(i);
+                            JSONObject moveJSON = randomonMovesJson.getJSONObject(j);
                             Move move = new Move(moveJSON.getString("name"),
                                     R.drawable.quest_mark,
                                 moveJSON.getInt("attack"),
@@ -190,7 +195,7 @@ public class Login extends SherlockFragmentActivity
                     shared = SharedData.getInstance();
                     shared.setPlayer(player);
 
-                    Toast.makeText(context, player.getName(), Toast.LENGTH_LONG).show();
+//                    Toast.makeText(context, player.getName(), Toast.LENGTH_LONG).show();
 
                     editor.putString("User","");
 
