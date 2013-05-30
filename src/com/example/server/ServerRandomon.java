@@ -3,7 +3,6 @@ package com.example.server;
 import android.content.Context;
 import android.util.Log;
 import com.example.activities.R;
-import com.example.adapters.AdapterCloseEventsBase;
 import com.example.data.Move;
 import com.example.data.Randomon;
 import com.example.data.SharedData;

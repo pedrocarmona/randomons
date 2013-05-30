@@ -75,14 +75,11 @@
                     android:layout_gravity="center"
                     android:textColor="#0066CC"
                     />
-            <ImageView
-                    android:id="@+id/world_map_small"
-                    android:layout_width="150dip"
-                    android:layout_height="120dip"
-                    android:scaleType="fitXY"
-                    android:background="@drawable/full_rounded_list"
-                    android:padding="5dp"
-                    android:src="@drawable/world_map_small" />
+            <fragment
+                      android:id="@+id/map"
+                      android:layout_width="150dip"
+                      android:layout_height="120dip"
+                      android:name="com.google.android.gms.maps.MapFragment" />
 
         </org.holoeverywhere.widget.LinearLayout>
 
