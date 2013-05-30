@@ -52,14 +52,14 @@ public class Map extends SlidingActivity implements Constants
                     .title("Hospital")
                     .snippet("Come here to heal your Randomons for free!")
                     .icon(BitmapDescriptorFactory.fromBitmap(
-                            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.medics), 10, 10, false))));
+                            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.medics), 40, 40, false))));
 
             mMap.addMarker(new MarkerOptions()
                     .position(Globals.shop)
                     .title("Shop")
                     .snippet("Come here to by your items!")
                     .icon(BitmapDescriptorFactory.fromBitmap(
-                            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.shop),10,10,false))));
+                            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.shop),40,40,false))));
 
             if(location != null)
             {
