@@ -7,6 +7,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.example.data.Move;
+import com.example.data.Player;
+import com.example.data.Randomon;
+import com.example.data.SharedData;
 import com.savagelook.android.UrlJsonAsyncTask;
 import org.apache.http.client.HttpResponseException;
 import org.apache.http.client.ResponseHandler;
@@ -16,6 +20,7 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.holoeverywhere.widget.EditText;
 import org.holoeverywhere.widget.Toast;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -139,13 +144,31 @@ public class Register extends SherlockFragmentActivity
                     SharedPreferences.Editor editor = mPreferences.edit();
                     // save the returned auth_token into
                     // the SharedPreferences
-                    editor.putString("AuthToken", json.getJSONObject("data").getString("auth_token"));
+                    editor.putString("AuthToken", json.getJSONObject("user").getString("auth_token"));
+                    editor.putString("email",mUserEmail );
+                    editor.putString("password", mUserPassword);
+                    editor.commit();
+
+
+                    String BASE_URL = "randomons.herokuapp.com";
+
+
+                    Player player = new Player(1,json.getJSONObject("user").getString("name"),1,R.drawable.avatar_img);
+
+
+                    SharedData shared = SharedData.getInstance();
+                    shared.setPlayer(player);
+
+
+                    editor.putString("User","");
+
                     editor.commit();
 
                     // launch the HomeActivity and close this one
-                    Intent intent = new Intent(getApplicationContext(), ChooseRandomon.class);
+                    Intent intent = new Intent(getApplicationContext(), MainMenu.class);
                     startActivity(intent);
                     finish();
+
                 }
                 Toast.makeText(context, json.getString("info"), Toast.LENGTH_LONG).show();
             } catch (Exception e) {
