@@ -3,6 +3,8 @@ package com.example.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
@@ -20,25 +22,23 @@ import com.actionbarsherlock.view.MenuItem;
 import com.example.adapters.AdapterCloseEventsBase;
 import com.example.adapters.AdapterHorizontalList;
 import com.example.adapters.AdapterLastEvents;
-import com.example.data.CloseEvent;
-import com.example.data.Event;
-import com.example.data.Player;
+import com.example.data.*;
 import com.example.location.MyPositionStateListener;
 import com.example.menus.SlidingMenu;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.example.data.SharedData;
 import com.example.others.Constants;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
 import org.holoeverywhere.app.Dialog;
 import org.holoeverywhere.drawable.ColorDrawable;
 import org.holoeverywhere.widget.ListView;
+import org.holoeverywhere.widget.TextView;
 
 import java.util.ArrayList;
-
-import org.holoeverywhere.widget.TextView;
 
 public class MainMenu extends SlidingActivity implements Constants
 {
@@ -187,6 +187,20 @@ public class MainMenu extends SlidingActivity implements Constants
             mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
             mMap.getUiSettings().setZoomControlsEnabled(false);
             mMap.setMyLocationEnabled(true);
+
+            mMap.addMarker(new MarkerOptions()
+                    .position(Globals.hospital)
+                    .title("Hospital")
+                    .snippet("Come here to heal your Randomons for free!")
+                    .icon(BitmapDescriptorFactory.fromBitmap(
+                            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.medics),10,10,false))));
+
+            mMap.addMarker(new MarkerOptions()
+                    .position(Globals.shop)
+                    .title("Shop")
+                    .snippet("Come here to by your items!")
+                    .icon(BitmapDescriptorFactory.fromBitmap(
+                            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.shop),10,10,false))));
 
             Location location = mMap.getMyLocation();
 
