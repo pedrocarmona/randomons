@@ -135,6 +135,10 @@ public class ChooseRandomon extends SlidingActivity
 
                             leverImg.setImageResource(R.drawable.lever_down);
 
+                            int randomStarter;
+
+                            randomStarter = (int)Math.floor(Math.random()*100);
+
                            /* SORT STARTER RANDOMONS HERE */
                             Randomon r1 = new Randomon("Catzinga", Randomon.NORMAL, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.catzinga,1);
                             Randomon r2 = new Randomon("Canibalape", Randomon.NORMAL, 40, 30, 60, 1.1, 200, 4, 190, 13, "Normal","fast randomon lives in mountains", R.drawable.canibalape,2);
