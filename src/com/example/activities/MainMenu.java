@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,28 +16,28 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import com.actionbarsherlock.view.Menu;
-import com.example.adapters.AdapterHorizontalList;
-import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import com.example.adapters.AdapterCloseEventsBase;
+import com.example.adapters.AdapterHorizontalList;
 import com.example.adapters.AdapterLastEvents;
 import com.example.data.CloseEvent;
 import com.example.data.Event;
 import com.example.data.Player;
 import com.example.location.LocationReceiver;
 import com.example.menus.SlidingMenu;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMapOptions;
-import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
 import org.holoeverywhere.app.Dialog;
 import org.holoeverywhere.drawable.ColorDrawable;
-import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import org.holoeverywhere.widget.ListView;
-import org.holoeverywhere.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MainMenu extends SlidingFragmentActivity
+public class MainMenu extends SlidingActivity
 {
 
     final Context ctx = this;
@@ -49,6 +50,8 @@ public class MainMenu extends SlidingFragmentActivity
     private ArrayList<Event> lastEvents = new ArrayList<Event>();
 
     private Dialog dialog;
+
+    private GoogleMap mMap = null;
 
 
     @Override
@@ -151,19 +154,29 @@ public class MainMenu extends SlidingFragmentActivity
         //###################################################
 
         //Corrigir erros do Mapa com o SlidingMenu
-        GoogleMapOptions op = new GoogleMapOptions();
-        op.zOrderOnTop(true);
-        SupportMapFragment supportMapFragment = SupportMapFragment.newInstance(op);
-
-        GoogleMap mMap = supportMapFragment.getMap();
-
         setMapTransparent((ViewGroup) getWindow().getDecorView().getRootView());
+
+        mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
+                .getMap();
 
         if(mMap != null)
         {
             mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
             mMap.getUiSettings().setZoomControlsEnabled(false);
-            //mMap.getUiSettings().setCompassEnabled(true);
+            mMap.setMyLocationEnabled(true);
+
+            Location location = mMap.getMyLocation();
+
+            if(location != null)
+            {
+                LatLng myLocation = new LatLng(location.getLatitude(), location.getLongitude());
+
+                // Move the camera instantly to user location with a zoom of 15.
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLocation, 15));
+
+                // Zoom in, animating the camera.
+                mMap.animateCamera(CameraUpdateFactory.zoomIn());
+            }
         }
 
     }
@@ -238,6 +251,13 @@ public class MainMenu extends SlidingFragmentActivity
             setBehindContentView(R.layout.slide_menu);
             sm.setSlidingEnabled(true);
             sm.setTouchModeAbove(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.TOUCHMODE_FULLSCREEN);
+
+            sm.setOnOpenedListener(new com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnOpenedListener() {
+                public void onOpened() {
+                    getSlidingMenu().invalidate();
+                }
+            });
+
             // show home as up so we can toggle
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
