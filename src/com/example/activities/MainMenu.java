@@ -23,9 +23,10 @@ import com.example.adapters.AdapterLastEvents;
 import com.example.data.CloseEvent;
 import com.example.data.Event;
 import com.example.data.Player;
-import com.example.data.Randomon;
+import com.example.data.SharedData;
 import com.example.location.LocationReceiver;
 import com.example.menus.SlidingMenu;
+import com.example.others.Constants;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -33,22 +34,25 @@ import org.holoeverywhere.app.Dialog;
 import org.holoeverywhere.drawable.ColorDrawable;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import org.holoeverywhere.widget.ListView;
-import org.holoeverywhere.widget.Toast;
+import org.holoeverywhere.widget.TextView;
 
 import java.util.ArrayList;
 
-public class MainMenu extends SlidingFragmentActivity
+public class MainMenu extends SlidingFragmentActivity implements Constants
 {
 
     final Context ctx = this;
 
     private SharedPreferences mPreferences;
     private AdapterCloseEventsBase proxAdapter;
+    private TextView usernameTV;
+    private ImageView profPic;
+
 
     private Player playerLogged;
     private ArrayList<CloseEvent> closeEvents = new ArrayList<CloseEvent>();
     private ArrayList<Event> lastEvents = new ArrayList<Event>();
-
+    private SharedData shared;
     private Dialog dialog;
 
 
@@ -58,14 +62,18 @@ public class MainMenu extends SlidingFragmentActivity
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.main_menu);
+        shared = SharedData.getInstance();
 
         dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.help_main_menu);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
+        usernameTV = (TextView) findViewById(R.id.user_on);
+        profPic = (ImageView) findViewById(R.id.avatar_img);
+
+
         /*TEMPORARY DATA*/
-        playerLogged = new Player(30, "Joao Monteiro", 40, R.drawable.avatar_img);
         closeEvents.add(new CloseEvent(1, "Patriota"));
         closeEvents.add(new CloseEvent(4, "Shop"));
         closeEvents.add(new CloseEvent(2, "Randobattle"));
@@ -83,6 +91,20 @@ public class MainMenu extends SlidingFragmentActivity
 
         mPreferences = getSharedPreferences("CurrentUser", MODE_PRIVATE);
 
+
+        if(shared.getPlayer() != null) {
+
+            usernameTV.setText(shared.getPlayer().getName());
+//            shared.getPlayer().getPlayerImg();
+            profPic.setImageResource(R.drawable.user_image);
+
+        }
+        else {
+            Intent intent = new Intent(MainMenu.this,Login.class);
+            startActivityForResult(intent, 0);
+        }
+
+
         if (mPreferences.contains("AuthToken")) {
             //loadTasksFromAPI(TASKS_URL);
             Log.v("erros", "Auth="+ mPreferences.getString("AuthToken", ""));
@@ -93,7 +115,7 @@ public class MainMenu extends SlidingFragmentActivity
             startActivityForResult(intent, 0);
         }
 
-        ImageView profPic = (ImageView) findViewById(R.id.avatar_img);
+        profPic = (ImageView) findViewById(R.id.avatar_img);
 
         AdapterHorizontalList proxView = (AdapterHorizontalList) findViewById(R.id.prox_listview);
         proxAdapter = new AdapterCloseEventsBase(this);
@@ -254,7 +276,7 @@ public class MainMenu extends SlidingFragmentActivity
             sm.setTouchModeAbove(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.TOUCHMODE_NONE);
         }
 
-        new SlidingMenu(this, getSlidingMenu());
+        new SlidingMenu(this, getSlidingMenu(), MAIN_MENU);
     }
 
     @Override

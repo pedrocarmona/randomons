@@ -40,10 +40,11 @@
     </org.holoeverywhere.widget.LinearLayout>
 
     <org.holoeverywhere.widget.NumberPicker
-            android:id="@+id/quantity"
+            android:id="@+id/quantity_items"
             android:layout_width="match_parent"
             android:layout_height="80dip"
             android:gravity="center"
             android:orientation="vertical">
     </org.holoeverywhere.widget.NumberPicker>
+
 </org.holoeverywhere.widget.LinearLayout>
