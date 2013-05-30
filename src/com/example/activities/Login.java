@@ -10,6 +10,7 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.example.data.Move;
 import com.example.data.Randomon;
 import com.example.data.Player;
+import com.example.data.SharedData;
 import com.savagelook.android.UrlJsonAsyncTask;
 import org.apache.http.client.HttpResponseException;
 import org.apache.http.client.ResponseHandler;
@@ -24,21 +25,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
-/**
- * Created with IntelliJ IDEA.
- * User: pedrocarmona
- * Date: 29/04/13
- * Time: 14:46
- * To change this template use File | Settings | File Templates.
- */
 public class Login extends SherlockFragmentActivity
 {
     private final static String LOGIN_API_ENDPOINT_URL = "http://randomons.herokuapp.com/api/v1/sessions.json";
     private android.content.SharedPreferences mPreferences;
     private String mUserEmail;
     private String mUserPassword;
+    private SharedData shared;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -87,6 +81,7 @@ public class Login extends SherlockFragmentActivity
 
         @Override
         protected JSONObject doInBackground(String... urls) {
+
             DefaultHttpClient client = new DefaultHttpClient();
             HttpPost post = new HttpPost(urls[0]);
             JSONObject holder = new JSONObject();
@@ -191,6 +186,9 @@ public class Login extends SherlockFragmentActivity
 
 
                     }
+
+                    shared = SharedData.getInstance();
+                    shared.setPlayer(player);
 
                     Toast.makeText(context, player.getName(), Toast.LENGTH_LONG).show();
 

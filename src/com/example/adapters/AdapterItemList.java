@@ -26,6 +26,11 @@ public class AdapterItemList extends BaseAdapter
         ctx = context.getContentResolver();
     }
 
+    public void resetValues() {
+
+        notifyDataSetChanged();
+    }
+
     public void addItem(final CaptureItem item)
     {
         itemList.add(item);
@@ -63,7 +68,7 @@ public class AdapterItemList extends BaseAdapter
             holder.name = (TextView) convertView.findViewById(R.id.name);
             holder.itemImage = (ImageView) convertView.findViewById(R.id.item_image);
             holder.description = (TextView) convertView.findViewById(R.id.description);
-            holder.numberPicker = (NumberPicker) convertView.findViewById(R.id.quantity);
+            holder.numberPicker = (NumberPicker) convertView.findViewById(R.id.quantity_items);
 
             convertView.setTag(holder);
         }

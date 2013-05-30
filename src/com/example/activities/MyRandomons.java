@@ -14,6 +14,7 @@ import com.example.adapters.AdapterMyRandomonImg;
 import com.example.data.Move;
 import com.example.data.Randomon;
 import com.example.menus.SlidingMenu;
+import com.example.others.Constants;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
 import org.holoeverywhere.app.Dialog;
 import org.holoeverywhere.drawable.ColorDrawable;
@@ -21,7 +22,7 @@ import org.holoeverywhere.widget.GridView;
 
 import java.util.ArrayList;
 
-public class MyRandomons extends SlidingActivity
+public class MyRandomons extends SlidingActivity implements Constants
 {
     private ArrayList<Randomon> playerRandomons = new ArrayList<Randomon>();
     private AdapterMyRandomonImg myRandoAdapter;
@@ -131,7 +132,7 @@ public class MyRandomons extends SlidingActivity
             sm.setTouchModeAbove(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.TOUCHMODE_NONE);
         }
 
-        new SlidingMenu(this, getSlidingMenu());
+        new SlidingMenu(this, getSlidingMenu(), MY_RANDOMONS);
     }
 
 

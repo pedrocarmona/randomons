@@ -11,6 +11,7 @@ import com.example.adapters.AdapterPlayerRandomonsList;
 import com.example.data.Move;
 import com.example.data.Randomon;
 import com.example.menus.SlidingMenu;
+import com.example.others.Constants;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import org.holoeverywhere.widget.Button;
 import org.holoeverywhere.widget.ListView;
@@ -19,7 +20,8 @@ import org.holoeverywhere.widget.Toast;
 
 import java.util.ArrayList;
 
-public class PlayerDetails extends SlidingFragmentActivity {
+public class PlayerDetails extends SlidingFragmentActivity implements Constants
+{
 
     private Context ctx = this;
     private Button but_battle, but_trade;
@@ -143,7 +145,7 @@ public class PlayerDetails extends SlidingFragmentActivity {
             sm.setTouchModeAbove(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.TOUCHMODE_NONE);
         }
 
-        new SlidingMenu(this, getSlidingMenu());
+        new SlidingMenu(this, getSlidingMenu(), RANKING);
     }
 
 }

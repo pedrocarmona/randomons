@@ -23,8 +23,10 @@ import com.example.adapters.AdapterLastEvents;
 import com.example.data.CloseEvent;
 import com.example.data.Event;
 import com.example.data.Player;
+import com.example.data.SharedData;
 import com.example.location.LocationReceiver;
 import com.example.menus.SlidingMenu;
+import com.example.others.Constants;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -36,7 +38,7 @@ import org.holoeverywhere.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MainMenu extends SlidingFragmentActivity
+public class MainMenu extends SlidingFragmentActivity implements Constants
 {
 
     final Context ctx = this;
@@ -47,7 +49,7 @@ public class MainMenu extends SlidingFragmentActivity
     private Player playerLogged;
     private ArrayList<CloseEvent> closeEvents = new ArrayList<CloseEvent>();
     private ArrayList<Event> lastEvents = new ArrayList<Event>();
-
+    private SharedData shared;
     private Dialog dialog;
 
 
@@ -81,6 +83,12 @@ public class MainMenu extends SlidingFragmentActivity
         addSlidingMenu();
 
         mPreferences = getSharedPreferences("CurrentUser", MODE_PRIVATE);
+
+        shared = SharedData.getInstance();
+
+        if(shared.getPlayer() != null) {
+            Toast.makeText(getApplicationContext(), shared.getPlayer().getName(), Toast.LENGTH_LONG).show();
+        }
 
         if (mPreferences.contains("AuthToken")) {
             //loadTasksFromAPI(TASKS_URL);
@@ -250,7 +258,7 @@ public class MainMenu extends SlidingFragmentActivity
             sm.setTouchModeAbove(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.TOUCHMODE_NONE);
         }
 
-        new SlidingMenu(this, getSlidingMenu());
+        new SlidingMenu(this, getSlidingMenu(), MAIN_MENU);
     }
 
     @Override

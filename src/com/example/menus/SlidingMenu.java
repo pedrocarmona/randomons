@@ -12,12 +12,13 @@ import com.example.activities.*;
 import com.example.activities.R;
 import com.example.adapters.AdapterSlideMenu;
 import com.example.data.SlideMenuItem;
+import com.example.others.Constants;
 import org.holoeverywhere.app.Activity;
 import org.holoeverywhere.widget.ListView;
 
 import java.util.ArrayList;
 
-public class SlidingMenu extends Activity {
+public class SlidingMenu extends Activity implements Constants {
 
     private Context ctx;
     private LayoutInflater inflater;
@@ -26,12 +27,59 @@ public class SlidingMenu extends Activity {
     private ArrayList<SlideMenuItem> sMenuItems;
     private AdapterSlideMenu adapterSMenu;
 
-    public SlidingMenu(final Context context, com.jeremyfeinstein.slidingmenu.lib.SlidingMenu sm) {
+
+    public void paintCurrentActivityIcon(int ID) {
+
+        int drawable = 0;
+        String text = "";
+
+        switch (ID) {
+
+            case MAIN_MENU:
+                drawable = R.drawable.home_smenu_highlighted;
+                text = "Home";
+                break;
+            case MY_RANDOMONS:
+                drawable = R.drawable.my_randomons_smenu_highlighted;
+                text = "My Randomons";
+                break;
+            case MY_ITEMS:
+                drawable = R.drawable.itens_smenu_highlighted;
+                text = "My Items";
+                break;
+            case RANKING:
+                drawable = R.drawable.ranking_smenu_highlighted;
+                text = "Ranking";
+                break;
+            case R_GUIDE:
+                drawable = R.drawable.r_guide_smenu_highlighted;
+                text = "R-Guide";
+                break;
+            case MAP:
+                drawable = R.drawable.map_smenu_highlighted;
+                text = "Map";
+                break;
+            case SHOP:
+                drawable = R.drawable.shop_smenu_highlighted;
+                text = "Shop";
+                break;
+            case MEDICAL_SPOT:
+                drawable = R.drawable.medics_smenu_highlighted;
+                text = "Medical Spot";
+                break;
+        }
+        sMenuItems.set(ID, new SlideMenuItem(drawable, text));
+    }
+
+
+    public SlidingMenu(final Context context, com.jeremyfeinstein.slidingmenu.lib.SlidingMenu sm, int activityID) {
         //Adicionar items ao slidingmenu
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         view = inflater.inflate(R.layout.slide_menu, null);
         slidingMenuList = (ListView) view.findViewById(R.id.sliding_menu_list);
         sMenuItems = new ArrayList<SlideMenuItem>();
+
+        /* SET ALL DEFAULT (UNSELECTED) ICON */
         sMenuItems.add(new SlideMenuItem(R.drawable.home_smenu, "Home"));
         sMenuItems.add(new SlideMenuItem(R.drawable.my_randomons_smenu, "My Randomons"));
         sMenuItems.add(new SlideMenuItem(R.drawable.itens_smenu, "My Items"));
@@ -41,16 +89,21 @@ public class SlidingMenu extends Activity {
         sMenuItems.add(new SlideMenuItem(R.drawable.shop_smenu, "Shop"));
         sMenuItems.add(new SlideMenuItem(R.drawable.medics_smenu, "Medical Spot"));
 
+        paintCurrentActivityIcon(activityID);
+
         ctx = context;
         adapterSMenu = new AdapterSlideMenu(context,R.layout.slide_menu_item,sMenuItems);
 
         slidingMenuList.setAdapter(adapterSMenu);
+
+
 
         // customize the SlidingMenu
         sm.setTouchModeAbove(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.TOUCHMODE_MARGIN);
         sm.setBehindOffsetRes(R.dimen.slidingmenu_offset);
         sm.setShadowWidthRes(R.dimen.shadow_width);
         sm.setShadowDrawable(R.drawable.shadow);
+        sm.setBackgroundColor(0x00FF00);
         sm.setBehindScrollScale(0.25f);
         sm.setFadeDegree(0.25f);
         sm.setMenu(view);

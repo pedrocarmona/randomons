@@ -10,11 +10,13 @@ import com.example.adapters.AdapterMoves;
 import com.example.data.Move;
 import com.example.data.Randomon;
 import com.example.menus.SlidingMenu;
+import com.example.others.Constants;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import org.holoeverywhere.widget.ListView;
 import org.holoeverywhere.widget.TextView;
 
-public class RandomonInfo extends SlidingFragmentActivity {
+public class RandomonInfo extends SlidingFragmentActivity implements Constants
+{
 
     private Randomon randomonSelected;
     private ImageView randomonInfoImg;
@@ -144,6 +146,6 @@ public class RandomonInfo extends SlidingFragmentActivity {
             sm.setTouchModeAbove(com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.TOUCHMODE_NONE);
         }
 
-        new SlidingMenu(this, getSlidingMenu());
+        new SlidingMenu(this, getSlidingMenu(), MY_RANDOMONS);
     }
 }
