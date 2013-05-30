@@ -3,13 +3,10 @@ package com.example.menus;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import com.example.activities.*;
-import com.example.activities.R;
 import com.example.adapters.AdapterSlideMenu;
 import com.example.data.SlideMenuItem;
 import com.example.others.Constants;
@@ -157,9 +154,9 @@ public class SlidingMenu extends Activity implements Constants {
                         //finish();
                         break;
                     case 5:
-                        if(!(context.getClass().getSimpleName().equals("MedicalSpot"))){
+                        if(!(context.getClass().getSimpleName().equals("Map"))){
 
-                            intent = new Intent(view.getContext(), MedicalSpot.class);
+                            intent = new Intent(view.getContext(), Map.class);
                             context.startActivity(intent);
                         }
                         //finish();
@@ -182,7 +179,7 @@ public class SlidingMenu extends Activity implements Constants {
                         break;
 
                     case 8:
-                        SharedPreferences mPreferences = context.getSharedPreferences("CurrentUser", context.MODE_PRIVATE);
+                        SharedPreferences mPreferences = context.getSharedPreferences("CurrentUser", Context.MODE_PRIVATE);
                         mPreferences.edit().remove("AuthToken").commit();
                         intent = new Intent(view.getContext(), MainMenu.class);
                         context.startActivity(intent);
