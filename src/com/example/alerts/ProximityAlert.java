@@ -18,11 +18,13 @@ public class ProximityAlert extends SherlockActivity
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.proximity_alert);
+//        setContentView(R.layout.proximity_alert);
 
-        alertClose = (ImageView) findViewById(R.id.close);
-        alertImage = (ImageView) findViewById(R.id.alert_image);
-        alertText = (TextView) findViewById(R.id.alert_text);
+        setContentView(R.layout.map);
+
+//        alertClose = (ImageView) findViewById(R.id.close);
+//        alertImage = (ImageView) findViewById(R.id.alert_image);
+//        alertText = (TextView) findViewById(R.id.alert_text);
 
         addClickListeners();
     }
