@@ -16,7 +16,6 @@ import com.example.data.Randomon;
 import com.example.data.SharedData;
 import com.example.menus.SlidingMenu;
 import com.example.others.Constants;
-import com.example.others.Tools;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
 import org.holoeverywhere.app.Dialog;
 import org.holoeverywhere.drawable.ColorDrawable;
@@ -26,7 +25,6 @@ import java.util.ArrayList;
 
 public class MyRandomons extends SlidingActivity implements Constants
 {
-    private ArrayList<Randomon> playerRandomons = new ArrayList<Randomon>();
     private AdapterMyRandomonImg myRandoAdapter;
 
     private SharedData shared;

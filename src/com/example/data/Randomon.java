@@ -224,4 +224,27 @@ public class Randomon implements Serializable
     public void setUser(Player user) {
         this.player = user;
     }
+
+    @Override
+    public String toString() {
+        return "Randomon{" +
+                "name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", hitpoints=" + hitpoints +
+                ", attack=" + attack +
+                ", defense=" + defense +
+                ", speed=" + speed +
+                ", growth=" + growth +
+                ", level=" + level +
+                ", current_hitpoints=" + current_hitpoints +
+                ", current_experience=" + current_experience +
+                ", status='" + status + '\'' +
+                ", description='" + description + '\'' +
+                ", preference=" + preference +
+                ", picId=" + picId +
+                ", creatureId=" + creatureId +
+                ", player=" + player +
+                ", moves=" + moves +
+                '}';
+    }
 }

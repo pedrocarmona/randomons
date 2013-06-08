@@ -22,6 +22,11 @@ public class Player {
         this.randomonCollection = new ArrayList<Randomon>();
     }
 
+    public void addRandomon(Randomon r) {
+
+        this.randomonCollection.add(r);
+    }
+
 
     public long getRanking() {
         return ranking;

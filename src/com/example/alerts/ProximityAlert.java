@@ -2,6 +2,7 @@ package com.example.alerts;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import com.actionbarsherlock.app.SherlockActivity;
@@ -20,15 +21,15 @@ public class ProximityAlert extends SherlockActivity
     {
         super.onCreate(savedInstanceState);
 
-//        setContentView(R.layout.proximity_alert);
+        setContentView(R.layout.proximity_alert);
 
-        setContentView(R.layout.map);
-
-//        alertClose = (ImageView) findViewById(R.id.close);
-//        alertImage = (ImageView) findViewById(R.id.alert_image);
-//        alertText = (TextView) findViewById(R.id.alert_text);
+        alertClose = (ImageView) findViewById(R.id.close);
+        alertImage = (ImageView) findViewById(R.id.alert_image);
+        alertText = (TextView) findViewById(R.id.alert_text);
 
         String name = getIntent().getExtras().getString("name");
+
+        Log.i("GET", "NAME ALERT " + name);
 
         alertText.setText("A wild "+name+" appears!");
 
@@ -68,7 +69,7 @@ public class ProximityAlert extends SherlockActivity
 
                 startActivity(intent);
 
-                finish();
+                //finish();
             }
         });
     }

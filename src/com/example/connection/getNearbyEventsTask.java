@@ -22,6 +22,8 @@ public class getNearbyEventsTask extends UrlJsonAsyncTask
         {
             JSONArray jsonPopulations = json.getJSONArray("populations");
 
+            Log.i("GET", String.valueOf(jsonPopulations));
+
             int length = jsonPopulations.length();
 
             if(length > 0)
@@ -32,9 +34,11 @@ public class getNearbyEventsTask extends UrlJsonAsyncTask
 
                 Log.i("GET", "type: "+jsonPopulations.getJSONObject(randomChoice).getJSONObject("population").getString("latitude"));
                 Log.i("GET", "type: "+jsonPopulations.getJSONObject(randomChoice).getJSONObject("population").getString("longitude"));
+                Log.i("GET", "name: "+jsonPopulations.getJSONObject(randomChoice).getJSONObject("population")
+                        .getJSONObject("specie").getString("name"));
 
-                intent.putExtra("name", jsonPopulations.getJSONObject(randomChoice).
-                        getJSONObject("population").getJSONObject("specie").getString("name"));
+                intent.putExtra("name", jsonPopulations.getJSONObject(randomChoice).getJSONObject("population")
+                        .getJSONObject("specie").getString("name"));
 
                 context.startActivity(intent);
 

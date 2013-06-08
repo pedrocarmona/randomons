@@ -118,14 +118,31 @@ public class MainMenu extends SlidingActivity implements Constants
         mPreferences = getSharedPreferences("CurrentUser", MODE_PRIVATE);
 
 
-        if(shared.getPlayer() != null) {
+        if(shared.getPlayer() != null)
+        {
+            if(mPreferences.contains("haveRandomon"))
+            {
+                usernameTV.setText(shared.getPlayer().getName());
+    //            shared.getPlayer().getPlayerImg();
+                profPic.setImageResource(R.drawable.user_image);
 
-            usernameTV.setText(shared.getPlayer().getName());
-//            shared.getPlayer().getPlayerImg();
-            profPic.setImageResource(R.drawable.user_image);
+                // Acquire a reference to the system Location Manager
+                LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+                MyPositionStateListener myPositionStateListener = new MyPositionStateListener(this);
+
+                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 10, myPositionStateListener);
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 10, myPositionStateListener);
+            }
+            else
+            {
+                Intent intent = new Intent(ctx, ChooseRandomon.class);
+                startActivity(intent);
+            }
 
         }
-        else {
+        else
+        {
             Intent intent = new Intent(MainMenu.this,Login.class);
             startActivityForResult(intent, 0);
         }
@@ -162,7 +179,7 @@ public class MainMenu extends SlidingActivity implements Constants
 
 
 
-                if (loaded==true){
+                if (loaded){
 
                     soundPool.play(soundID, 0.99f, 0.99f, priority, 0, normal_playback_rate);
 
@@ -173,7 +190,7 @@ public class MainMenu extends SlidingActivity implements Constants
                 MainMenu.this.startActivity(intent);
             } else if (((CloseEvent) proxAdapter.getItem(position)).getCloseEventType() == 2) {
                 Bundle bnd = new Bundle();
-                bnd.putSerializable("randomons_list", playerLogged.getRandomonCollection());
+                bnd.putSerializable("randomons_list", shared.getPlayer().getRandomonCollection());
                 Intent intent = new Intent(view.getContext(), Battle.class);
                 intent.putExtras(bnd);
                 MainMenu.this.startActivity(intent);
@@ -202,14 +219,6 @@ public class MainMenu extends SlidingActivity implements Constants
 
         //###################################################
 
-        // Acquire a reference to the system Location Manager
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-        MyPositionStateListener myPositionStateListener = new MyPositionStateListener(this);
-
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 10, myPositionStateListener);
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 10, myPositionStateListener);
-
         //###################################################
 
         //Corrigir erros do Mapa com o SlidingMenu
@@ -236,7 +245,7 @@ public class MainMenu extends SlidingActivity implements Constants
                     .title("Shop")
                     .snippet("Come here to by your items!")
                     .icon(BitmapDescriptorFactory.fromBitmap(
-                            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.shop),40,40,false))));
+                            Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.shop), 40, 40, false))));
 
             Location location = mMap.getMyLocation();
 

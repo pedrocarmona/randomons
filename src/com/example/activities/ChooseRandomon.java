@@ -2,6 +2,7 @@ package com.example.activities;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Bundle;
@@ -9,16 +10,15 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.example.data.Randomon;
-import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
 import org.holoeverywhere.widget.Button;
 import org.holoeverywhere.widget.LinearLayout;
 import org.holoeverywhere.widget.TextView;
 
-public class ChooseRandomon extends SlidingActivity
+public class ChooseRandomon extends SherlockActivity
 {
-
     //add
     int soundIDClick;
     boolean loadedClick= false;
@@ -273,6 +273,14 @@ public class ChooseRandomon extends SlidingActivity
                 /* REALLY SELECT IT AND GO TO THE MAIN MENU */
 
                 //Toast.makeText(getApplicationContext(), "Selected randomon " + (index + 1), Toast.LENGTH_SHORT).show();
+
+                SharedPreferences mPreferences = getSharedPreferences("CurrentUser", MODE_PRIVATE);
+
+                SharedPreferences.Editor editor =  mPreferences.edit();
+
+                editor.putString("haveRandomon", "");
+
+                editor.commit();
 
                 Intent intent;
                 intent = new Intent(v.getContext(), MainMenu.class);

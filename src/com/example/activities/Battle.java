@@ -4,32 +4,25 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.media.SoundPool;
-import android.opengl.GLES20;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
-import com.example.others.RoundedPath;
-import org.andengine.entity.IEntity;
-import org.andengine.entity.modifier.LoopEntityModifier;
-
-import com.example.data.Move;
 import com.example.data.Randomon;
-import org.andengine.engine.Engine;
+import com.example.data.SharedData;
+import com.example.others.RoundedPath;
 import org.andengine.engine.camera.Camera;
 import org.andengine.engine.options.EngineOptions;
 import org.andengine.engine.options.ScreenOrientation;
 import org.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
 import org.andengine.entity.Entity;
+import org.andengine.entity.IEntity;
+import org.andengine.entity.modifier.PathModifier;
+import org.andengine.entity.modifier.PathModifier.IPathModifierListener;
+import org.andengine.entity.modifier.PathModifier.Path;
 import org.andengine.entity.modifier.SequenceEntityModifier;
-import org.andengine.entity.particle.SpriteParticleSystem;
-import org.andengine.entity.particle.emitter.PointParticleEmitter;
-import org.andengine.entity.particle.initializer.*;
-import org.andengine.entity.particle.modifier.ColorParticleModifier;
-import org.andengine.entity.particle.modifier.ExpireParticleInitializer;
 import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.AutoParallaxBackground;
 import org.andengine.entity.scene.background.Background;
-import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.entity.scene.background.ParallaxBackground;
 import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.entity.sprite.Sprite;
@@ -39,27 +32,17 @@ import org.andengine.entity.util.FPSLogger;
 import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.font.Font;
 import org.andengine.opengl.font.FontFactory;
-import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
-import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
 import org.andengine.opengl.texture.ITexture;
 import org.andengine.opengl.texture.TextureOptions;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
 import org.andengine.opengl.texture.region.ITextureRegion;
-import org.andengine.opengl.texture.region.TextureRegion;
 import org.andengine.opengl.texture.region.TextureRegionFactory;
 import org.andengine.opengl.texture.region.TiledTextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.ui.activity.SimpleBaseGameActivity;
 import org.andengine.util.HorizontalAlign;
-import org.andengine.entity.modifier.PathModifier;
-import org.andengine.entity.modifier.PathModifier.IPathModifierListener;
-import org.andengine.entity.modifier.PathModifier.Path;
-import org.andengine.util.debug.Debug;
 import org.andengine.util.modifier.ease.EaseSineInOut;
-
-
-import java.util.ArrayList;
 
 /**
  * (c) 2010 Nicolas Gramlich
@@ -136,10 +119,9 @@ public class Battle extends SimpleBaseGameActivity {
     private Randomon rightRandomon;
 
     private boolean leftAtacked;
+    private SharedData shared = SharedData.getInstance();
 
     private boolean leftIsFirst;
-
-    private ArrayList<Randomon> randomonsCollection = new ArrayList<Randomon>();
 
     Scene scene;
 
@@ -216,8 +198,6 @@ public class Battle extends SimpleBaseGameActivity {
     @Override
     public void onCreateResources() {
 
-
-        randomonsCollection = (ArrayList<Randomon>) getIntent().getSerializableExtra("randomons_list");
         this.step=0;
 
         doSound();
@@ -326,7 +306,8 @@ public class Battle extends SimpleBaseGameActivity {
                loadedBattle = true;
            }
        });
-       soundIDBattle = soundPoolBattle.load(this, R.raw.battlesound, 0);
+
+       soundIDBattle = soundPoolBattle.load(this, R.raw.battlesound, 1);
 
 
    }
@@ -363,11 +344,6 @@ public class Battle extends SimpleBaseGameActivity {
         captSprite.setVisible(false);
         scene.attachChild(captSprite);
 
-        if (loadedBattle==true){
-
-            otherBattleSound = soundPoolBattle.play(soundIDBattle, 0.99f, 0.99f, priority, -1, normal_playback_rate);
-
-        }
 
         movimentoInicial();
 
@@ -536,6 +512,11 @@ public class Battle extends SimpleBaseGameActivity {
         //movesSprite.setX(leftRandomonSprite.getX());
         //movesSprite.setY(leftRandomonSprite.getY());
         //movesSprite.animate(new long[]{100,100,100,100}, 0, 3, true);
+        if (loadedBattle){
+
+            otherBattleSound = soundPoolBattle.play(soundIDBattle, 0.99f, 0.99f, priority, 100, normal_playback_rate);
+
+        }
     }
 
 
@@ -717,7 +698,10 @@ public class Battle extends SimpleBaseGameActivity {
                     commandsGroup.setVisible(true);
                 }else{
                     catchSuccess();
-                    randomonsCollection.add(rightRandomon);
+
+
+
+                    shared.getPlayer().getRandomonCollection().add(rightRandomon);
                 }
 
 
